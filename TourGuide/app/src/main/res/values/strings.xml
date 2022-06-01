@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TourGuide</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="review">Đánh giá</string>
 </resources>
