@@ -14,14 +14,29 @@
         android:theme="@style/Theme.TourGuide"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".AttractionActivity"
+            android:parentActivityName=".SideMenuActivity"
+            android:exported="false" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SideMenuActivity"/>
+
+        </activity>
+        <activity
+            android:name=".SideMenuActivity"
+            android:exported="true"
+            android:label="@string/title_activity_side_menu"
+            android:theme="@style/Theme.TourGuide.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
