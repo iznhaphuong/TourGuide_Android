@@ -30,7 +30,7 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="@string/welcome_signup"
+            android:text="@string/welcome_signin"
             android:textSize="@dimen/welcome_text_size" />
     </LinearLayout>
 
@@ -113,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bạn dã có tài khoản? Hãy "/>
+                android:text="Bạn đã có tài khoản? Hãy "/>
             <TextView
                 android:id="@+id/to_sign_up"
                 android:layout_width="wrap_content"
