@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="3.5">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_cmt"
             android:layout_width="match_parent"
@@ -44,7 +44,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
                     android:src="@drawable/avarta"></ImageView>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -59,7 +58,7 @@
                         android:text="Micheal Angelo"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:textSize="25dp"
+                        android:textSize="18dp"
                         android:textStyle="bold"></TextView>
                     <RatingBar
                         android:layout_width="wrap_content"
@@ -84,15 +83,16 @@
             android:lines="6"
             android:minLines="4"
             android:maxLines="8"
-            android:scrollbars="vertical"></EditText>
+            android:scrollbars="vertical"
+            android:textSize="15dp"></EditText>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:gravity="right">
             <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
                 android:text="gửi"
                 android:layout_marginRight="20dp">
             </Button>

@@ -6,14 +6,14 @@ public class Comments {
     private int user_rating;
     private int user_image;
     private String date;
-    private String another_cmt;
+    private String reviews;
 
     // Constructor
-    public Comments(String user_name, int user_image, String date, String another_cmt, int user_rating) {
+    public Comments(String user_name, int user_image, String date, String reviews, int user_rating) {
         this.user_name = user_name;
         this.user_image = user_image;
         this.date = date;
-        this.another_cmt = another_cmt;
+        this.reviews = reviews;
         this.user_rating = user_rating;
     }
 
@@ -22,12 +22,12 @@ public class Comments {
     }
 
     //Getter and Setter
-    public String getAnother_cmt() {
-        return another_cmt;
+    public String getReviews() {
+        return reviews;
     }
 
-    public void setAnother_cmt(String another_cmt) {
-        this.another_cmt = another_cmt;
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
     }
 
     public String getUser_name() {

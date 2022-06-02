@@ -37,7 +37,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         holder.user_name.setText(comments.getUser_name());
         holder.user_image.setImageResource(comments.getUser_image());
         holder.date.setText(comments.getDate());
-        holder.another_cmt.setText(comments.getAnother_cmt());
+        holder.reviews.setText(comments.getReviews());
         holder.user_rating.setRating(comments.getUser_rating());
     }
 
@@ -54,14 +54,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         private RatingBar user_rating;
         private ImageView user_image;
         private TextView date;
-        private TextView another_cmt;
+        private TextView reviews;
         private TextView amountCmt;
         public CommentsHolder(@NonNull View itemView) {
             super(itemView);
             user_name = itemView.findViewById(R.id.userName);
             user_image = itemView.findViewById(R.id.userImage);
             date = itemView.findViewById(R.id.date);
-            another_cmt = itemView.findViewById(R.id.anotherComment);
+            reviews = itemView.findViewById(R.id.reviews);
             user_rating = itemView.findViewById(R.id.ratingStar);
         }
     }
