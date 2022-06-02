@@ -26,9 +26,21 @@
             android:exported="true"
             android:label="@string/title_activity_side_menu"
             android:theme="@style/Theme.TourGuide.NoActionBar">
+            android:name=".MainActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ProfileScreenActivity"
+            android:label="@string/profile"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ReviewScreenActivity"
+            android:label="@string/review"
+            android:exported="true">
+            <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -8,6 +8,8 @@
     <string name="sign_in_button">Đăng nhập</string>
     <string name="sign_up_button">Đăng kí</string>
     <string name="app_name">TourGuide</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="review">Đánh giá</string>
     <string name="title_activity_side_menu">SideMenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
