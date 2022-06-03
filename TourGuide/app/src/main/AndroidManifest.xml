@@ -61,6 +61,11 @@
             android:name=".ReviewScreenActivity"
             android:label="@string/review"
             android:exported="false"/>
+        
+        <activity
+            android:name=".DetailScreenActivity"
+            android:label=""
+            android:exported="false"/>
 
         <activity
             android:name=".MainActivity"
