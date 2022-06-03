@@ -4,6 +4,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -11,13 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.modle.Attraction;
+import vn.edu.tdc.tourguide.modle.Home;
 
-public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder>{
-    private final List<Attraction> myAttractionList;
+public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> implements Filterable {
+    private List<Attraction> mAttractionList;
+    private final List<Attraction> mAttractionListOld;
     private OnItemClickListener onItemClickListener;
     private String[] types = {"Địa điểm du lịch", "Chợ"};
 
@@ -25,8 +30,9 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         this.onItemClickListener = onItemClickListener;
     }
 
-    public AttractionAdapter(List<Attraction> myAttractionList) {
-        this.myAttractionList = myAttractionList;
+    public AttractionAdapter(List<Attraction> mAttractionList) {
+        this.mAttractionList = mAttractionList;
+        this.mAttractionListOld = mAttractionList;
     }
 
     @NonNull
@@ -38,7 +44,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
     @Override
     public void onBindViewHolder(@NonNull AttractionViewHolder holder, int position) {
-        Attraction attraction = myAttractionList.get(position);
+        Attraction attraction = mAttractionList.get(position);
         String TAG = "TAG";
         if (attraction == null) {
             Log.d(TAG, "onBindViewHolder: loi");
@@ -64,10 +70,42 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
     @Override
     public int getItemCount() {
-        if (myAttractionList != null) {
-            return myAttractionList.size();
+        if (mAttractionList != null) {
+            return mAttractionList.size();
         }
         return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String keyWord = constraint.toString();
+                if (keyWord.isEmpty()) {
+                    mAttractionList = mAttractionListOld;
+                } else {
+                    List<Attraction> attractions = new ArrayList<>();
+                    for (Attraction attraction : mAttractionListOld) {
+                        if (attraction.getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
+                            attractions.add(attraction);
+                        }
+                    }
+                    mAttractionList = attractions;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mAttractionList;
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mAttractionList = (List<Attraction>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class AttractionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
