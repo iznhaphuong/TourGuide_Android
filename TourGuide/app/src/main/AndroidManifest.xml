@@ -27,9 +27,9 @@
             android:exported="false"
             android:parentActivityName=".SideMenuActivity">
 
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".SideMenuActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SideMenuActivity"/>
 
         </activity>
 
@@ -46,6 +46,11 @@
                 </intent-filter>
 
         </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:exported="true"/>
+
 
         <activity
             android:name=".ProfileScreenActivity"
