@@ -23,20 +23,32 @@
                 android:value=".SideMenuActivity"/>
 
         </activity>
+
+<!--        <activity-->
+<!--            android:name=".SideMenuActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/title_activity_side_menu"-->
+<!--            android:theme="@style/Theme.TourGuide.NoActionBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
-            android:name=".SideMenuActivity"
-            android:exported="true"
-            android:label="@string/title_activity_side_menu"
-            android:theme="@style/Theme.TourGuide.NoActionBar">
+            android:name=".ScheduleActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+        android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
+<!--        <activity-->
+<!--            android:name="."-->
+<!--            android:exported="false"/>-->
     </application>
 
 </manifest>

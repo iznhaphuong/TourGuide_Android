@@ -14,4 +14,6 @@
     <string name="menu_profile">Hồ sơ</string>
     <string name="nav_header_location_title">Vị trí hiện tại:</string>
     <string name="nav_header_location_current">Nicosia, CY</string>
+    <string name="xoa">Xóa</string>
+    <string name="sua">Sửa</string>
 </resources>
