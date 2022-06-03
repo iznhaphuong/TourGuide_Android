@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/gray_700"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="bottom|center_horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/circle_logo_width"
+                android:layout_height="@dimen/circle_logo_width"
+                android:src="@drawable/logo" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/welcome_signup"
+            android:textSize="@dimen/welcome_text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:orientation="vertical"
+        android:background="@color/gray_400">
+        <LinearLayout
+            android:layout_margin="@dimen/d_10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/d_10dp"
+            android:paddingVertical="@dimen/d_20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/d_5dp"
+                android:layout_marginRight="@dimen/d_5dp"
+                android:layout_marginBottom="@dimen/d_5dp"
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/my_custom_edittext"
+                android:hint="@string/hint_name"
+                android:textSize="@dimen/text_16sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/d_5dp"
+                android:layout_marginRight="@dimen/d_5dp"
+                android:layout_marginBottom="@dimen/d_5dp"
+                android:layout_weight="1"
+                android:background="@drawable/my_custom_edittext"
+                android:hint="@string/hint_email"
+                android:textSize="@dimen/text_16sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/d_5dp"
+                android:layout_marginRight="@dimen/d_5dp"
+                android:layout_marginBottom="@dimen/d_5dp"
+                android:layout_weight="1"
+                android:background="@drawable/my_custom_edittext"
+                android:hint="@string/hint_password"
+                android:textSize="@dimen/text_16sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/d_5dp"
+                android:layout_marginRight="@dimen/d_5dp"
+                android:layout_marginBottom="@dimen/d_5dp"
+                android:layout_weight="1"
+                android:background="@drawable/my_custom_edittext"
+                android:hint="@string/hint_re_password"/>
+            <Button
+                android:id="@+id/btnSignUp"
+                android:padding="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/d_5dp"
+                android:layout_marginRight="@dimen/d_5dp"
+                android:layout_weight="1"
+                android:text="@string/sign_up_button" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:background="@color/gray_700">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_700"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bạn đã có tài khoản? Hãy "/>
+            <TextView
+                android:id="@+id/to_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/sign_in_button" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
