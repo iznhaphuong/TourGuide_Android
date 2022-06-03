@@ -4,28 +4,37 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.modle.Home;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder>{
-    private final List<Home> myHomeList;
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> implements Filterable {
+    private List<Home> mHomeList;
+    private final List<Home> mHomeListOld;
     private OnItemClickListener onItemClickListener;
+    private String TAG = "TAG";
+
+    public List<Home> getmHomeList() {
+        return mHomeList;
+    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public HomeAdapter(List<Home> myHomeList) {
-        this.myHomeList = myHomeList;
+    public HomeAdapter(List<Home> mHomeList) {
+        this.mHomeList = mHomeList;
+        this.mHomeListOld = mHomeList;
     }
 
     @NonNull
@@ -37,7 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Home home = myHomeList.get(position);
+        Home home = mHomeList.get(position);
         String TAG = "TAG";
         if (home == null) {
             Log.d(TAG, "onBindViewHolder: loi");
@@ -60,10 +69,42 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public int getItemCount() {
-        if (myHomeList != null) {
-            return myHomeList.size();
+        if (mHomeList != null) {
+            return mHomeList.size();
         }
         return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String keyWord = constraint.toString();
+                if (keyWord.isEmpty()) {
+                    mHomeList = mHomeListOld;
+                } else {
+                    List<Home> homes = new ArrayList<>();
+                    for (Home home : mHomeListOld) {
+                        if (home.getName().toLowerCase().contains(keyWord.toLowerCase())) {
+                            homes.add(home);
+                        }
+                    }
+                    mHomeList = homes;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mHomeList;
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mHomeList = (List<Home>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

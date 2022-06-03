@@ -2,7 +2,10 @@ package vn.edu.tdc.tourguide.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.AttractionActivity;
+import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
 import vn.edu.tdc.tourguide.modle.Home;
@@ -24,6 +28,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     public static final String EXTRA_TITLE = "TITLE";
     public static final String EXTRA_ID = "ID";
+    public static HomeAdapter homeAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +45,8 @@ public class HomeFragment extends Fragment {
         myHomeList.add(home1);
         myHomeList.add(home2);
 
-        HomeAdapter homeAdapter = new HomeAdapter(myHomeList);
+        String TAG = "TAG";
+        homeAdapter = new HomeAdapter(myHomeList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
         rcvHome.setLayoutManager(linearLayoutManager);
@@ -49,8 +55,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 Intent intent = new Intent(root.getContext(), AttractionActivity.class);
-                intent.putExtra(EXTRA_TITLE, myHomeList.get(position).getName());
-                intent.putExtra(EXTRA_ID, myHomeList.get(position).getId());
+                intent.putExtra(EXTRA_TITLE, homeAdapter.getmHomeList().get(position).getName());
+                intent.putExtra(EXTRA_ID, homeAdapter.getmHomeList().get(position).getId());
                 startActivity(intent);
             }
         });
