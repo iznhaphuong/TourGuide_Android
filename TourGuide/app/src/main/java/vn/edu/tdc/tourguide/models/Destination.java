@@ -1,4 +1,4 @@
-package vn.edu.tdc.tourguide.Model;
+package vn.edu.tdc.tourguide.models;
 
 import android.util.Log;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DestinationModel {
+public class Destination {
     private String id;
     private String city_id;
     private String name;
@@ -27,7 +27,7 @@ public class DestinationModel {
     private String address;
     private int rating;
 
-    public static List<DestinationModel> list = new ArrayList<DestinationModel>();
+    public static List<Destination> list = new ArrayList<Destination>();
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public void setCity_id(String city_id) {
@@ -98,11 +98,11 @@ public class DestinationModel {
         return rating;
     }
 
-    public DestinationModel() {
+    public Destination() {
 
     }
 
-    public DestinationModel(String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public Destination(String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
         this.city_id = city_id;
         this.name = name;
         this.type = type;
@@ -113,7 +113,7 @@ public class DestinationModel {
         this.rating = rating;
     }
 
-    public DestinationModel(String id, String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public Destination(String id, String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
         this.id = id;
         this.city_id = city_id;
         this.name = name;
@@ -148,7 +148,7 @@ public class DestinationModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
-                    DestinationModel destination = snapshot.getValue(DestinationModel.class);
+                    Destination destination = snapshot.getValue(Destination.class);
                     list.add(destination);
                 }
                 Log.d("MinhDuc", list.toString());
@@ -167,7 +167,7 @@ public class DestinationModel {
         DatabaseReference myRef = database.getReference("list_destination");
 
         String id = myRef.push().getKey();
-        DestinationModel destination = new DestinationModel(id, city_id, name, type, image, xLat, yLong, address, rating);
+        Destination destination = new Destination(id, city_id, name, type, image, xLat, yLong, address, rating);
         myRef.child(id).setValue(destination);
     }
 
@@ -175,7 +175,7 @@ public class DestinationModel {
     public static void updateDestination(String idUpdate, String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
         DatabaseReference myRef = database.getReference("list_destination");
 
-        DestinationModel destination = new DestinationModel(city_id, name, type, image, xLat, yLong, address, rating);
+        Destination destination = new Destination(city_id, name, type, image, xLat, yLong, address, rating);
         myRef.child(idUpdate).updateChildren(destination.toMap());
     }
 

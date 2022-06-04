@@ -1,4 +1,4 @@
-package vn.edu.tdc.tourguide.Model;
+package vn.edu.tdc.tourguide.models;
 
 import android.util.Log;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ScheduleModel {
+public class Schedule {
     private String id;
     private String email;
     private String datetime;
@@ -61,18 +61,18 @@ public class ScheduleModel {
         this.destination_id = destination_id;
     }
 
-    public ScheduleModel() {
+    public Schedule() {
 
     }
 
-    public ScheduleModel(String email, String datetime, String note, String destination_id) {
+    public Schedule(String email, String datetime, String note, String destination_id) {
         this.email = email;
         this.datetime = datetime;
         this.note = note;
         this.destination_id = destination_id;
     }
 
-    public ScheduleModel(String id, String email, String datetime, String note, String destination_id) {
+    public Schedule(String id, String email, String datetime, String note, String destination_id) {
         this.id = id;
         this.email = email;
         this.datetime = datetime;
@@ -94,12 +94,12 @@ public class ScheduleModel {
     // Get all Schedule
     public static void getSchedule() {
         DatabaseReference myRef = database.getReference("list_schedule");
-        List<ScheduleModel> list = new ArrayList<ScheduleModel>();
+        List<Schedule> list = new ArrayList<Schedule>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
-                    ScheduleModel schedule = snapshot.getValue(ScheduleModel.class);
+                    Schedule schedule = snapshot.getValue(Schedule.class);
                     list.add(schedule);
                 }
                 Log.d("MinhDuc", list.toString());
@@ -118,7 +118,7 @@ public class ScheduleModel {
         DatabaseReference myRef = database.getReference("list_schedule");
 
         String id = myRef.push().getKey();
-        ScheduleModel schedule = new ScheduleModel(id, email, datetime, note, destination_id);
+        Schedule schedule = new Schedule(id, email, datetime, note, destination_id);
         myRef.child(id).setValue(schedule);
     }
 
@@ -126,7 +126,7 @@ public class ScheduleModel {
     public static void updateSchedule(String idUpdate, String email, String datetime, String note, String destination_id) {
         DatabaseReference myRef = database.getReference("list_schedule");
 
-        ScheduleModel schedule = new ScheduleModel(email, datetime, note, destination_id);
+        Schedule schedule = new Schedule(email, datetime, note, destination_id);
         myRef.child(idUpdate).updateChildren(schedule.toMap());
     }
 

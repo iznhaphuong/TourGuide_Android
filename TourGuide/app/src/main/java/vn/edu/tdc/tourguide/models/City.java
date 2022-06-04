@@ -1,11 +1,9 @@
-package vn.edu.tdc.tourguide.Model;
+package vn.edu.tdc.tourguide.models;
 
-import android.content.pm.LabeledIntent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,14 +26,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vn.edu.tdc.tourguide.MainActivity;
-
-public class CityModel {
+public class City {
     private String id;
     private String name;
     private String image;
 
-    public static List<CityModel> list = new ArrayList<CityModel>();
+    public static List<City> list = new ArrayList<City>();
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public String getId() {
@@ -58,16 +54,16 @@ public class CityModel {
         this.image = image;
     }
 
-    public CityModel() {
+    public City() {
 
     }
 
-    public CityModel(String name, String image) {
+    public City(String name, String image) {
         this.name = name;
         this.image = image;
     }
 
-    public CityModel(String id, String name, String image) {
+    public City(String id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -89,7 +85,7 @@ public class CityModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
-                    CityModel city = snapshot.getValue(CityModel.class);
+                    City city = snapshot.getValue(City.class);
                     list.add(city);
                 }
                 Log.d("MinhDuc", list.toString());
@@ -110,7 +106,7 @@ public class CityModel {
         DatabaseReference myRef = database.getReference("list_city");
 
         String id = myRef.push().getKey();
-        CityModel city = new CityModel(id, name, image);
+        City city = new City(id, name, image);
         myRef.child(id).setValue(city);
     }
 
@@ -118,7 +114,7 @@ public class CityModel {
     public static void updateCity(String idUpdate, String name, String image) {
         DatabaseReference myRef = database.getReference("list_city");
 
-        CityModel city = new CityModel(name, image);
+        City city = new City(name, image);
         myRef.child(idUpdate).updateChildren(city.toMap());
     }
 

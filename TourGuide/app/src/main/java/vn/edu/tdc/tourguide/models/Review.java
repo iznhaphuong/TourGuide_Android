@@ -1,4 +1,4 @@
-package vn.edu.tdc.tourguide.Model;
+package vn.edu.tdc.tourguide.models;
 
 import android.util.Log;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReviewModel {
+public class Review {
     private String id;
     private String destination_id;
     private String name;
@@ -24,7 +24,7 @@ public class ReviewModel {
     private String content;
     private int rating;
 
-    public static List<ReviewModel> list = new ArrayList<ReviewModel>();
+    public static List<Review> list = new ArrayList<Review>();
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public String getId() {
@@ -71,11 +71,11 @@ public class ReviewModel {
         this.rating = rating;
     }
 
-    public ReviewModel() {
+    public Review() {
 
     }
 
-    public ReviewModel(String destination_id, String name, String email, String content, int rating) {
+    public Review(String destination_id, String name, String email, String content, int rating) {
         this.destination_id = destination_id;
         this.name = name;
         this.email = email;
@@ -83,7 +83,7 @@ public class ReviewModel {
         this.rating = rating;
     }
 
-    public ReviewModel(String id, String destination_id, String name, String email, String content, int rating) {
+    public Review(String id, String destination_id, String name, String email, String content, int rating) {
         this.id = id;
         this.destination_id = destination_id;
         this.name = name;
@@ -111,7 +111,7 @@ public class ReviewModel {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
-                    ReviewModel review = snapshot.getValue(ReviewModel.class);
+                    Review review = snapshot.getValue(Review.class);
                     list.add(review);
                 }
                 Log.d("MinhDuc", list.toString());
@@ -132,7 +132,7 @@ public class ReviewModel {
         DatabaseReference myRef = database.getReference("list_review");
 
         String id = myRef.push().getKey();
-        ReviewModel reviewModel = new ReviewModel(id, destination_id, name, email, content, rating);
+        Review reviewModel = new Review(id, destination_id, name, email, content, rating);
         myRef.child(id).setValue(reviewModel);
     }
 
@@ -140,7 +140,7 @@ public class ReviewModel {
     public static void updateReview(String idUpdate, String destination_id, String name, String email, String content, int rating) {
         DatabaseReference myRef = database.getReference("list_review");
 
-        ReviewModel review = new ReviewModel(destination_id, name, email, content, rating);
+        Review review = new Review(destination_id, name, email, content, rating);
         myRef.child(idUpdate).updateChildren(review.toMap());
     }
 
