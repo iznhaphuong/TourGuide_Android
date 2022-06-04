@@ -50,6 +50,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <EditText
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -62,6 +63,7 @@
                 android:textSize="@dimen/text_16sp"/>
 
             <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -73,6 +75,7 @@
                 android:textSize="@dimen/text_16sp"/>
 
             <EditText
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -81,9 +84,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/my_custom_edittext"
                 android:hint="@string/hint_password"
-                android:textSize="@dimen/text_16sp"/>
+                android:textSize="@dimen/text_16sp"
+                android:inputType="textPassword"/>
 
             <EditText
+                android:id="@+id/edtRe_Password"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -91,7 +96,8 @@
                 android:layout_marginBottom="@dimen/d_5dp"
                 android:layout_weight="1"
                 android:background="@drawable/my_custom_edittext"
-                android:hint="@string/hint_re_password"/>
+                android:hint="@string/hint_re_password"
+                android:inputType="textPassword"/>
             <Button
                 android:id="@+id/btnSignUp"
                 android:padding="7dp"
@@ -119,12 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bạn đã có tài khoản? Hãy "/>
+
             <TextView
                 android:id="@+id/to_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/sign_in_button" />
+                android:text="@string/sign_in_button"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

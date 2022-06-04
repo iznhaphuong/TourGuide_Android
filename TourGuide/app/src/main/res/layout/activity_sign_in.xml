@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity"
+    tools:context=".ui.signIn.SignInFragment"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,11 +35,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abc"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3.5"
         android:orientation="vertical"
-        android:background="@color/gray_400">
+        android:background="@color/gray_400">'
+
         <LinearLayout
             android:layout_margin="@dimen/d_10dp"
             android:background="@color/white"
@@ -49,6 +51,7 @@
             android:paddingVertical="@dimen/d_20dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -59,6 +62,7 @@
                 android:textSize="@dimen/text_16sp"/>
 
             <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -70,6 +74,7 @@
                 android:textSize="@dimen/text_16sp"/>
 
             <EditText
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/d_5dp"
@@ -78,7 +83,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/my_custom_edittext"
                 android:hint="@string/hint_password"
-                android:textSize="@dimen/text_16sp"/>
+                android:textSize="@dimen/text_16sp"
+                android:inputType="textPassword"/>
 
             <Button
                 android:id="@+id/btnSignIn"
@@ -88,7 +94,7 @@
                 android:layout_marginLeft="@dimen/d_5dp"
                 android:layout_marginRight="@dimen/d_5dp"
                 android:layout_weight="1"
-                android:text="Đăng ký" />
+                android:text="Đăng nhập" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -96,6 +102,7 @@
                 android:layout_marginRight="@dimen/d_5dp"
                 android:layout_marginBottom="@dimen/d_5dp"
                 android:layout_weight="1"/>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -29,9 +29,7 @@ import java.util.Map;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class City {
-    private String id;
-    private String name;
-    private String image;
+    private String id, name, image;
 
     public static List<City> list = new ArrayList<City>();
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
