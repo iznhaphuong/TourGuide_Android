@@ -1,0 +1,90 @@
+package vn.edu.tdc.tourguide;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
+import vn.edu.tdc.tourguide.databinding.SideMenuLayoutBinding;
+import vn.edu.tdc.tourguide.ui.home.HomeFragment;
+
+public class SideMenuActivity extends AppCompatActivity {
+
+    private AppBarConfiguration mAppBarConfiguration;
+    private SideMenuLayoutBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        binding = SideMenuLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.appBarSideMenu.toolbar);
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_profile, R.id.nav_schedule)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
+
+        for (int i = 0; i < 1; i++) {
+            processNavController(this, navController, mAppBarConfiguration, navigationView);
+        }
+        String home = getResources().getString(R.string.menu_home);
+        String profile = getResources().getString(R.string.menu_profile);
+        String schedule = getResources().getString(R.string.menu_schedule);
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if (home == navDestination.getLabel()) {
+                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
+                } else if (profile == navDestination.getLabel()) {
+                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
+                } else if (schedule == navDestination.getLabel()) {
+                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
+                } else {
+                    Intent intent = new Intent(binding.getRoot().getContext(), SignInActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
+            }
+        });
+
+    }
+
+    private void processNavController(AppCompatActivity activity, NavController navController, AppBarConfiguration appBarConfiguration, NavigationView navigationView) {
+        NavigationUI.setupActionBarWithNavController(activity, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!HomeFragment.searchView.isIconified()) {
+            HomeFragment.searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+}

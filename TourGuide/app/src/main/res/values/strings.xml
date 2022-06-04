@@ -1,0 +1,31 @@
+<resources>
+    <string name="welcome_signup">Chào mừng bạn đến TourGuide</string>
+    <string name="welcome_signin">Chào mừng đã quay trở lại</string>
+    <string name="hint_name">Tên</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="hint_re_password">Xác nhận mật khẩu</string>
+    <string name="sign_in_button">Đăng nhập</string>
+    <string name="sign_up_button">Đăng kí</string>
+    <string name="app_name">TourGuide</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="review">Đánh giá</string>
+    <string name="title_activity_side_menu">SideMenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_name">Android Studio</string>
+    <string name="nav_header_email">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Màn hình chính</string>
+    <string name="menu_schedule">Lịch trình</string>
+    <string name="menu_logout">Thoát</string>
+    <string name="menu_profile">Hồ sơ</string>
+    <string name="nav_header_location_title">Vị trí hiện tại:</string>
+    <string name="nav_header_location_current">Nicosia, CY</string>
+
+    <string name="xoa">Xóa</string>
+    <string name="sua">Sửa</string>
+    <string name="search">Search</string>
+</resources>
