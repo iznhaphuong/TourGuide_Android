@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/gray_500">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:padding="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ho_guom">
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/locationName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lăng Bác và Quảng Trường Ba Đình"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+            <RatingBar
+                android:id="@+id/locationRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="3"
+                android:numStars="5"
+                android:paddingBottom="7dp"
+                android:paddingTop="5dp"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:stepSize="0.5"></RatingBar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_baseline_near_me_24"></TextView>
+
+                <TextView
+                    android:id="@+id/locationLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội"
+                    android:textColor="@color/blue"
+                    android:textSize="10sp"
+                    android:textStyle="italic"></TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:paddingTop="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MÔ TẢ"
+            android:textStyle="bold"
+            android:textSize="14sp"></TextView>
+        <TextView
+            android:id="@+id/locationDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="20dp"
+            android:layout_weight="1"
+            android:text="Quảng trường Ba Đình là quảng trường lớn nhất Việt Nam, nằm trên đường Hùng Vương, quận Ba Đình và là nơi Lăng Chủ Tịch Hồ Chí Minh Được xây dựng."
+            android:textSize="13dp">
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xem đánh giá"
+                android:textSize="9sp"
+                android:background="@drawable/rectangle_button"></Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="right">
+            <Button
+                android:layout_marginRight="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="+"
+                android:textSize="11sp"
+                android:background="@drawable/round_button"></Button>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
