@@ -17,6 +17,7 @@ import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.models.Review;
 import vn.edu.tdc.tourguide.models.Schedule;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
