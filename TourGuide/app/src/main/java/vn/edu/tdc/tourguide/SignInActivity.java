@@ -24,4 +24,12 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (SideMenuActivity.checkLogin) {
+            return;
+        }
+        super.onBackPressed();
+    }
 }
