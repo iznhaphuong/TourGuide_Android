@@ -1,4 +1,4 @@
-package vn.edu.tdc.tourguide.model;
+package vn.edu.tdc.tourguide.models;
 
 public class Comments {
 

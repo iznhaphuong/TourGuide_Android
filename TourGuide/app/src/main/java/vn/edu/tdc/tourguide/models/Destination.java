@@ -163,6 +163,15 @@ public class Destination {
         });
     }
 
+    public static Destination getDestination(String id) {
+        for (Destination destination : list) {
+            if (destination.getId().equals(id)) {
+                return destination;
+            }
+        }
+        return null;
+    }
+
 
     // Add Destination in list
     public static void addDestination(String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {

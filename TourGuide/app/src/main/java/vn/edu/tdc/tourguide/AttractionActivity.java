@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 import vn.edu.tdc.tourguide.adapter.AttractionAdapter;
-import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.models.Destination;
-import vn.edu.tdc.tourguide.modle.Attraction;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class AttractionActivity extends AppCompatActivity {
@@ -30,6 +28,8 @@ public class AttractionActivity extends AppCompatActivity {
     private SearchView searchView;
     public static AttractionAdapter adapter;
     private List<Destination> destinations = new ArrayList<>();
+    public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
+    public static String EXTRA_TITLE = "EXTRA_TITLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class AttractionActivity extends AppCompatActivity {
         List<Destination> mAttractionListOld = Destination.list;
 
         for (Destination destination : mAttractionListOld) {
-            if (Objects.equals(destination.getCity_id(), city_id)) {
+            if (Objects.equals(destination.getCity_id(), "1")) {
                 destinations.add(destination);
             }
         }
@@ -61,7 +61,10 @@ public class AttractionActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new AttractionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Log.d(TAG, "onItemClick: Chuyen qua dau gio - " + position);
+                Intent intent = new Intent(AttractionActivity.this, DetailScreenActivity.class);
+                intent.putExtra(EXTRA_DESTINATION, destinations.get(position).getId());
+                intent.putExtra(EXTRA_TITLE, title);
+                startActivity(intent);
             }
         });
 

@@ -26,7 +26,6 @@ import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
 import vn.edu.tdc.tourguide.models.City;
-import vn.edu.tdc.tourguide.modle.Home;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;

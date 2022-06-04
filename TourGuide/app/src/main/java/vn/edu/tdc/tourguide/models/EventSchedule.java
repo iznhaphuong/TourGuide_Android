@@ -1,4 +1,4 @@
-package vn.edu.tdc.tourguide.modle;
+package vn.edu.tdc.tourguide.models;
 
 import java.util.Date;
 

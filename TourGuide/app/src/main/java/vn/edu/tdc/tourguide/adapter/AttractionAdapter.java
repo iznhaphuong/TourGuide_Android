@@ -19,8 +19,6 @@ import java.util.List;
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.models.City;
 import vn.edu.tdc.tourguide.models.Destination;
-import vn.edu.tdc.tourguide.modle.Attraction;
-import vn.edu.tdc.tourguide.modle.Home;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> implements Filterable {
     private List<Destination> mAttractionList;
