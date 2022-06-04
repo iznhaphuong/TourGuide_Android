@@ -17,16 +17,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import vn.edu.tdc.tourguide.adapter.AttractionAdapter;
 import vn.edu.tdc.tourguide.adapter.HomeAdapter;
+import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.modle.Attraction;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
-    private AttractionAdapter adapter;
+    public static AttractionAdapter adapter;
+    private List<Destination> destinations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +39,21 @@ public class AttractionActivity extends AppCompatActivity {
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
-        int city_id = intent.getIntExtra(HomeFragment.EXTRA_ID, 0);
-        Log.d(TAG, "onCreate: " + city_id);
+        String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
         // Capture the layout's TextView and set the string as its text
         setTitle(title);
 
 
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
-        List<Attraction> mAttractionList = new ArrayList<>();
+        List<Destination> mAttractionListOld = Destination.list;
 
-        Attraction attraction1 = new Attraction(
-                1,
-                2,
-                "Lang Bac va Quang truong Ba Dinh",
-                5,
-                0,
-                "2 Hung Vuong, Dien Ban, Ba Dinh, Ha Noi");
+        for (Destination destination : mAttractionListOld) {
+            if (Objects.equals(destination.getCity_id(), city_id)) {
+                destinations.add(destination);
+            }
+        }
 
-        Attraction attraction2 = new Attraction(
-                2,
-                2,
-                "Hoang Thanh Thang Long",
-                3.5F,
-                0,
-                "19C Hoang Dieu, Dien Ban, Ba Dinh, Ha Noi");
-
-        mAttractionList.add(attraction1);
-        mAttractionList.add(attraction2);
-
-        adapter = new AttractionAdapter(mAttractionList);
+        adapter = new AttractionAdapter(destinations);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvAttraction.setLayoutManager(linearLayoutManager);

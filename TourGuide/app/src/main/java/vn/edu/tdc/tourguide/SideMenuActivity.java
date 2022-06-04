@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -15,7 +16,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.SideMenuLayoutBinding;
+import vn.edu.tdc.tourguide.models.City;
+import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class SideMenuActivity extends AppCompatActivity {
@@ -26,6 +32,10 @@ public class SideMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        City.list = new ArrayList<>();
+        Destination.list = new ArrayList<>();
+        City.getCities();
+        Destination.getDestination();
 
         binding = SideMenuLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -44,6 +54,7 @@ public class SideMenuActivity extends AppCompatActivity {
         for (int i = 0; i < 1; i++) {
             processNavController(this, navController, mAppBarConfiguration, navigationView);
         }
+
         String home = getResources().getString(R.string.menu_home);
         String profile = getResources().getString(R.string.menu_profile);
         String schedule = getResources().getString(R.string.menu_schedule);
@@ -64,6 +75,8 @@ public class SideMenuActivity extends AppCompatActivity {
                 }
             }
         });
+
+        HomeFragment.homeAdapter.notifyDataSetChanged();
 
     }
 

@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.tourguide.AttractionActivity;
+
 public class Destination {
     private String id;
     private String city_id;
