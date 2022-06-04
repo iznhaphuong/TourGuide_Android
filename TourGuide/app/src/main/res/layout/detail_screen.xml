@@ -83,6 +83,7 @@
             android:id="@+id/locationDescription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingTop="20dp"
             android:layout_weight="1"
             android:text="Quảng trường Ba Đình là quảng trường lớn nhất Việt Nam, nằm trên đường Hùng Vương, quận Ba Đình và là nơi Lăng Chủ Tịch Hồ Chí Minh Được xây dựng."
             android:textSize="13dp">
