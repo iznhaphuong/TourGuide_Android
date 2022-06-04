@@ -25,7 +25,7 @@ import vn.edu.tdc.tourguide.AttractionActivity;
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
-import vn.edu.tdc.tourguide.modle.Home;
+import vn.edu.tdc.tourguide.models.City;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -39,15 +39,8 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         RecyclerView rcvHome = binding.rcvHome;
-        List<Home> myHomeList = new ArrayList<>();
-
-        Home home1 = new Home(1, "Đà Lạt");
-        Home home2 = new Home(2, "Ha Noi");
-
-        myHomeList.add(home1);
-        myHomeList.add(home2);
+        List<City> myHomeList = City.list;
 
         String TAG = "TAG";
         homeAdapter = new HomeAdapter(myHomeList);
@@ -69,7 +62,6 @@ public class HomeFragment extends Fragment {
         rcvHome.addItemDecoration(itemDecoration);
 
         rcvHome.setAdapter(homeAdapter);
-
         setHasOptionsMenu(true);
         return root;
     }

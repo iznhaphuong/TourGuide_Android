@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.adapter.CommentsAdapter;
-import vn.edu.tdc.tourguide.model.Comments;
+import vn.edu.tdc.tourguide.models.Comments;
 
 public class ReviewScreenActivity extends AppCompatActivity {
     private RecyclerView rcvComment;

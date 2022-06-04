@@ -23,6 +23,7 @@
     <activity
         android:id="@+id/nav_sign_in"
         android:name="vn.edu.tdc.tourguide.SignInActivity"
+        android:label="activity_sign_in"
         tools:layout="@layout/activity_sign_in" />
 
 </navigation>

@@ -10,11 +10,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.modle.EventSchedule;
-import vn.edu.tdc.tourguide.modle.Home;
+import vn.edu.tdc.tourguide.models.EventSchedule;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
     //Properties

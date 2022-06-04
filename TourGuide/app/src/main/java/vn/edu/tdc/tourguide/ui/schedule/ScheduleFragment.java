@@ -1,6 +1,5 @@
 package vn.edu.tdc.tourguide.ui.schedule;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import java.util.Locale;
 
 import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.databinding.ScheduleLayoutBinding;
-import vn.edu.tdc.tourguide.modle.EventSchedule;
+import vn.edu.tdc.tourguide.models.EventSchedule;
 
 public class ScheduleFragment extends Fragment {
     private ScheduleLayoutBinding binding;

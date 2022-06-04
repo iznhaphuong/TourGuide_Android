@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.tourguide.AttractionActivity;
+
 public class Destination {
     private String id;
     private String city_id;
@@ -159,6 +161,15 @@ public class Destination {
                 Log.d("OB", "Failed to read value.", error.toException());
             }
         });
+    }
+
+    public static Destination getDestination(String id) {
+        for (Destination destination : list) {
+            if (destination.getId().equals(id)) {
+                return destination;
+            }
+        }
+        return null;
     }
 
 
