@@ -46,6 +46,7 @@
                 </intent-filter>
 
         </activity>
+        
         <activity
             android:name=".ScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
@@ -61,7 +62,7 @@
             android:name=".ReviewScreenActivity"
             android:label="@string/review"
             android:exported="false"/>
-        
+
         <activity
             android:name=".DetailScreenActivity"
             android:label=""
