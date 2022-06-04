@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,10 +18,8 @@ import java.util.Date;
 import java.util.Locale;
 
 
-import vn.edu.tdc.tourguide.adapter.AttractionAdapter;
 import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
-import vn.edu.tdc.tourguide.modle.Attraction;
-import vn.edu.tdc.tourguide.modle.EventSchedule;
+import vn.edu.tdc.tourguide.models.EventSchedule;
 
 
 public class ScheduleActivity extends AppCompatActivity {

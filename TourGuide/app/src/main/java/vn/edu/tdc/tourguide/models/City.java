@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.tourguide.ui.home.HomeFragment;
+
 public class City {
     private String id, name, image;
 
@@ -87,6 +89,7 @@ public class City {
                     list.add(city);
                 }
                 Log.d("MinhDuc", list.toString());
+                HomeFragment.homeAdapter.notifyDataSetChanged();
                 //datanotyfi
             }
 

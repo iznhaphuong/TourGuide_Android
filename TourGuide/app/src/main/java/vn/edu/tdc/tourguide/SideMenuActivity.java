@@ -2,6 +2,8 @@ package vn.edu.tdc.tourguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -15,17 +17,27 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.SideMenuLayoutBinding;
+import vn.edu.tdc.tourguide.models.City;
+import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class SideMenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private SideMenuLayoutBinding binding;
+    public static boolean checkLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        City.list = new ArrayList<>();
+        Destination.list = new ArrayList<>();
+        City.getCities();
+        Destination.getDestination();
 
         binding = SideMenuLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -44,6 +56,7 @@ public class SideMenuActivity extends AppCompatActivity {
         for (int i = 0; i < 1; i++) {
             processNavController(this, navController, mAppBarConfiguration, navigationView);
         }
+
         String home = getResources().getString(R.string.menu_home);
         String profile = getResources().getString(R.string.menu_profile);
         String schedule = getResources().getString(R.string.menu_schedule);
@@ -65,6 +78,8 @@ public class SideMenuActivity extends AppCompatActivity {
             }
         });
 
+        HomeFragment.homeAdapter.notifyDataSetChanged();
+
     }
 
     private void processNavController(AppCompatActivity activity, NavController navController, AppBarConfiguration appBarConfiguration, NavigationView navigationView) {
@@ -74,11 +89,20 @@ public class SideMenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        String TAG = "TAG";
+        Log.d(TAG, "onBackPressed: 3");
         if (!HomeFragment.searchView.isIconified()) {
             HomeFragment.searchView.setIconified(true);
+            Log.d(TAG, "onBackPressed: 1");
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

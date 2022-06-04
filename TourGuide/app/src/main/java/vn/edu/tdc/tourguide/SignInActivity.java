@@ -57,6 +57,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+
     // Go to tab Home
     public void goToTabHome(){
         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
@@ -114,8 +115,16 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             goToTabHome();
         }
+    }
+    @Override
+    public void onBackPressed() {
+        if (SideMenuActivity.checkLogin) {
+            return;
+        }
+        super.onBackPressed();
+
     }
 }

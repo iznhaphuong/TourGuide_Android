@@ -1,5 +1,10 @@
 package vn.edu.tdc.tourguide;
 
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,20 +18,38 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import vn.edu.tdc.tourguide.adapter.AttractionAdapter;
-import vn.edu.tdc.tourguide.adapter.HomeAdapter;
-import vn.edu.tdc.tourguide.modle.Attraction;
+import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
-    private AttractionAdapter adapter;
+    private static final int REQUEST_CODE = 0x9345;
+    public static AttractionAdapter adapter;
+    private List<Destination> destinations = new ArrayList<>();
+    public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
+    public static String EXTRA_TITLE = "EXTRA_TITLE";
+
+//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getResultCode() == REQUEST_CODE) {
+//
+//                        Intent intent = result.getData();
+//                        assert intent != null;
+//                        String title = intent.getStringExtra(EXTRA_TITLE);
+//                        setTitle(title + "12");
+//                    }
+//                }
+//            }
+//    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +59,24 @@ public class AttractionActivity extends AppCompatActivity {
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
-        int city_id = intent.getIntExtra(HomeFragment.EXTRA_ID, 0);
-        Log.d(TAG, "onCreate: " + city_id);
-        // Capture the layout's TextView and set the string as its text
-        setTitle(title);
+        String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
 
+        if (title != null) {
+            setTitle(title);
+        } else {
+            setTitle(DetailScreenActivity.title);
+        }
 
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
-        List<Attraction> mAttractionList = new ArrayList<>();
+        List<Destination> mAttractionListOld = Destination.list;
 
-        Attraction attraction1 = new Attraction(
-                1,
-                2,
-                "Lang Bac va Quang truong Ba Dinh",
-                5,
-                0,
-                "2 Hung Vuong, Dien Ban, Ba Dinh, Ha Noi");
+        for (Destination destination : mAttractionListOld) {
+            if (Objects.equals(destination.getCity_id(), "1")) {
+                destinations.add(destination);
+            }
+        }
 
-        Attraction attraction2 = new Attraction(
-                2,
-                2,
-                "Hoang Thanh Thang Long",
-                3.5F,
-                0,
-                "19C Hoang Dieu, Dien Ban, Ba Dinh, Ha Noi");
-
-        mAttractionList.add(attraction1);
-        mAttractionList.add(attraction2);
-
-        adapter = new AttractionAdapter(mAttractionList);
+        adapter = new AttractionAdapter(destinations);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcvAttraction.setLayoutManager(linearLayoutManager);
@@ -72,7 +84,11 @@ public class AttractionActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new AttractionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Log.d(TAG, "onItemClick: Chuyen qua dau gio - " + position);
+                Intent intent = new Intent(AttractionActivity.this, DetailScreenActivity.class);
+                intent.putExtra(EXTRA_DESTINATION, destinations.get(position).getId());
+                intent.putExtra(EXTRA_TITLE, title);
+                startActivity(intent);
+//                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -113,7 +129,6 @@ public class AttractionActivity extends AppCompatActivity {
             searchView.setIconified(true);
             return;
         }
-
         super.onBackPressed();
     }
 }
