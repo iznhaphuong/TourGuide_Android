@@ -29,4 +29,7 @@
     <style name="Theme.TourGuide.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TourGuide.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="MyEditor" parent="">
+        <item name="borderRound"></item>
+    </style>
 </resources>

@@ -4,8 +4,8 @@
     android:orientation="vertical"
     style="@style/MyActionBar"
     android:layout_height="match_parent">
-
         <TextView
+            android:id="@+id/placeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -17,15 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center_horizontal"
-        android:layout_weight="4">
+        android:layout_weight="3.5">
 
         <DatePicker
+            android:id="@+id/date_picker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:headerBackground="@color/blue"
+            android:layout_height="298dp"
             android:calendarTextColor="@color/blue"
-            android:datePickerMode="calendar"
-            />
+            android:datePickerMode="spinner"
+            android:headerBackground="@color/blue"
+            android:spinnersShown="false" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,9 +34,24 @@
         android:gravity="center"
         android:layout_weight="1">
         <TimePicker
+            android:id="@+id/time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/edtNote"
+            android:layout_width="259dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/editor"
+            android:hint="Ghi chú"
+            android:textSize="15sp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +60,7 @@
         android:gravity="center"
         android:layout_weight="1">
         <Button
+            android:id="@+id/btnCancelEvent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -54,6 +71,7 @@
             android:layout_marginHorizontal="5dp"
             android:text="Hủy"/>
         <Button
+            android:id="@+id/btnDoneEvent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

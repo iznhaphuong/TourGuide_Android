@@ -4,17 +4,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.modle.EventSchedule;
-import vn.edu.tdc.tourguide.modle.Home;
+import vn.edu.tdc.tourguide.model.EventSchedule;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
     //Properties
@@ -27,20 +26,34 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     }
 
 
-    public static class ScheduleViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener  {
+    public static class ScheduleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        //fields need catch
+        TextView nameDestination;
+        TextView noteEvent;
+        TextView timeEvent;
+        TextView dateEvent;
+        TextView monthEvent;
         View.OnClickListener onClick;
 
-        public ScheduleViewHolder(@NonNull View itemView){
+        public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
+            nameDestination = itemView.findViewById(R.id.nameDestination);
+            timeEvent = itemView.findViewById(R.id.timeEvent);
+            dateEvent = itemView.findViewById(R.id.dateEvent);
+            noteEvent = itemView.findViewById(R.id.noteEvent);
+            monthEvent = itemView.findViewById(R.id.monthEvent);
         }
+
         @Override
         public void onClick(View v) {
 //            Log.d("test", "aaa");
-            if (onClick != null){
+            if (onClick != null) {
                 onClick.onClick(v); //goi onclick trong onbind?
             }
         }
     }
+
     @NonNull
     @Override
     public ScheduleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,28 +63,36 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position) {
+        //get data from datasource
+        EventSchedule event = listEvent.get(position);
+        holder.nameDestination.setText(event.getNameDestination());
+        holder.dateEvent.setText(event.getDateEvent());
+        holder.timeEvent.setText(event.getTimeEvent());
+        holder.noteEvent.setText(event.getNoteEvent());
+        holder.monthEvent.setText(event.getMonthEvent());
+
         //set onclkc
-        holder.onClick = new View.OnClickListener()
-        {
+        holder.onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Log.d("test", "Called");
-                if(onItemClickListener != null){
+                if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, holder.itemView);
-                }else {
+                } else {
                     Log.d("adapter", "view must set on item click listener ");
                 }
             }
         };
     }
+
     //Define interface for co che uy quyen
-    public interface OnItemClickListener{
-        public void onItemClick (int position, View view);
+    public interface OnItemClickListener {
+        public void onItemClick(int position, View view);
 
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return listEvent.size();
     }
 }

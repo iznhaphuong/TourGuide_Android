@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/brlistview"
+    android:id="@+id/eventCell"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,9 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
+            android:background="@color/blue_100"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/dateEvent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -28,11 +30,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/monthEvent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Thứ 5"
+                android:text="Tháng 6"
                 android:textSize="12sp" />
         </LinearLayout>
         <LinearLayout
@@ -56,7 +59,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/lblTenDiaDiem"
+                android:id="@+id/nameDestination"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -64,22 +67,26 @@
                 android:textSize="15sp"
                 android:textStyle="normal" />
             <TextView
-                android:id="@+id/lblGio"
+                android:id="@+id/timeEvent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="8:30"
                 android:textColor="@color/gray"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/lblGhiChu"
+                android:textSize="12sp" />
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:text="Ghi chú"
-                android:textSize="12sp"
-                android:textStyle="normal" />
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/noteEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ghi chú"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </ScrollView>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
