@@ -3,6 +3,7 @@ package vn.edu.tdc.tourguide;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,6 +29,7 @@ public class SideMenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private SideMenuLayoutBinding binding;
+    public static boolean checkLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +89,20 @@ public class SideMenuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        String TAG = "TAG";
+        Log.d(TAG, "onBackPressed: 3");
         if (!HomeFragment.searchView.isIconified()) {
             HomeFragment.searchView.setIconified(true);
+            Log.d(TAG, "onBackPressed: 1");
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

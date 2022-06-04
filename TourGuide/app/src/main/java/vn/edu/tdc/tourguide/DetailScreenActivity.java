@@ -2,10 +2,13 @@ package vn.edu.tdc.tourguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,17 +26,19 @@ public class DetailScreenActivity extends AppCompatActivity {
     private RatingBar ratingValue;
     private TextView txtLocationLink;
     private TextView txtLocationDescription;
+    private Intent intent;
+    public static String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_screen);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         String id = intent.getStringExtra(AttractionActivity.EXTRA_DESTINATION);
-        String title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
-
+        title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
         setTitle(title);
+
 
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
@@ -49,5 +54,8 @@ public class DetailScreenActivity extends AppCompatActivity {
             txtLocationLink.setText(destination.getAddress());
 //            txtLocationDescription.setText(destination.get;
         }
+
     }
+
 }
+

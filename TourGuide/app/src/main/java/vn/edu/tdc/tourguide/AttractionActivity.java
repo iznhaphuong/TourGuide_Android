@@ -1,5 +1,10 @@
 package vn.edu.tdc.tourguide;
 
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +30,26 @@ import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
+    private static final int REQUEST_CODE = 0x9345;
     public static AttractionAdapter adapter;
     private List<Destination> destinations = new ArrayList<>();
     public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
     public static String EXTRA_TITLE = "EXTRA_TITLE";
+
+//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getResultCode() == REQUEST_CODE) {
+//
+//                        Intent intent = result.getData();
+//                        assert intent != null;
+//                        String title = intent.getStringExtra(EXTRA_TITLE);
+//                        setTitle(title + "12");
+//                    }
+//                }
+//            }
+//    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +60,12 @@ public class AttractionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
         String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
-        // Capture the layout's TextView and set the string as its text
-        setTitle(title);
 
+        if (title != null) {
+            setTitle(title);
+        } else {
+            setTitle(DetailScreenActivity.title);
+        }
 
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
         List<Destination> mAttractionListOld = Destination.list;
@@ -65,6 +88,7 @@ public class AttractionActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_DESTINATION, destinations.get(position).getId());
                 intent.putExtra(EXTRA_TITLE, title);
                 startActivity(intent);
+//                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -105,7 +129,6 @@ public class AttractionActivity extends AppCompatActivity {
             searchView.setIconified(true);
             return;
         }
-
         super.onBackPressed();
     }
 }
