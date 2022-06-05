@@ -14,7 +14,7 @@
             android:id="@+id/nav_schedule"
             android:title="@string/menu_schedule" />
         <item
-            android:id="@+id/nav_sign_in"
+            android:id="@+id/nav_logout"
             android:title="@string/menu_logout" />
     </group>
 </menu>

@@ -30,6 +30,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // Get data based on id
@@ -38,11 +39,15 @@ public class SignInActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
 
+
+
         // Button Sign in
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
+                edtEmail.setText("");
+                edtPassword.setText("");
             }
         });
 
@@ -85,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
             edtPassword.requestFocus();
             return;
         }
-        if (password.length() > 6) {
+        if (password.length() < 6) {
             edtPassword.setError("Password must have at least 6 characters");
             edtPassword.requestFocus();
             return;

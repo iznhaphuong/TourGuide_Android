@@ -28,4 +28,5 @@
     <string name="xoa">Xóa</string>
     <string name="sua">Sửa</string>
     <string name="search">Search</string>
+    <string name="lblLogin">Đăng Nhập</string>
 </resources>
