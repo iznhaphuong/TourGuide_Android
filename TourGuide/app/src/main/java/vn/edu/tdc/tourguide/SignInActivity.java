@@ -60,7 +60,7 @@ public class SignInActivity extends AppCompatActivity {
 
     // Go to tab Home
     public void goToTabHome(){
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignInActivity.this, SideMenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
