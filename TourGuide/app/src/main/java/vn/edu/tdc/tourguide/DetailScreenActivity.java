@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class DetailScreenActivity extends AppCompatActivity {
     private TextView txtLocationDescription;
     private Intent intent;
     public static String title;
+    public static String EXTRA_LOCATION_LAT= "EXTRA_LOCATION_LAT";
+    public static String EXTRA_LOCATION_LONG= "EXTRA_LOCATION_LONG";
+    public static String EXTRA_TITLE= "EXTRA_TITLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,9 @@ public class DetailScreenActivity extends AppCompatActivity {
         txtLocationDescription = findViewById(R.id.locationDescription);
 
         Destination destination = Destination.getDestination(id);
+        int xLat = (int) destination.getxLat();
+        int yLong = (int) destination.getyLong();
+
         if (destination != null) {
             City.getImage(destination.getImage(), imgLogo);
             txtLocationName.setText(destination.getName());
@@ -54,7 +62,16 @@ public class DetailScreenActivity extends AppCompatActivity {
             txtLocationLink.setText(destination.getAddress());
 //            txtLocationDescription.setText(destination.get;
         }
-
+        txtLocationLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailScreenActivity.this, MapsActivity.class);
+                intent.putExtra(EXTRA_LOCATION_LAT, xLat);
+                intent.putExtra(EXTRA_LOCATION_LONG, yLong);
+                intent.putExtra(EXTRA_TITLE, title);
+                startActivity(intent);
+            }
+        });
     }
 
 }

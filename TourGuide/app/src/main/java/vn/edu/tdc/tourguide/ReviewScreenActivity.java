@@ -38,6 +38,5 @@ public class ReviewScreenActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvComment.addItemDecoration(decoration);
         rcvComment.setAdapter(commentsAdapter);
-
     }
 }
