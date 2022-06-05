@@ -31,6 +31,11 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        if (!SideMenuActivity.checkLogin) {
+            FirebaseAuth.getInstance().signOut();
+            SideMenuActivity.checkLogin = false;
+        }
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // Get data based on id
@@ -65,6 +70,7 @@ public class SignInActivity extends AppCompatActivity {
 
     // Go to tab Home
     public void goToTabHome(){
+        SideMenuActivity.checkLogin = false;
         Intent intent = new Intent(SignInActivity.this, SideMenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
