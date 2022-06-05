@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.SideMenuLayoutBinding;
 import vn.edu.tdc.tourguide.models.City;
 import vn.edu.tdc.tourguide.models.Destination;
@@ -78,8 +78,6 @@ public class SideMenuActivity extends AppCompatActivity {
             }
         });
 
-        HomeFragment.homeAdapter.notifyDataSetChanged();
-
     }
 
     private void processNavController(AppCompatActivity activity, NavController navController, AppBarConfiguration appBarConfiguration, NavigationView navigationView) {
@@ -88,21 +86,26 @@ public class SideMenuActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        String TAG = "TAG";
+        if (id == R.id.nav_home) {
+            Log.d(TAG, "onOptionsItemSelected: 123");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         String TAG = "TAG";
         Log.d(TAG, "onBackPressed: 3");
         if (!HomeFragment.searchView.isIconified()) {
             HomeFragment.searchView.setIconified(true);
-            Log.d(TAG, "onBackPressed: 1");
             return;
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override

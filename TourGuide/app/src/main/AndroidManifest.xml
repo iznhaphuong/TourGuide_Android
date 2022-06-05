@@ -16,7 +16,9 @@
 
         <activity
             android:name=".SideMenuActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/title_activity_side_menu"
+            android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
         <activity
             android:name=".SignUpActivity"
@@ -35,9 +37,7 @@
 
         <activity
             android:name=".SignInActivity"
-            android:exported="true"
-            android:label="@string/title_activity_side_menu"
-            android:theme="@style/Theme.TourGuide.NoActionBar">
+            android:exported="true">
 
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
         <activity
             android:name=".ScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
-            android:exported="true"/>
+            android:exported="false"/>
 
 
         <activity
