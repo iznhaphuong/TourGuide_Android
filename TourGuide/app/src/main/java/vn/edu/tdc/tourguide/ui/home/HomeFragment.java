@@ -36,13 +36,14 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        String TAG = "TAG";
+        Log.d(TAG, "onCreateView: 44");
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         RecyclerView rcvHome = binding.rcvHome;
         List<City> myHomeList = City.list;
 
-        String TAG = "TAG";
         homeAdapter = new HomeAdapter(myHomeList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
@@ -66,29 +67,27 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.side_menu, menu);
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        String TAG = "TAG";
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                HomeFragment.homeAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                HomeFragment.homeAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu,inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        inflater.inflate(R.menu.side_menu, menu);
+//        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//        String TAG = "TAG";
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                HomeFragment.homeAdapter.getFilter().filter(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                HomeFragment.homeAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        super.onCreateOptionsMenu(menu,inflater);
+//    }
 
     @Override
     public void onDestroyView() {

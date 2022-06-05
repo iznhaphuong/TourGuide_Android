@@ -13,10 +13,8 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.SignInActivity;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
-import vn.edu.tdc.tourguide.databinding.ProfileScreenBinding;
 
 public class LogoutFragment extends Fragment {
 
