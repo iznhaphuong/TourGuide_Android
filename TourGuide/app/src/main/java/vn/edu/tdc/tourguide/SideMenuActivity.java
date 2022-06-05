@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -43,6 +45,8 @@ public class SideMenuActivity extends AppCompatActivity {
     Class fragmentClass = null;
     public static TextView txtName, txtEmail;
     public static User user;
+    private ActionBarDrawerToggle drawerToggle;
+    private Toolbar toolbar;
 
 
     @Override
@@ -57,11 +61,17 @@ public class SideMenuActivity extends AppCompatActivity {
         Destination.getDestination();
 
         // Set a Toolbar to replace the ActionBar.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // This will display an Up icon (<-), we will replace it with hamburger later
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawerToggle = setupDrawerToggle();
+
+        // Setup toggle to display hamburger icon with nice animation
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+
+        // Tie DrawerLayout events to the ActionBarToggle
+        mDrawer.addDrawerListener(drawerToggle);
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -70,13 +80,7 @@ public class SideMenuActivity extends AppCompatActivity {
         // Find our drawer view
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
 
-//        AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_home, R.id.nav_profile, R.id.nav_schedule)
-//                .setOpenableLayout(mDrawer)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
-//
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
 
         // Setup drawer view
         setupDrawerContent(nvDrawer);
@@ -87,6 +91,12 @@ public class SideMenuActivity extends AppCompatActivity {
         // We can now look up items within the header if needed
         txtEmail = headerLayout.findViewById(R.id.txtEmail);
         txtName = headerLayout.findViewById(R.id.txtName);
+    }
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
+        // and will not render the hamburger icon without it.
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
