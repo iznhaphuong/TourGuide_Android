@@ -29,7 +29,7 @@ import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 import vn.edu.tdc.tourguide.ui.profile.ProfileFragment;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
-public class TestSideMenuActivity extends AppCompatActivity {
+public class SideMenuActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     public static boolean checkLogin = true;
