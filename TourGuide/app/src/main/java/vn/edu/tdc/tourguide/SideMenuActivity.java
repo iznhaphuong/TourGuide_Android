@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private SideMenuLayoutBinding binding;
     public static boolean checkLogin = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,49 +55,13 @@ public class SideMenuActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
 
-        for (int i = 0; i < 1; i++) {
-            processNavController(this, navController, mAppBarConfiguration, navigationView);
-        }
-
-        String home = getResources().getString(R.string.menu_home);
-        String profile = getResources().getString(R.string.menu_profile);
-        String schedule = getResources().getString(R.string.menu_schedule);
-
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (home == navDestination.getLabel()) {
-                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
-                } else if (profile == navDestination.getLabel()) {
-                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
-                } else if (schedule == navDestination.getLabel()) {
-                    processNavController(SideMenuActivity.this, navController, mAppBarConfiguration, navigationView);
-                } else {
-                    Intent intent = new Intent(binding.getRoot().getContext(), SignInActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                }
-            }
-        });
-
-    }
-
-    private void processNavController(AppCompatActivity activity, NavController navController, AppBarConfiguration appBarConfiguration, NavigationView navigationView) {
-        NavigationUI.setupActionBarWithNavController(activity, navController, appBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+//
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-        String TAG = "TAG";
-        if (id == R.id.nav_home) {
-            Log.d(TAG, "onOptionsItemSelected: 123");
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onBackPressed() {

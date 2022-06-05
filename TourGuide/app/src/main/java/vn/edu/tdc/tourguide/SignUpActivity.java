@@ -121,6 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(SignUpActivity.this, "User has been registed successfully!", Toast.LENGTH_LONG).show();
+                                                    FirebaseAuth.getInstance().signOut();
                                                     goToTabSignIn();
                                                 } else {
                                                     Toast.makeText(SignUpActivity.this, "Failed to register! Try again! ", Toast.LENGTH_LONG).show();

@@ -28,5 +28,6 @@
     <string name="xoa">Xóa</string>
     <string name="sua">Sửa</string>
     <string name="search">Search</string>
+    <string name="lblLogin">Đăng Nhập</string>
     <string name="MAPS_API_KEY">AIzaSyAPWPeQv9s9seUxVRYCRvADL6eFQmC4Uos</string>
 </resources>

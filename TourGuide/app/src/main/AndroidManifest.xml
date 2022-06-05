@@ -51,6 +51,7 @@
 
         <activity
             android:name=".SignInActivity"
+            android:label="@string/lblLogin"
             android:exported="true">
 
             <intent-filter>

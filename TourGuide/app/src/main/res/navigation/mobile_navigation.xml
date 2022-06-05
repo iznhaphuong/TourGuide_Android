@@ -20,10 +20,9 @@
         android:name="vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment"
         android:label="@string/menu_schedule"
         tools:layout="@layout/schedule_layout" />
-    <activity
-        android:id="@+id/nav_sign_in"
-        android:name="vn.edu.tdc.tourguide.SignInActivity"
-        android:label="activity_sign_in"
-        tools:layout="@layout/activity_sign_in" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="vn.edu.tdc.tourguide.ui.logout.LogoutFragment"
+        android:label="LogoutFragment" />
 
 </navigation>
