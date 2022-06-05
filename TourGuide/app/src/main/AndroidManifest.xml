@@ -46,13 +46,7 @@
         <activity
             android:name=".SignInActivity"
             android:label="@string/lblLogin"
-            android:exported="false"/>
-
-        <activity
-            android:name=".SideMenuActivity"
-            android:label="@string/title_activity_side_menu"
-            android:exported="true"
-            android:theme="@style/Theme.TourGuide.NoActionBar">
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +55,12 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".SideMenuActivity"
+            android:label="@string/title_activity_side_menu"
+            android:exported="false"
+            android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
         <activity
             android:name=".ScheduleActivity"
