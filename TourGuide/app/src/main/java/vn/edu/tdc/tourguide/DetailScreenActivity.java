@@ -31,10 +31,11 @@ public class DetailScreenActivity extends AppCompatActivity {
     private Intent intent;
     public static String title;
     public static String city_id;
-    public static String EXTRA_LOCATION_LAT= "EXTRA_LOCATION_LAT";
-    public static String EXTRA_LOCATION_LONG= "EXTRA_LOCATION_LONG";
+    public static String EXTRA_LOCATION_LAT = "EXTRA_LOCATION_LAT";
+    public static String EXTRA_LOCATION_LONG =  "EXTRA_LOCATION_LONG";
     public static String EXTRA_TITLE= "EXTRA_TITLE";
-
+    private String xLat;
+    private String yLong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,6 @@ public class DetailScreenActivity extends AppCompatActivity {
         String TAG = "TAG";
         Log.d(TAG, "onCreate: 3-" + id);
 
-
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
         ratingValue = findViewById(R.id.locationRating);
@@ -56,8 +56,8 @@ public class DetailScreenActivity extends AppCompatActivity {
 
         Destination destination = Destination.getDestination(id);
         city_id = destination.getCity_id();
-        int xLat = (int) destination.getxLat();
-        int yLong = (int) destination.getyLong();
+        xLat = destination.getxLat()+"";
+        yLong = destination.getyLong()+"";
 
         if (destination != null) {
             City.getImage(destination.getImage(), imgLogo);
@@ -73,6 +73,7 @@ public class DetailScreenActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_LOCATION_LAT, xLat);
                 intent.putExtra(EXTRA_LOCATION_LONG, yLong);
                 intent.putExtra(EXTRA_TITLE, title);
+                Log.d("NHAPHUONG", "onClick: " + xLat + yLong );
                 startActivity(intent);
             }
         });

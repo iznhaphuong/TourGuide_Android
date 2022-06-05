@@ -38,7 +38,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             performAction();
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -64,10 +63,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         Intent intent = getIntent();
-        int xLat = Integer.parseInt(intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT));
-        int yLong = Integer.parseInt(intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG));
+        String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
+        String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);
+        double xLat = Double.parseDouble(x);
+        double yLong = Double.parseDouble(y);
         String title = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
-
+        Log.d("TAGMAPS", "onMapReady: "+ x + y+ title );
         // Add a marker in Sydney and move the camera
         LatLng location = new LatLng(xLat, yLong);
         mMap.addMarker(new MarkerOptions()
