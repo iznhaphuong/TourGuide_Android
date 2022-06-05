@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.modle.Attraction;
-import vn.edu.tdc.tourguide.modle.Home;
+import vn.edu.tdc.tourguide.models.City;
+import vn.edu.tdc.tourguide.models.Destination;
 
 public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.AttractionViewHolder> implements Filterable {
-    private List<Attraction> mAttractionList;
-    private final List<Attraction> mAttractionListOld;
+    private List<Destination> mAttractionList;
+    private final List<Destination> mAttractionListOld;
     private OnItemClickListener onItemClickListener;
     private String[] types = {"Địa điểm du lịch", "Chợ"};
 
@@ -30,7 +30,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         this.onItemClickListener = onItemClickListener;
     }
 
-    public AttractionAdapter(List<Attraction> mAttractionList) {
+    public AttractionAdapter(List<Destination> mAttractionList) {
         this.mAttractionList = mAttractionList;
         this.mAttractionListOld = mAttractionList;
     }
@@ -44,17 +44,16 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
     @Override
     public void onBindViewHolder(@NonNull AttractionViewHolder holder, int position) {
-        Attraction attraction = mAttractionList.get(position);
+        Destination attraction = mAttractionList.get(position);
         String TAG = "TAG";
         if (attraction == null) {
             Log.d(TAG, "onBindViewHolder: loi");
             return;
         }
-        Log.d(TAG, "onBindViewHolder: " + attraction.getTitle());
-        holder.attractionTitle.setText(attraction.getTitle());
-        holder.attractionLogo.setImageResource(R.drawable.user_logo);
-        holder.ratingValue.setRating(attraction.getRatingValue());
-        holder.type.setText(types[attraction.getTypes()]);
+        City.getImage(attraction.getImage(), holder.attractionLogo);
+        holder.attractionTitle.setText(attraction.getName());
+        holder.ratingValue.setRating(attraction.getRating());
+        holder.type.setText(attraction.getType());
         holder.address.setText(attraction.getAddress());
         
         holder.onClick = new View.OnClickListener() {
@@ -85,9 +84,9 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
                 if (keyWord.isEmpty()) {
                     mAttractionList = mAttractionListOld;
                 } else {
-                    List<Attraction> attractions = new ArrayList<>();
-                    for (Attraction attraction : mAttractionListOld) {
-                        if (attraction.getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
+                    List<Destination> attractions = new ArrayList<>();
+                    for (Destination attraction : mAttractionListOld) {
+                        if (attraction.getName().toLowerCase().contains(keyWord.toLowerCase())) {
                             attractions.add(attraction);
                         }
                     }
@@ -102,7 +101,7 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mAttractionList = (List<Attraction>) results.values;
+                mAttractionList = (List<Destination>) results.values;
                 notifyDataSetChanged();
             }
         };

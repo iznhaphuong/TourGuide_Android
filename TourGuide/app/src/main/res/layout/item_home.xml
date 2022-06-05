@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:src="@drawable/dalat"
+        android:padding="@dimen/activity_horizontal_margin"
         android:contentDescription="TODO" />
     <TextView
         android:id="@+id/home_title"

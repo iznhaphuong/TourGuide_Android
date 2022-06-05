@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.modle.Home;
+import vn.edu.tdc.tourguide.models.City;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> implements Filterable {
-    private List<Home> mHomeList;
-    private final List<Home> mHomeListOld;
+    private List<City> mHomeList;
+    private final List<City> mHomeListOld;
     private OnItemClickListener onItemClickListener;
     private String TAG = "TAG";
 
-    public List<Home> getmHomeList() {
+    public List<City> getmHomeList() {
         return mHomeList;
     }
 
@@ -32,7 +32,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         this.onItemClickListener = onItemClickListener;
     }
 
-    public HomeAdapter(List<Home> mHomeList) {
+    public HomeAdapter(List<City> mHomeList) {
         this.mHomeList = mHomeList;
         this.mHomeListOld = mHomeList;
     }
@@ -46,7 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Home home = mHomeList.get(position);
+        City home = mHomeList.get(position);
         String TAG = "TAG";
         if (home == null) {
             Log.d(TAG, "onBindViewHolder: loi");
@@ -54,8 +54,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         }
         Log.d(TAG, "onBindViewHolder: " + home.getName());
         holder.homeTitle.setText(home.getName());
-        holder.homeLogo.setImageResource(R.drawable.user_logo);
-        
+        City.getImage(home.getImage(), holder.homeLogo);
+
         holder.onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +84,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 if (keyWord.isEmpty()) {
                     mHomeList = mHomeListOld;
                 } else {
-                    List<Home> homes = new ArrayList<>();
-                    for (Home home : mHomeListOld) {
+                    List<City> homes = new ArrayList<>();
+                    for (City home : mHomeListOld) {
                         if (home.getName().toLowerCase().contains(keyWord.toLowerCase())) {
                             homes.add(home);
                         }
@@ -101,7 +101,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mHomeList = (List<Home>) results.values;
+                mHomeList = (List<City>) results.values;
                 notifyDataSetChanged();
             }
         };

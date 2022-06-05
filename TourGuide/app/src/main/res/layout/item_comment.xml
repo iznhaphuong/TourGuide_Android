@@ -9,12 +9,12 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:orientation="horizontal">
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/userImage"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/avarta2"></ImageView>
+                    android:src="@drawable/avarta2"></de.hdodenhof.circleimageview.CircleImageView>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

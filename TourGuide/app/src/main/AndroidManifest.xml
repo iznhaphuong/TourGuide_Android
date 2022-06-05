@@ -36,19 +36,16 @@
         <activity
             android:name=".SideMenuActivity"
             android:exported="true"
-            android:label="@string/title_activity_side_menu"
-            android:theme="@style/Theme.TourGuide.NoActionBar"/>
-
-        <activity
-            android:name=".ScheduleActivity"
-            android:theme="@style/Theme.TourGuide.Actionbar"
-            android:exported="true">
+            android:theme="@style/Theme.TourGuide.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
+
 
 
         <activity
@@ -62,13 +59,32 @@
             android:exported="false"/>
 
         <activity
+            android:name=".DetailScreenActivity"
+            android:label=""
+            android:parentActivityName=".AttractionActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AttractionActivity"/>
+
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".AddScheduleActivity"
-            android:exported="false" >
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:label="Thêm lịch trình"
+            android:exported="true" >
+
 
         </activity>
+        <activity
+            android:name=".UpdateSchedule"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:label="Sửa lịch trình"
+            android:exported="false"/>
     </application>
 
 </manifest>

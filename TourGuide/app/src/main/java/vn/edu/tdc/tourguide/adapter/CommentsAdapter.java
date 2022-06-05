@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.model.Comments;
+import vn.edu.tdc.tourguide.models.Comments;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsHolder>{
     private List<Comments> myCommentList;
