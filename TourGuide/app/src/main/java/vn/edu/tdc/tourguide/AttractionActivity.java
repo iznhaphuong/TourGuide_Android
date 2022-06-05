@@ -30,26 +30,10 @@ import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
-    private static final int REQUEST_CODE = 0x9345;
     public static AttractionAdapter adapter;
-    private List<Destination> destinations = new ArrayList<>();
-    public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
+    private final List<Destination> destinations = new ArrayList<>();
+    public static String EXTRA_ID = "EXTRA_ID";
     public static String EXTRA_TITLE = "EXTRA_TITLE";
-
-//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == REQUEST_CODE) {
-//
-//                        Intent intent = result.getData();
-//                        assert intent != null;
-//                        String title = intent.getStringExtra(EXTRA_TITLE);
-//                        setTitle(title + "12");
-//                    }
-//                }
-//            }
-//    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +44,17 @@ public class AttractionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
         String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
-
         if (title != null) {
             setTitle(title);
         } else {
             setTitle(DetailScreenActivity.title);
+            city_id = DetailScreenActivity.city_id;
         }
 
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
-        List<Destination> mAttractionListOld = Destination.list;
 
-        for (Destination destination : mAttractionListOld) {
-            if (Objects.equals(destination.getCity_id(), "1")) {
+        for (Destination destination : Destination.list) {
+            if (destination.getCity_id().equals(city_id)) {
                 destinations.add(destination);
             }
         }
@@ -85,7 +68,7 @@ public class AttractionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 Intent intent = new Intent(AttractionActivity.this, DetailScreenActivity.class);
-                intent.putExtra(EXTRA_DESTINATION, destinations.get(position).getId());
+                intent.putExtra(EXTRA_ID, destinations.get(position).getId());
                 intent.putExtra(EXTRA_TITLE, title);
                 startActivity(intent);
 //                mActivityResultLauncher.launch(intent);

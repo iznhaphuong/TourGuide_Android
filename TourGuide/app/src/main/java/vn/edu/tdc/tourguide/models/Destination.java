@@ -20,7 +20,7 @@ import vn.edu.tdc.tourguide.AttractionActivity;
 
 public class Destination {
     private String id, city_id, name, type, image, address, description;
-    private long xLat, yLong;
+    private double xLat, yLong;
     private int rating;
 
     public static List<Destination> list = new ArrayList<Destination>();
@@ -42,11 +42,11 @@ public class Destination {
         this.image = image;
     }
 
-    public void setxLat(long xLat) {
+    public void setxLat(double xLat) {
         this.xLat = xLat;
     }
 
-    public void setyLong(long yLong) {
+    public void setyLong(double yLong) {
         this.yLong = yLong;
     }
 
@@ -78,11 +78,11 @@ public class Destination {
         return image;
     }
 
-    public long getxLat() {
+    public double getxLat() {
         return xLat;
     }
 
-    public long getyLong() {
+    public double getyLong() {
         return yLong;
     }
 
@@ -106,7 +106,7 @@ public class Destination {
 
     }
 
-    public Destination(String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
+    public Destination(String city_id, String name, String type, String image, double xLat, double yLong, String address, String description, int rating) {
         this.city_id = city_id;
         this.name = name;
         this.type = type;
@@ -118,7 +118,7 @@ public class Destination {
         this.rating = rating;
     }
 
-    public Destination(String id, String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
+    public Destination(String id, String city_id, String name, String type, String image, double xLat, double yLong, String address, String description, int rating) {
         this.id = id;
         this.city_id = city_id;
         this.name = name;

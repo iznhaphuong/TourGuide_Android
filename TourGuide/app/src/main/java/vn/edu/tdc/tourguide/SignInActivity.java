@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
     private String TAG = "ERROR";
-    private EditText edtEmail, edtPassword;
+    public static EditText edtEmail, edtPassword;
     private TextView signUpTV;
     private FirebaseAuth mAuth;
     private Button btnSignIn;
@@ -46,8 +45,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
-                edtEmail.setText("");
-                edtPassword.setText("");
             }
         });
 
@@ -126,7 +123,7 @@ public class SignInActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (SideMenuActivity.checkLogin) {
+        if (!SideMenuActivity.checkLogin) {
             return;
         }
         super.onBackPressed();

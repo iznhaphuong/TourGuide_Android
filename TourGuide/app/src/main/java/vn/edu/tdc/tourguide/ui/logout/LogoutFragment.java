@@ -13,10 +13,8 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.SignInActivity;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
-import vn.edu.tdc.tourguide.databinding.ProfileScreenBinding;
 
 public class LogoutFragment extends Fragment {
 
@@ -25,7 +23,7 @@ public class LogoutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, true);
         View root = binding.getRoot();
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(root.getContext(), SignInActivity.class);
