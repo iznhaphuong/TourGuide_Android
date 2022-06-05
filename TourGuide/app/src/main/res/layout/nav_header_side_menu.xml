@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_header"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:id="@+id/ll_header"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,6 +35,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_header_name"
@@ -42,7 +43,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_header_email" />
