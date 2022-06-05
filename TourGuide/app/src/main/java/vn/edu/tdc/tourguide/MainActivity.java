@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -24,15 +26,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        Log.d("duci", user.getUid()+"");
+//        Log.d("ducn", user.getDisplayName()+"");
+//        Log.d("ducp", user.getPhotoUrl()+"");
 
-        // CityModel.getCities();
+//        CityModel.getCities();
 //        City.addCity("HCM", "boy.png");
 //        CityModel.updateCity("1","Ha Noi", "boy.png");
 //        CityModel.deleteCity("1");
 
 //        DestinationModel.getDestination();
-//        Destination.addDestination("1", "Hoành Thành Thăng Long", "Du lịch","boy.png", 325245, 324234, "19C Hoàng Diệu, Điện Bàn, Ba Đình, Hà Nội", 5);
-//        DestinationModel.updateDestination("2", "1", "Lăng Bác và Quảng Trường Ba Đình", "Chợ","boy.png", 3253245, 324234, "2 Hùng Vương, Điện Bà, Ba Đình, Hà Nội", 5);
+//        Destination.addDestination("1", "Hoành Thành Thăng Long", "Du lịch","boy.png", 325245, 324234, "19C Hoàng Diệu, Điện Bàn, Ba Đình, Hà Nội", "Là 1 nơi có phong cảnh đẹp hữu duyên", 5);
+//        DestinationModel.updateDestination("2", "1", "Lăng Bác và Quảng Trường Ba Đình", "Chợ","boy.png", 3253245, 324234, "2 Hùng Vương, Điện Bà, Ba Đình, Hà Nội", "Là 1 nơi có phong cảnh đẹp hữu duyên", 5);
 //        DestinationModel.deleteDestination("2");
 
 //        ReviewModel.getReview();

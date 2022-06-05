@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Schedule {
-    private String id;
-    private String email;
-    private String datetime;
-    private String note;
-    private String destination_id;
+    private String id, email, datetime, note, destination_id;
 
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 

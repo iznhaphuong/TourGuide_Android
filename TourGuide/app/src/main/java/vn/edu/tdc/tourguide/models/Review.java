@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Review {
-    private String id;
-    private String destination_id;
-    private String name;
-    private String email;
-    private String content;
+    private String id, destination_id, name, email, content;
     private int rating;
 
     public static List<Review> list = new ArrayList<Review>();

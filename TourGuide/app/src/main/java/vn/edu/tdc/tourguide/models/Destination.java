@@ -19,14 +19,8 @@ import java.util.Map;
 import vn.edu.tdc.tourguide.AttractionActivity;
 
 public class Destination {
-    private String id;
-    private String city_id;
-    private String name;
-    private String type;
-    private String image;
-    private long xLat;
-    private long yLong;
-    private String address;
+    private String id, city_id, name, type, image, address, description;
+    private long xLat, yLong;
     private int rating;
 
     public static List<Destination> list = new ArrayList<Destination>();
@@ -96,6 +90,14 @@ public class Destination {
         return address;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getRating() {
         return rating;
     }
@@ -104,7 +106,7 @@ public class Destination {
 
     }
 
-    public Destination(String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public Destination(String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
         this.city_id = city_id;
         this.name = name;
         this.type = type;
@@ -112,10 +114,11 @@ public class Destination {
         this.xLat = xLat;
         this.yLong = yLong;
         this.address = address;
+        this.description = description;
         this.rating = rating;
     }
 
-    public Destination(String id, String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public Destination(String id, String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
         this.id = id;
         this.city_id = city_id;
         this.name = name;
@@ -124,6 +127,7 @@ public class Destination {
         this.xLat = xLat;
         this.yLong = yLong;
         this.address = address;
+        this.description = description;
         this.rating = rating;
     }
 
@@ -138,6 +142,7 @@ public class Destination {
                 ", xLat=" + xLat +
                 ", yLong=" + yLong +
                 ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
                 ", rating=" + rating +
                 '}';
     }
@@ -174,19 +179,19 @@ public class Destination {
 
 
     // Add Destination in list
-    public static void addDestination(String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public static void addDestination(String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
         DatabaseReference myRef = database.getReference("list_destination");
 
         String id = myRef.push().getKey();
-        Destination destination = new Destination(id, city_id, name, type, image, xLat, yLong, address, rating);
+        Destination destination = new Destination(id, city_id, name, type, image, xLat, yLong, address, description, rating);
         myRef.child(id).setValue(destination);
     }
 
     // Update Destination (Truyền id vào và chuyền các giá trị muốn sửa)
-    public static void updateDestination(String idUpdate, String city_id, String name, String type, String image, long xLat, long yLong, String address, int rating) {
+    public static void updateDestination(String idUpdate, String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
         DatabaseReference myRef = database.getReference("list_destination");
 
-        Destination destination = new Destination(city_id, name, type, image, xLat, yLong, address, rating);
+        Destination destination = new Destination(city_id, name, type, image, xLat, yLong, address, description, rating);
         myRef.child(idUpdate).updateChildren(destination.toMap());
     }
 
@@ -199,6 +204,7 @@ public class Destination {
         result.put("xLat", xLat);
         result.put("yLong", yLong);
         result.put("address", address);
+        result.put("description", description);
         result.put("rating", rating);
         return result;
     }
