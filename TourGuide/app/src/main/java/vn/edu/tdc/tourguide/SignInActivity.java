@@ -85,7 +85,7 @@ public class SignInActivity extends AppCompatActivity {
             edtPassword.requestFocus();
             return;
         }
-        if (password.length() > 6) {
+        if (password.length() < 6) {
             edtPassword.setError("Password must have at least 6 characters");
             edtPassword.requestFocus();
             return;

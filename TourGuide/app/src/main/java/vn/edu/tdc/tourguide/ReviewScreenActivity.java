@@ -13,7 +13,7 @@ import java.util.List;
 import vn.edu.tdc.tourguide.adapter.CommentsAdapter;
 import vn.edu.tdc.tourguide.models.Comments;
 
-public class ReviewScreenActivity extends AppCompatActivity {
+public class ReviewActivity extends AppCompatActivity {
     private RecyclerView rcvComment;
     private List<Comments> myCommentList;
     private CommentsAdapter commentsAdapter;
@@ -38,6 +38,5 @@ public class ReviewScreenActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvComment.addItemDecoration(decoration);
         rcvComment.setAdapter(commentsAdapter);
-
     }
 }
