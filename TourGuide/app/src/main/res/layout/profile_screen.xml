@@ -3,34 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:background="@color/white"
-    tools:context=".ui.profile.ProfileFragment" >
+    android:orientation="vertical"
+    tools:context=".ui.profile.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avartaImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/avarta"/>
+            android:src="@drawable/avarta" />
 
         <TextView
+            android:id="@+id/txtNameProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:layout_gravity="center_vertical"
-            android:text="Micheal Angelo"
-            android:textSize="15sp"
-            android:padding="5dp"
+            android:layout_weight="3"
             android:background="@drawable/border_rec"
-            android:textStyle="bold"></TextView>
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,32 +39,37 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:text="Thông tin:"
+            android:text="@string/profile_thong_tin"
             android:textSize="15sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Email:"
-                android:layout_gravity="center"></TextView>
+                android:text="Email:" />
+
             <TextView
+                android:id="@+id/txtEmailProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="example@gmail.com"
-                android:textSize="15sp"
+                android:background="@drawable/border_rec"
                 android:padding="5dp"
-                android:background="@drawable/border_rec"></TextView>
+                android:text="example@gmail.com"
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -72,12 +78,12 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:gravity="right">
+
         <Button
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:text="Cập nhật"
             android:layout_marginRight="20dp"
-            android:background="@drawable/rectangle_button">
-        </Button>
+            android:background="@drawable/rectangle_button"
+            android:text="Cập nhật"></Button>
     </LinearLayout>
 </LinearLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,11 +22,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 import vn.edu.tdc.tourguide.models.City;
 import vn.edu.tdc.tourguide.models.Destination;
+import vn.edu.tdc.tourguide.models.User;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 import vn.edu.tdc.tourguide.ui.profile.ProfileFragment;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
@@ -37,6 +41,8 @@ public class SideMenuActivity extends AppCompatActivity {
     private boolean checkFragment = true;
     private final Fragment fragment = null;
     Class fragmentClass = null;
+    public static TextView txtName, txtEmail;
+    public static User user;
 
 
     @Override
@@ -64,17 +70,23 @@ public class SideMenuActivity extends AppCompatActivity {
         // Find our drawer view
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
 
-        AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_schedule)
-                .setOpenableLayout(mDrawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
-
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+//        AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_home, R.id.nav_profile, R.id.nav_schedule)
+//                .setOpenableLayout(mDrawer)
+//                .build();
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_side_menu);
+//
+//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 
         // Setup drawer view
         setupDrawerContent(nvDrawer);
         menu = nvDrawer.getMenu();
+
+        // Inflate the header view at runtime
+        View headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
+        // We can now look up items within the header if needed
+        txtEmail = headerLayout.findViewById(R.id.txtEmail);
+        txtName = headerLayout.findViewById(R.id.txtName);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -159,6 +171,7 @@ public class SideMenuActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (checkFragment) {
+            user = User.getUser();
             MenuItem item = menu.findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
             checkFragment = false;

@@ -58,7 +58,6 @@
 
         <activity
             android:name=".SideMenuActivity"
-            android:label="@string/title_activity_side_menu"
             android:exported="false"
             android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
@@ -67,11 +66,6 @@
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:exported="false"/>
 
-
-        <activity
-            android:name=".ProfileScreenActivity"
-            android:label="@string/profile"
-            android:exported="false"/>
 
         <activity
             android:name=".ReviewScreenActivity"
