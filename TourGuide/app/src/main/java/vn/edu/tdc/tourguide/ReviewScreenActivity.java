@@ -13,7 +13,7 @@ import java.util.List;
 import vn.edu.tdc.tourguide.adapter.CommentsAdapter;
 import vn.edu.tdc.tourguide.models.Comments;
 
-public class ReviewActivity extends AppCompatActivity {
+public class ReviewScreenActivity extends AppCompatActivity {
     private RecyclerView rcvComment;
     private List<Comments> myCommentList;
     private CommentsAdapter commentsAdapter;
