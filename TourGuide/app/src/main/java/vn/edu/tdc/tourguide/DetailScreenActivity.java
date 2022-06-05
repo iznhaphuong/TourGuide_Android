@@ -30,6 +30,7 @@ public class DetailScreenActivity extends AppCompatActivity {
     private TextView txtLocationDescription;
     private Intent intent;
     public static String title;
+    public static String city_id;
     public static String EXTRA_LOCATION_LAT= "EXTRA_LOCATION_LAT";
     public static String EXTRA_LOCATION_LONG= "EXTRA_LOCATION_LONG";
     public static String EXTRA_TITLE= "EXTRA_TITLE";
@@ -40,9 +41,11 @@ public class DetailScreenActivity extends AppCompatActivity {
         setContentView(R.layout.detail_screen);
 
         intent = getIntent();
-        String id = intent.getStringExtra(AttractionActivity.EXTRA_DESTINATION);
+        String id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
         title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
         setTitle(title);
+        String TAG = "TAG";
+        Log.d(TAG, "onCreate: 3-" + id);
 
 
         imgLogo = findViewById(R.id.imgLogo);
@@ -52,6 +55,7 @@ public class DetailScreenActivity extends AppCompatActivity {
         txtLocationDescription = findViewById(R.id.locationDescription);
 
         Destination destination = Destination.getDestination(id);
+        city_id = destination.getCity_id();
         int xLat = (int) destination.getxLat();
         int yLong = (int) destination.getyLong();
 
