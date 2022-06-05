@@ -70,6 +70,7 @@
                 android:textColor="#CACACA" />
 
             <TextView
+                android:id="@+id/txt_my_location"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/nav_header_location_current"
