@@ -30,26 +30,10 @@ import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
-    private static final int REQUEST_CODE = 0x9345;
     public static AttractionAdapter adapter;
     private List<Destination> destinations = new ArrayList<>();
     public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
     public static String EXTRA_TITLE = "EXTRA_TITLE";
-
-//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == REQUEST_CODE) {
-//
-//                        Intent intent = result.getData();
-//                        assert intent != null;
-//                        String title = intent.getStringExtra(EXTRA_TITLE);
-//                        setTitle(title + "12");
-//                    }
-//                }
-//            }
-//    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +55,7 @@ public class AttractionActivity extends AppCompatActivity {
         List<Destination> mAttractionListOld = Destination.list;
 
         for (Destination destination : mAttractionListOld) {
-            if (Objects.equals(destination.getCity_id(), "1")) {
+            if (Objects.equals(destination.getCity_id(), city_id)) {
                 destinations.add(destination);
             }
         }

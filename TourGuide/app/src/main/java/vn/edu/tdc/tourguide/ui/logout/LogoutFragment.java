@@ -25,7 +25,7 @@ public class LogoutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, true);
         View root = binding.getRoot();
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(root.getContext(), SignInActivity.class);
