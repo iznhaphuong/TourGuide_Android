@@ -31,4 +31,6 @@
     <string name="lblLogin">Đăng Nhập</string>
     <string name="MAPS_API_KEY">AIzaSyAPWPeQv9s9seUxVRYCRvADL6eFQmC4Uos</string>
     <string name="profile_thong_tin">Thông tin:</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
