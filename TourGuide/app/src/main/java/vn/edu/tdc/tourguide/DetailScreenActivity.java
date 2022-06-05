@@ -1,3 +1,5 @@
+
+
 package vn.edu.tdc.tourguide;
 
 import android.Manifest;
@@ -11,10 +13,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,8 +45,9 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_PERMISSION= "EXTRA_PERMISSION";
     private String xLat;
     private String yLong;
-    private int REQ_CODE = 99;
+    private int REQ_CODE = 111;
     private String isPermission = "false";
+    private Intent intentSend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,7 @@ public class DetailScreenActivity extends AppCompatActivity {
         String TAG = "TAG";
         Log.d(TAG, "onCreate: 3-" + id);
 
+
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
         ratingValue = findViewById(R.id.locationRating);
@@ -63,7 +69,8 @@ public class DetailScreenActivity extends AppCompatActivity {
 
         Destination destination = Destination.getDestination(id);
         city_id = destination.getCity_id();
-        xLat = destination.getxLat()+"";
+
+        xLat = destination.getxLat() +"";
         yLong = destination.getyLong()+"";
 
         if (destination != null) {
@@ -77,19 +84,19 @@ public class DetailScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Check and allow permission
-                if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) || !checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                intentSend  = new Intent(DetailScreenActivity.this, MapsActivity.class);
+                intentSend.putExtra(EXTRA_LOCATION_LAT, xLat);
+                intentSend.putExtra(EXTRA_LOCATION_LONG, yLong);
+                intentSend.putExtra(EXTRA_TITLE, title);
+                
+                if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen
+                    Toast.makeText(DetailScreenActivity.this, "Bạn nên cấp quyền để có trải nghiệm tốt hơn", Toast.LENGTH_SHORT).show();
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_CODE);
+                    Log.d("TAGDETAIL", "onClick: request");
                 } else {
                     performAction();
                 }
-                Intent intent = new Intent(DetailScreenActivity.this, MapsActivity.class);
-                intent.putExtra(EXTRA_LOCATION_LAT, xLat);
-                intent.putExtra(EXTRA_LOCATION_LONG, yLong);
-                intent.putExtra(EXTRA_TITLE, title);
-                intent.putExtra(EXTRA_PERMISSION, isPermission);
-                Log.d("NHAPHUONG", "onClick: " + xLat + yLong + isPermission);
-                startActivity(intent);
             }
         });
     }
@@ -98,10 +105,14 @@ public class DetailScreenActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void performAction() {
         isPermission = "true";
+        Log.d("TAG", "performAction: permiss");
+        intentSend.putExtra(EXTRA_PERMISSION, isPermission);
+        startActivity(intentSend);
     }
 
+
     //Check permission
-    private boolean checkPermission(String permission) {
+    public boolean checkPermission(String permission) {
         int check = checkSelfPermission(permission);
         return check == PackageManager.PERMISSION_GRANTED;
     }
