@@ -62,6 +62,7 @@ public class SideMenuActivity extends AppCompatActivity {
     public static User user;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
+    public static boolean checkSearch = false;
 
     private String isPermission = "false";
     private int REQ_CODE = 123;
@@ -216,6 +217,7 @@ public class SideMenuActivity extends AppCompatActivity {
             user = User.getUser();
             MenuItem item = menu.findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
+            HomeFragment.homeAdapter.notifyDataSetChanged();
             checkFragment = false;
         }
         if (SignInActivity.edtEmail != null) {

@@ -14,8 +14,7 @@ import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class User {
-
-    private String idUser, nameOfUser, email;
+    private String idUser, nameOfUser, email, logoPerson;
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public String getIdUser() {
@@ -38,6 +37,16 @@ public class User {
         this.email = email;
     }
 
+
+    public String getLogoPerson() {
+        return logoPerson;
+    }
+
+    public void setLogoPerson(String logoPerson) {
+        this.logoPerson = logoPerson;
+    }
+
+
     public User() {}
 
     public User(String nameOfUser, String email) {
@@ -45,10 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public User(String id, String nameOfUser, String email) {
+    public User(String id, String nameOfUser, String email, String logoPerson) {
         this.idUser = id;
         this.nameOfUser = nameOfUser;
         this.email = email;
+        this.logoPerson = logoPerson;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class User {
                 "idUser='" + idUser + '\'' +
                 ", nameOfUser='" + nameOfUser + '\'' +
                 ", email='" + email + '\'' +
+                ", logoPerson='" + logoPerson + '\'' +
                 '}';
     }
 

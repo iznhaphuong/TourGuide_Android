@@ -23,6 +23,7 @@ import java.util.List;
 
 import vn.edu.tdc.tourguide.AttractionActivity;
 import vn.edu.tdc.tourguide.R;
+import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.adapter.HomeAdapter;
 import vn.edu.tdc.tourguide.databinding.FragmentHomeBinding;
 import vn.edu.tdc.tourguide.models.City;
@@ -67,27 +68,33 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.side_menu, menu);
-//        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-//        searchView.setMaxWidth(Integer.MAX_VALUE);
-//        String TAG = "TAG";
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                HomeFragment.homeAdapter.getFilter().filter(query);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                HomeFragment.homeAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//        super.onCreateOptionsMenu(menu,inflater);
-//    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        String TAG = "TAG";
+        Log.d(TAG, "onCreateOptionsMenu: 1111");
+        if (SideMenuActivity.checkSearch) {
+            return;
+        } else {
+            SideMenuActivity.checkSearch = true;
+        }
+        inflater.inflate(R.menu.side_menu, menu);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                HomeFragment.homeAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                HomeFragment.homeAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu,inflater);
+    }
 
     @Override
     public void onDestroyView() {
