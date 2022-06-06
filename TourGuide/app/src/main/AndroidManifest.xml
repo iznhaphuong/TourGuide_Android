@@ -20,16 +20,17 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:exported="false"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:parentActivityName=".AttractionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AttractionActivity"/>
         </activity>
 
         <activity
             android:name=".SignUpActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
             android:exported="false" />
 
         <activity
@@ -45,45 +46,39 @@
 
         <activity
             android:name=".SignInActivity"
-            android:label="@string/lblLogin"
-            android:exported="false"/>
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:exported="true">
 
-        <activity
-            android:name=".SideMenuActivity"
-            android:label="@string/title_activity_side_menu"
-            android:exported="true"
-            android:theme="@style/Theme.TourGuide.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
 
         </activity>
 
-
+        <activity
+            android:name=".SideMenuActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
         <activity
-            android:name=".ProfileScreenActivity"
-            android:label="@string/profile"
+            android:name=".ScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:exported="false"/>
 
+
         <activity
             android:name=".ReviewScreenActivity"
-            android:label="@string/review"
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:parentActivityName=".DetailScreenActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailScreenActivity"/>
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".DetailScreenActivity"/>
         </activity>
-
         <activity
             android:name=".DetailScreenActivity"
-            android:label=""
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:parentActivityName=".AttractionActivity">
 
@@ -112,10 +107,11 @@
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:label="Sửa lịch trình"
             android:parentActivityName=".ScheduleActivity"
-            android:exported="true"/>
+            android:exported="true">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".ScheduleActivity"/>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

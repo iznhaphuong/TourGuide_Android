@@ -30,10 +30,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.tdc.tourguide.R;
+import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.UpdateScheduleActivity;
 import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.databinding.ScheduleLayoutBinding;
 import vn.edu.tdc.tourguide.models.EventSchedule;
+import vn.edu.tdc.tourguide.models.User;
 
 
 public class ScheduleFragment extends Fragment {
@@ -72,78 +74,83 @@ public class ScheduleFragment extends Fragment {
         String TAG = "schedule";
         // Get the Intent that started this activity and extract the string
 //        Intent intent = getIntent();
-
+        String userEmail = SideMenuActivity.user.getEmail();
         RecyclerView scheduleList = binding.scheduleList;
 
         ArrayList<EventSchedule> arrEvents = new ArrayList<>();
+        ArrayList<EventSchedule> userEvents = new ArrayList<>();
 
-        //Load database
-        mDatabase = FirebaseDatabase.getInstance().getReference("events");
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                arrEvents.clear();
-
-                for (DataSnapshot snap :  snapshot.getChildren()){
-                    EventSchedule eventSchedule = snap.getValue(EventSchedule.class);
-                    arrEvents.add(eventSchedule);
-                }
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(arrEvents);
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
-
-                scheduleList.setLayoutManager(linearLayoutManager);
-
-                RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(root.getContext(), DividerItemDecoration.VERTICAL);
-                scheduleList.addItemDecoration(itemDecoration);
-                scheduleAdapter.setOnItemClickListener(new ScheduleAdapter.OnItemClickListener() {
+                //Load database
+                mDatabase = FirebaseDatabase.getInstance().getReference("events");
+                mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onItemClick(EventSchedule eventSchedule,int position) {
-                        Log.d("onClick","click "+position);
-                        //Đổi màu cho item
-                        if (keyEvent.equals("1")) {
-                            Log.d("seletedGrow1","seletedGrow "+eventSchedule.getScheduleId());
-                            keyEvent = eventSchedule.getScheduleId();
-//                            selectedItem = position;
-//                            setPersonToLayout(arrEvents.get(position));
-                            CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
-                            backcolor = brItem.getSolidColor();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userEvents.clear();
 
-                            brItem.setBackgroundColor(getResources().getColor(R.color.blue, getActivity().getTheme()));
-                            priviousItem = brItem;
-                            Log.d("seletedGrow2","seletedGrow2 "+keyEvent);
-                        } else {
-                            if (keyEvent.equals(eventSchedule.getScheduleId())) {
-//                                clear();
-                                keyEvent = "1";
-//                                selectedItem = -1;
-
-                                CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
-                                brItem.setBackgroundColor(backcolor);
-                            } else {
-                                priviousItem.setBackgroundColor(backcolor);// cái trước đó đưa về màu cũ
-                                keyEvent = eventSchedule.getScheduleId();
-//                                selectedItem = position;
-//                                setPersonToLayout(arrEvents.get((int)selectedItem));
-                                CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
-                                backcolor = brItem.getSolidColor();
-                                brItem.setBackgroundColor(getResources().getColor(R.color.blue, getActivity().getTheme()));
-                                priviousItem = brItem;
-                            }
-
+                        for (DataSnapshot snap :  snapshot.getChildren()){
+                            EventSchedule eventSchedule = snap.getValue(EventSchedule.class);
+                            arrEvents.add(eventSchedule);
                         }
+                        for(EventSchedule event : arrEvents ){
+                            Log.d(TAG,"log+" +arrEvents.size());
+
+                            if(event.getUserEmail().equals(userEmail)){
+                                userEvents.add(event);
+                            }
+                        }
+                        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(userEvents);
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
+
+                        scheduleList.setLayoutManager(linearLayoutManager);
+
+                        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(root.getContext(), DividerItemDecoration.VERTICAL);
+                        scheduleList.addItemDecoration(itemDecoration);
+                        scheduleAdapter.setOnItemClickListener(new ScheduleAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(EventSchedule eventSchedule,int position) {
+                                Log.d("onClick","click "+position);
+                                //Đổi màu cho item
+                                if (keyEvent.equals("1")) {
+                                    Log.d("seletedGrow1","seletedGrow "+eventSchedule.getScheduleId());
+                                    keyEvent = eventSchedule.getScheduleId();
+                                    CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
+                                    backcolor = brItem.getSolidColor();
+                                    brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
+                                    priviousItem = brItem;
+                                    Log.d("seletedGrow2","seletedGrow2 "+keyEvent);
+                                } else {
+                                    if (keyEvent.equals(eventSchedule.getScheduleId())) {
+                                        keyEvent = "1";
+                                        CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
+                                        brItem.setBackgroundColor(backcolor);
+                                    } else {
+                                        priviousItem.setBackgroundColor(backcolor);// cái trước đó đưa về màu cũ
+                                        keyEvent = eventSchedule.getScheduleId();
+
+                                        CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
+                                        backcolor = brItem.getSolidColor();
+                                        brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
+                                        priviousItem = brItem;
+                                    }
+
+                                }
+                            }
+                        } );
+
+                        scheduleList.setAdapter(scheduleAdapter);
+
                     }
-                } );
 
-                scheduleList.setAdapter(scheduleAdapter);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+
+
 
 
         setHasOptionsMenu(true);

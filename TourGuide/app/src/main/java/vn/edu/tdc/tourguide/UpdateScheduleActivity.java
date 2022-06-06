@@ -36,7 +36,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     public String TAG = "ERROR";
     String scheduleId;
     String destinationId ;
-    String userId ="Linh Trang";
+
     private DatabaseReference mDatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,14 +93,24 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
             }
         });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel();
+            }
+        });
     }
     private void clear() {
         //TODO clear
         edtNote.setText("");
     }
+    private void cancel(){
+        clear();
+        super.onBackPressed();
+    }
     private void updateSchedule() {
 
-
+        String userEmail =SideMenuActivity.user.getEmail();
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
@@ -113,7 +123,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
-        EventSchedule updateEvent = new EventSchedule(scheduleId,destinationId,userId, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+        EventSchedule updateEvent = new EventSchedule(scheduleId,destinationId,userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
 
         // pushing user to 'users' node using the userId
         mDatabase.child(scheduleId).setValue(updateEvent);

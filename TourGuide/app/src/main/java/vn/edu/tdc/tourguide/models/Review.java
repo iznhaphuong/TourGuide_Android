@@ -165,7 +165,7 @@ public class Review {
     public static void addReview(String destination_id, String userName,String email, String content, String timeReview, float rating) {
        DatabaseReference myRef;
         // From table name city
-        myRef = FirebaseDatabase.getInstance().getReference("list_destination/"+destination_id+"/id");
+        myRef = FirebaseDatabase.getInstance().getReference("list_review");
 
         String id = myRef.push().getKey();
         Review reviewModel = new Review(id,destination_id,userName,email, content,timeReview, rating);

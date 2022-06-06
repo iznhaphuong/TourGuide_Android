@@ -8,10 +8,10 @@ public class EventSchedule {
     }
 
 
-    public EventSchedule(String scheduleId, String destinationId, String userId, String nameDestination, String timeEvent, int dateEvent, int monthEvent, int yearEvent, String noteEvent) {
+    public EventSchedule(String scheduleId, String destinationId, String userEmail, String nameDestination, String timeEvent, int dateEvent, int monthEvent, int yearEvent, String noteEvent) {
         this.scheduleId = scheduleId;
         this.destinationId = destinationId;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.nameDestination = nameDestination;
         this.timeEvent = timeEvent;
         this.dateEvent = dateEvent;
@@ -36,13 +36,7 @@ public class EventSchedule {
         this.destinationId = destinationId;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getNameDestination() {
         return nameDestination;
@@ -94,7 +88,16 @@ public class EventSchedule {
 
     private String scheduleId;
     private String destinationId;
-    private String userId;
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     private String nameDestination;
     private String timeEvent;
     private int dateEvent;

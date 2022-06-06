@@ -47,7 +47,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private EditText edtCmt;
     private ImageView imgUser;
-    private String userId = "4hj4s4ov9lb6tq2LGRb2Q2IusWI3";
     private Button btnSend;
     private String desID;
     private DatabaseReference mDatabase;
@@ -65,19 +64,16 @@ public class ReviewScreenActivity extends AppCompatActivity {
         imgUser = findViewById(R.id.review_imgUser);
         btnSend = findViewById(R.id.btnSendReview);
         amountReview = findViewById(R.id.amountCmt);
+
         Intent intent = getIntent();
         desID = intent.getStringExtra(DetailScreenActivity.EXTRA_ID_DES);
+        Log.d("desDetail","desDetail+ "+desID);
+        userNamne.setText(SideMenuActivity.user.getNameOfUser());
 
 
         rcvComment = findViewById(R.id.rcv_cmt);
         myCommentList = new ArrayList<>();
-        //du lieu gia
-//        Comments comment1 = new Comments("Christiana", R.drawable.avarta2, "17 April 2015", "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an ", 3);
-//        Comments comment2 = new Comments("Chrana", R.drawable.avarta2, "17 April 2015", "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an ", 3);
-//        Comments comment3 = new Comments("Boulkd Che", R.drawable.avarta2, "17 April 2015", "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an ", 3);
-//        myCommentList.add(comment1);
-//        myCommentList.add(comment2);
-//        myCommentList.add(comment3);
+
         ArrayList<User> users = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
@@ -100,13 +96,13 @@ public class ReviewScreenActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot: datasnapshot.getChildren() ) {
                             Review review = snapshot.getValue(Review.class);
 
-                            Log.d("desID"," des+ " + desID);
+                            Log.d("desID"," des+ " + review.getDestination_id());
 
                             if(review.getDestination_id().equals(desID)){
 
                                 Log.d("Users1","user1 "+ users.size() );
                                 for (User user : users) {
-                                    Log.d("desID","review des+ " + user.getIdUser());
+
                                     if (user.getEmail().equals(review.getEmail())) {
                                         Log.d("User","user+ " + user.getNameOfUser());
                                         Comments newComment = new Comments(user.getNameOfUser(),review.getRating(),review.getTimeReview(),review.getContent());
@@ -116,6 +112,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
 
                             }
                         }
+                        amountReview.setText(String.valueOf(myCommentList.size()+ " Đánh giá "));
                         commentsAdapter = new CommentsAdapter(myCommentList);
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ReviewScreenActivity.this,  LinearLayoutManager.VERTICAL, false);
                         rcvComment.setLayoutManager(linearLayoutManager);
@@ -158,10 +155,11 @@ public class ReviewScreenActivity extends AppCompatActivity {
         Date fullTime = Calendar.getInstance().getTime();
         String currentTime = ft.format(fullTime) ;//02/06/2022
         String userName = userNamne.getText().toString();
+        String email = SideMenuActivity.user.getEmail();
         String comment = edtCmt.getText().toString();
         float rating = ratingBar.getRating();
         Log.d("des","Send desId "+desID);
-        review.addReview(desID,userId,userName, comment,currentTime, rating);
+        review.addReview(desID,userName,email, comment,currentTime, rating);
         Toast toast =  Toast.makeText(this,"Add review successfully!!",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
         toast.show();

@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
@@ -31,14 +33,14 @@ public class AddScheduleActivity extends AppCompatActivity {
     public EditText edtNote;
     public String destinaionId;
     private DatabaseReference mDatabase;
-    private String userId = "linhTrang";
-
+    private String userEmail ;
+    private String desID;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_schedule_layout);
         Intent intent = getIntent();
-        destinaionId = intent.getStringExtra(ScheduleFragment.EXTRA_ID);
+//        destinaionId = intent.getStringExtra(ScheduleFragment.EXTRA_ID);
 
         placeName = findViewById(R.id.placeName);
         datePicker = findViewById(R.id.date_picker);
@@ -46,6 +48,11 @@ public class AddScheduleActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancelEvent);
         btnDone = findViewById(R.id.btnDoneEvent);
         edtNote = findViewById(R.id.edtNote);
+        desID = intent.getStringExtra(DetailScreenActivity.EXTRA_ID_DES);
+        Destination desti = new Destination();
+
+        Destination destination = desti.getDestination(desID);
+        placeName.setText(destination.getName());
 
 
         btnDone.setOnClickListener(new View.OnClickListener() {
@@ -56,30 +63,32 @@ public class AddScheduleActivity extends AppCompatActivity {
             }
         });
 
-
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel();
+            }
+        });
 
 
     }
     private void addSchedule(){
-
 
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
         String timeEvent = hour+":"+minute;
         int dateEvent = datePicker.getDayOfMonth();
+        userEmail = SideMenuActivity.user.getEmail();
+        Log.d("userID","userID + "+userEmail);
         int yearEvent = datePicker.getYear();
         int monthEvent = datePicker.getMonth() +1;//thang bat dau tu 0 hong biet nua
         String noteEvent =  edtNote.getText().toString();
 
-
-
-
-
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
         String eventId = mDatabase.push().getKey();
-        EventSchedule newEvent = new EventSchedule(eventId,destinaionId,userId,nameDesti,timeEvent,dateEvent,monthEvent,yearEvent,noteEvent);
+        EventSchedule newEvent = new EventSchedule(eventId,desID,userEmail,nameDesti,timeEvent,dateEvent,monthEvent,yearEvent,noteEvent);
         // pushing user to 'users' node using the userId
         mDatabase.child(eventId).setValue(newEvent);
         Toast toast =  Toast.makeText(this,"Add event to schedule successfully!!",Toast.LENGTH_LONG);
@@ -91,6 +100,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SideMenuActivity.class);
         // start Main Activity
         startActivity(intent);
+    }
+    private void cancel(){
+        clear();
+        super.onBackPressed();
     }
     private void clear() {
         //TODO clear

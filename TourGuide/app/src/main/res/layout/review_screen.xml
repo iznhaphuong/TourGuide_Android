@@ -71,7 +71,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:isIndicator="false"
-                    style="?android:attr/ratingBarStyle"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:numStars="5"
                     android:rating="3"
                     android:stepSize="0.5" />
@@ -83,8 +83,7 @@
         android:id="@+id/review_edtComment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top|left"
+        android:layout_weight="2"
         android:hint="Bình luận ở đây"
         android:inputType="textMultiLine"
         android:lines="6"

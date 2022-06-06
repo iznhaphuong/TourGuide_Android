@@ -1,3 +1,5 @@
+
+
 package vn.edu.tdc.tourguide;
 
 import android.Manifest;
@@ -12,10 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,11 +47,12 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_TITLE= "EXTRA_TITLE";
     public static String EXTRA_ID_DES= "EXTRA_ID_DES";
     public static String EXTRA_PERMISSION= "EXTRA_PERMISSION";
-//    private String EXTRA_ID_DES_REVIEW = "EXTRA_ID_DES_REVIEW";
+    public static String EXTRA_ADDRESS= "EXTRA_ADDRESS";
     private String xLat;
     private String yLong;
-    private int REQ_CODE = 99;
-    private String isPermission = "false";
+    private int REQ_CODE = 111;
+    private boolean isPermission = false;
+    private Intent intentSend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,7 @@ public class DetailScreenActivity extends AppCompatActivity {
         String TAG = "TAG";
         Log.d(TAG, "onCreate: 3-" + id);
 
+
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
         ratingValue = findViewById(R.id.locationRating);
@@ -68,14 +74,17 @@ public class DetailScreenActivity extends AppCompatActivity {
         btnAddSchedule = findViewById(R.id.btnAddSchedule);
         btnReview = findViewById(R.id.btnReview);
         txtLocationDescription = findViewById(R.id.locationDescription);
+
         Destination destination;
         if(id != null){
-           destination = Destination.getDestination(id);
+            destination = Destination.getDestination(id);
         }else{
-             destination = Destination.getDestination(idFromReview);
+           destination = Destination.getDestination(idFromReview);
+
         }
         city_id = destination.getCity_id();
-        xLat = destination.getxLat()+"";
+
+        xLat = destination.getxLat() +"";
         yLong = destination.getyLong()+"";
 
         if (destination != null) {
@@ -90,8 +99,13 @@ public class DetailScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailScreenActivity.this, ReviewScreenActivity.class);
-                intent.putExtra(EXTRA_ID_DES, id);
-
+                if(id != null){
+                    intent.putExtra(EXTRA_ID_DES, id);
+                    Log.d("id","id+ "+id);
+                }else{
+                    intent.putExtra(EXTRA_ID_DES, idFromReview);
+                    Log.d("FromReview","id+ "+id);
+                }
                 startActivity(intent);
             }
         });
@@ -99,7 +113,12 @@ public class DetailScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailScreenActivity.this, AddScheduleActivity.class);
-                intent.putExtra(EXTRA_ID_DES, id);
+                if(id != null){
+                    intent.putExtra(EXTRA_ID_DES, id);
+                }else{
+                    intent.putExtra(EXTRA_ID_DES, idFromReview);
+
+                }
                 startActivity(intent);
             }
         });
@@ -107,19 +126,18 @@ public class DetailScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Check and allow permission
-                if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) || !checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                intentSend  = new Intent(DetailScreenActivity.this, MapsActivity.class);
+                intentSend.putExtra(EXTRA_LOCATION_LAT, xLat);
+                intentSend.putExtra(EXTRA_LOCATION_LONG, yLong);
+                intentSend.putExtra(EXTRA_TITLE, txtLocationName.getText());
+                intentSend.putExtra(EXTRA_ADDRESS, txtLocationLink.getText());
+
+                if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_CODE);
                 } else {
                     performAction();
                 }
-                Intent intent = new Intent(DetailScreenActivity.this, MapsActivity.class);
-                intent.putExtra(EXTRA_LOCATION_LAT, xLat);
-                intent.putExtra(EXTRA_LOCATION_LONG, yLong);
-                intent.putExtra(EXTRA_TITLE, title);
-                intent.putExtra(EXTRA_PERMISSION, isPermission);
-                Log.d("NHAPHUONG", "onClick: " + xLat + yLong + isPermission);
-                startActivity(intent);
             }
         });
     }
@@ -127,11 +145,13 @@ public class DetailScreenActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void performAction() {
-        isPermission = "true";
+        isPermission = true;
+        startActivity(intentSend);
     }
 
+
     //Check permission
-    private boolean checkPermission(String permission) {
+    public boolean checkPermission(String permission) {
         int check = checkSelfPermission(permission);
         return check == PackageManager.PERMISSION_GRANTED;
     }
@@ -141,12 +161,14 @@ public class DetailScreenActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE) {
             if (permissions.length == grantResults.length) {
                 for (int i = 0; i < permissions.length; ++i) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
+                    String recommendation  = getResources().getString(R.string.recommendation);
+                    Toast.makeText(DetailScreenActivity.this, recommendation, Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                performAction();
             }
+            String permission  = getResources().getString(R.string.permission);
+            Toast.makeText(DetailScreenActivity.this, permission, Toast.LENGTH_SHORT).show();
+            performAction();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
