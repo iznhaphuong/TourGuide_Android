@@ -20,12 +20,11 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:exported="false"
+            android:parentActivityName=".AttractionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AttractionActivity"/>
         </activity>
 
         <activity
@@ -45,12 +44,10 @@
 
         <activity
             android:name=".SignInActivity"
-            android:label="@string/lblLogin"
             android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -69,12 +66,10 @@
 
         <activity
             android:name=".ReviewScreenActivity"
-            android:label="@string/review"
             android:exported="false"/>
 
         <activity
             android:name=".DetailScreenActivity"
-            android:label=""
             android:parentActivityName=".AttractionActivity">
 
             <meta-data
