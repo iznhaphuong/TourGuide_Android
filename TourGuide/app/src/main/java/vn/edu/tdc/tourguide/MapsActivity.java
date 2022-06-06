@@ -67,9 +67,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
         String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);
-        String permission = intent.getStringExtra(DetailScreenActivity.EXTRA_PERMISSION);
-        Log.d("TAGMAPS", "onMapReady: " +x+y+permission);
-        if (permission.equals("true") || checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) || checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+        String title = intent.getStringExtra(DetailScreenActivity.EXTRA_ADDRESS);
+        setTitle(title);
+        String locationLabel = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
+
+        Log.d("TAGMAPS", "onMapReady: " + x + y);
+
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             mMap.setMyLocationEnabled(true);
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
             fusedLocationClient.getLastLocation()
@@ -89,15 +93,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         double xLat = Double.parseDouble(x);
         double yLong = Double.parseDouble(y);
-        String title = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
-        Log.d("TAGMAPS", "onMapReady: " + x + y + title + permission);
+        Log.d("TAGMAPS", "onMapReady: " + x + y + locationLabel);
         Log.d("TAGMAPSLOCALITY", "onMapReady: " + getLocality(xLat, yLong));
         getAddress(this, xLat, yLong);
         // Add a marker in location and move the camera
         LatLng location = new LatLng(xLat, yLong);
         mMap.addMarker(new MarkerOptions()
                 .position(location)
-                .title(title)
+                .title(locationLabel)
         );
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }

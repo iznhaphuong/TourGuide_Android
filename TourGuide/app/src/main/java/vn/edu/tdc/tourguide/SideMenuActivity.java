@@ -63,7 +63,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
 
-    private String isPermission = "false";
+    private boolean isPermission = false;
     private int REQ_CODE = 123;
     private TextView txtMyLocation;
 
@@ -109,18 +109,15 @@ public class SideMenuActivity extends AppCompatActivity {
         txtName = headerLayout.findViewById(R.id.txtName);
 
         //My location processing
-        View headerView = nvDrawer.getHeaderView(0);
         txtMyLocation = headerLayout.findViewById(R.id.txt_my_location);
 
-        if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)||!checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
             //Yeu cau cap quyen
-            Toast.makeText(SideMenuActivity.this, "Bạn nên cấp quyền để có trải nghiệm tốt hơn", Toast.LENGTH_SHORT).show();
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_CODE);
-            if (isPermission.equals(false)) {
+            if (isPermission == false) {
                 txtMyLocation.setText("Vietnam");
             }
         } else {
-            Toast.makeText(SideMenuActivity.this, "Da cap quyen", Toast.LENGTH_SHORT).show();
             performAction();
         }
     }
@@ -162,7 +159,6 @@ public class SideMenuActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
                 break;
-
         }
         if (!checkFragment) {
             pressesFragment(fragmentClass, fragment, menuItem);
@@ -228,7 +224,7 @@ public class SideMenuActivity extends AppCompatActivity {
     //Function to my location processing
     @SuppressLint("MissingPermission")
     private void performAction() {
-        isPermission = "true";
+        isPermission = true;
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -270,9 +266,13 @@ public class SideMenuActivity extends AppCompatActivity {
             if (permissions.length == grantResults.length) {
                 for (int i = 0; i < permissions.length; ++i) {
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        String recommendation  = getResources().getString(R.string.recommendation);
+                        Toast.makeText(SideMenuActivity.this, recommendation, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
+                String permission  = getResources().getString(R.string.permission);
+                Toast.makeText(SideMenuActivity.this, permission, Toast.LENGTH_SHORT).show();
                 performAction();
             }
         }
