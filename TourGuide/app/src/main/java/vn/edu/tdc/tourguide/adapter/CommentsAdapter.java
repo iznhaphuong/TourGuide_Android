@@ -60,8 +60,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             super(itemView);
             user_name = itemView.findViewById(R.id.userName);
             user_image = itemView.findViewById(R.id.userImage);
-            date = itemView.findViewById(R.id.date);
-            reviews = itemView.findViewById(R.id.reviews);
+            date = itemView.findViewById(R.id.review_date);
+            reviews = itemView.findViewById(R.id.review_cmt);
             user_rating = itemView.findViewById(R.id.ratingStar);
         }
     }
