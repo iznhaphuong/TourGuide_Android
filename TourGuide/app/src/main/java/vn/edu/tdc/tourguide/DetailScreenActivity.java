@@ -65,6 +65,7 @@ public class DetailScreenActivity extends AppCompatActivity {
             id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
             title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
         }
+        Log.d(TAG, "onCreate: 4-" + id);
         setTitle(title);
 
         imgLogo = findViewById(R.id.imgLogo);
@@ -72,7 +73,6 @@ public class DetailScreenActivity extends AppCompatActivity {
         ratingValue = findViewById(R.id.locationRating);
         txtLocationLink = findViewById(R.id.locationLink);
         txtLocationDescription = findViewById(R.id.locationDescription);
-
         Destination destination = Destination.getDestination(id);
         city_id = destination.getCity_id();
 

@@ -149,6 +149,7 @@ public class Destination {
 
     // Get all Destination
     public static void getDestination() {
+        list = new ArrayList<>();
         DatabaseReference myRef = database.getReference("list_destination");
 
         myRef.addValueEventListener(new ValueEventListener() {

@@ -34,6 +34,7 @@ public class AttractionActivity extends AppCompatActivity {
     private final List<Destination> destinations = new ArrayList<>();
     public static String EXTRA_ID = "EXTRA_ID";
     public static String EXTRA_TITLE = "EXTRA_TITLE";
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,15 @@ public class AttractionActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
+        title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
         String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
         if (title != null) {
             setTitle(title);
         } else {
-            setTitle(DetailScreenActivity.title);
+            title = DetailScreenActivity.title;
+            setTitle(title);
             city_id = DetailScreenActivity.city_id;
         }
-
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
 
         for (Destination destination : Destination.list) {
@@ -69,6 +70,7 @@ public class AttractionActivity extends AppCompatActivity {
             public void onItemClick(int position, View v) {
                 Intent intent = new Intent(AttractionActivity.this, DetailScreenActivity.class);
                 intent.putExtra(EXTRA_ID, destinations.get(position).getId());
+                DetailScreenActivity.id = null;
                 intent.putExtra(EXTRA_TITLE, title);
                 startActivity(intent);
 //                mActivityResultLauncher.launch(intent);

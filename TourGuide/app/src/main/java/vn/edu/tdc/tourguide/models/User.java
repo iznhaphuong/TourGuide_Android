@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide.models;
 
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -10,15 +11,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class User {
-    private String idUser, nameOfUser, email, logoPerson;
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private String idUser, nameOfUser, email, logoPersional;
 
     public String getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getNameOfUser() {
@@ -37,28 +43,33 @@ public class User {
         this.email = email;
     }
 
-
-    public String getLogoPerson() {
-        return logoPerson;
+    public String getLogoPersional() {
+        return logoPersional;
     }
 
-    public void setLogoPerson(String logoPerson) {
-        this.logoPerson = logoPerson;
+    public void setLogoPersional(String logoPersional) {
+        this.logoPersional = logoPersional;
     }
 
-
-    public User() {}
+    public User() {
+    }
 
     public User(String nameOfUser, String email) {
         this.nameOfUser = nameOfUser;
         this.email = email;
     }
 
-    public User(String id, String nameOfUser, String email, String logoPerson) {
+    public User(String nameOfUser, String email, String logoPersional) {
+        this.nameOfUser = nameOfUser;
+        this.email = email;
+        this.logoPersional = logoPersional;
+    }
+
+    public User(String id, String nameOfUser, String email, String logoPersional) {
         this.idUser = id;
         this.nameOfUser = nameOfUser;
         this.email = email;
-        this.logoPerson = logoPerson;
+        this.logoPersional = logoPersional;
     }
 
     @Override
@@ -67,7 +78,7 @@ public class User {
                 "idUser='" + idUser + '\'' +
                 ", nameOfUser='" + nameOfUser + '\'' +
                 ", email='" + email + '\'' +
-                ", logoPerson='" + logoPerson + '\'' +
+                ", logoPersional='" + logoPersional + '\'' +
                 '}';
     }
 
@@ -88,8 +99,14 @@ public class User {
                         result.email = user.email;
                         result.nameOfUser = user.nameOfUser;
 
+                        Glide.with(SideMenuActivity.headerLayout).load(userCurrent.getPhotoUrl()).error(R.drawable.user_logo).into(SideMenuActivity.imgAvatar);
+
+
                         SideMenuActivity.txtEmail.setText(user.getEmail());
                         SideMenuActivity.txtName.setText(user.getNameOfUser());
+                        String TAG = "TAG";
+                        Log.d(TAG, "onDataChange: da-" + userCurrent.toString());
+
                         break;
                     }
 

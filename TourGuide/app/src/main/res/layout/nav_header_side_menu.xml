@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/img_vertical_margin"
             android:contentDescription="@string/nav_header_desc"
-            android:src="@drawable/user_logo" />
+            android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -52,7 +52,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             Log.d(TAG, "onBindViewHolder: loi");
             return;
         }
-        Log.d(TAG, "onBindViewHolder: " + home.getName());
         holder.homeTitle.setText(home.getName());
         City.getImage(home.getImage(), holder.homeLogo);
 

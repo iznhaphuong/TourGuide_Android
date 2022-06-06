@@ -80,6 +80,7 @@ public class City {
 
     // Get all City
     public static void getCities() {
+        list = new ArrayList<>();
         DatabaseReference myRef = database.getReference("list_city");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
