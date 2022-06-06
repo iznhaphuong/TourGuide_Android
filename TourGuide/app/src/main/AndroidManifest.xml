@@ -20,11 +20,10 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false"
-            android:parentActivityName=".AttractionActivity">
+            android:parentActivityName=".DetailScreenActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AttractionActivity"/>
+                android:value=".DetailScreenActivity"/>
         </activity>
 
         <activity

@@ -68,6 +68,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
         String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);
         String title = intent.getStringExtra(DetailScreenActivity.EXTRA_ADDRESS);
+        DetailScreenActivity.id = intent.getStringExtra(DetailScreenActivity.EXTRA_ID);
+        DetailScreenActivity.title = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE_DETAIL);
         setTitle(title);
         String locationLabel = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
 

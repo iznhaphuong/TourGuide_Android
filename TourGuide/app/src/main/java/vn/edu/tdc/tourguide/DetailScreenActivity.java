@@ -42,24 +42,30 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_LOCATION_LAT = "EXTRA_LOCATION_LAT";
     public static String EXTRA_LOCATION_LONG =  "EXTRA_LOCATION_LONG";
     public static String EXTRA_TITLE= "EXTRA_TITLE";
+    public static String EXTRA_TITLE_DETAIL= "EXTRA_TITLE_DETAIL";
     public static String EXTRA_ADDRESS= "EXTRA_ADDRESS";
+    public static String EXTRA_ID = "EXTRA_ID";
+    public static String id;
     private String xLat;
     private String yLong;
     private int REQ_CODE = 111;
     private boolean isPermission = false;
     private Intent intentSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_screen);
 
-        intent = getIntent();
-        String id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
-        title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
-        setTitle(title);
         String TAG = "TAG";
         Log.d(TAG, "onCreate: 3-" + id);
 
+        if (id == null) {
+            intent = getIntent();
+            id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
+            title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
+        }
+        setTitle(title);
 
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
@@ -90,6 +96,8 @@ public class DetailScreenActivity extends AppCompatActivity {
                 intentSend.putExtra(EXTRA_LOCATION_LONG, yLong);
                 intentSend.putExtra(EXTRA_TITLE, txtLocationName.getText());
                 intentSend.putExtra(EXTRA_ADDRESS, txtLocationLink.getText());
+                intentSend.putExtra(EXTRA_ID, id);
+                intentSend.putExtra(EXTRA_TITLE_DETAIL, title);
 
                 if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen
