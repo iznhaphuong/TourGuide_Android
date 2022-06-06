@@ -11,14 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-
-=======
 import vn.edu.tdc.tourguide.R;
->>>>>>> main
 import vn.edu.tdc.tourguide.SideMenuActivity;
-import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class User {
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -86,18 +80,14 @@ public class User {
                 ", logoPersional='" + logoPersional + '\'' +
                 '}';
     }
-    public static void getUserFromList() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("list_review");
-        ArrayList<User> users = new ArrayList<>();
+
+    // Get all City
+    public static User getUser() {
+        User result = new User();
+        DatabaseReference myRef = database.getReference("users");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-<<<<<<< HEAD
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    users.add(user);
-=======
                 FirebaseUser userCurrent = FirebaseAuth.getInstance().getCurrentUser();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
 
@@ -119,7 +109,6 @@ public class User {
                         break;
                     }
 
->>>>>>> main
                 }
             }
 
@@ -129,48 +118,6 @@ public class User {
                 Log.d("OB", "Failed to read value.", error.toException());
             }
         });
+        return result;
     }
-            // Get all City
-            public static User getUser() {
-                User result = new User();
-                DatabaseReference myRef = database.getReference("users");
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        FirebaseUser userCurrent = FirebaseAuth.getInstance().getCurrentUser();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                            assert userCurrent != null;
-                            if (userCurrent.getUid().equals(snapshot.getKey())) {
-                                User user = snapshot.getValue(User.class);
-                                assert user != null;
-                                result.email = user.email;
-                                result.nameOfUser = user.nameOfUser;
-
-                                SideMenuActivity.txtEmail.setText(user.getEmail());
-                                SideMenuActivity.txtName.setText(user.getNameOfUser());
-                                break;
-                            }
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.d("OB", "Failed to read value.", error.toException());
-                    }
-                });
-                return result;
-            }
-
-    }
-
-//    public static User getUserWithId(String id) {
-//        for (User user : users) {
-//            if (user.getIdUser().equals(id)) {
-//                return user;
-//            }
-//        }
-//        return null;
-//    }
+}

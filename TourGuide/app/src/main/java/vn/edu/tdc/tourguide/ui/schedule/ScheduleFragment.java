@@ -3,6 +3,7 @@ package vn.edu.tdc.tourguide.ui.schedule;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -23,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +39,6 @@ import vn.edu.tdc.tourguide.UpdateScheduleActivity;
 import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.databinding.ScheduleLayoutBinding;
 import vn.edu.tdc.tourguide.models.EventSchedule;
-import vn.edu.tdc.tourguide.models.User;
 
 
 public class ScheduleFragment extends Fragment {
@@ -85,60 +88,79 @@ public class ScheduleFragment extends Fragment {
                 mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        arrEvents.clear();
                         userEvents.clear();
 
                         for (DataSnapshot snap :  snapshot.getChildren()){
                             EventSchedule eventSchedule = snap.getValue(EventSchedule.class);
                             arrEvents.add(eventSchedule);
                         }
-                        for(EventSchedule event : arrEvents ){
-                            Log.d(TAG,"log+" +arrEvents.size());
+                        if(arrEvents != null){
+                            for(EventSchedule event : arrEvents ){
+                                Log.d(TAG,"log+" +arrEvents.size());
 
-                            if(event.getUserEmail().equals(userEmail)){
-                                userEvents.add(event);
+                                if(event.getUserEmail().equals(userEmail)){
+                                    userEvents.add(event);
+                                }
+
                             }
-                        }
-                        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(userEvents);
+                            ScheduleAdapter scheduleAdapter = new ScheduleAdapter(userEvents);
 
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
 
-                        scheduleList.setLayoutManager(linearLayoutManager);
+                            scheduleList.setLayoutManager(linearLayoutManager);
 
-                        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(root.getContext(), DividerItemDecoration.VERTICAL);
-                        scheduleList.addItemDecoration(itemDecoration);
-                        scheduleAdapter.setOnItemClickListener(new ScheduleAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(EventSchedule eventSchedule,int position) {
-                                Log.d("onClick","click "+position);
-                                //Đổi màu cho item
-                                if (keyEvent.equals("1")) {
-                                    Log.d("seletedGrow1","seletedGrow "+eventSchedule.getScheduleId());
-                                    keyEvent = eventSchedule.getScheduleId();
-                                    CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
-                                    backcolor = brItem.getSolidColor();
-                                    brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
-                                    priviousItem = brItem;
-                                    Log.d("seletedGrow2","seletedGrow2 "+keyEvent);
-                                } else {
-                                    if (keyEvent.equals(eventSchedule.getScheduleId())) {
-                                        keyEvent = "1";
-                                        CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
-                                        brItem.setBackgroundColor(backcolor);
-                                    } else {
-                                        priviousItem.setBackgroundColor(backcolor);// cái trước đó đưa về màu cũ
+                            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(root.getContext(), DividerItemDecoration.VERTICAL);
+                            scheduleList.addItemDecoration(itemDecoration);
+                            scheduleAdapter.setOnItemClickListener(new ScheduleAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(EventSchedule eventSchedule,int position) {
+                                    Log.d("onClick","click "+position);
+                                    //Đổi màu cho item
+                                    if (keyEvent.equals("1")) {
+                                        Log.d("seletedGrow1","seletedGrow "+eventSchedule.getScheduleId());
                                         keyEvent = eventSchedule.getScheduleId();
-
                                         CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
                                         backcolor = brItem.getSolidColor();
                                         brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
                                         priviousItem = brItem;
+                                        Log.d("seletedGrow2","seletedGrow2 "+keyEvent);
+                                    } else {
+                                        if (keyEvent.equals(eventSchedule.getScheduleId())) {
+                                            keyEvent = "1";
+                                            CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
+                                            brItem.setBackgroundColor(backcolor);
+                                        } else {
+                                            priviousItem.setBackgroundColor(backcolor);// cái trước đó đưa về màu cũ
+                                            keyEvent = eventSchedule.getScheduleId();
+
+                                            CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
+                                            backcolor = brItem.getSolidColor();
+                                            brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
+                                            priviousItem = brItem;
+                                        }
+
                                     }
-
                                 }
-                            }
-                        } );
+                            } );
+                            scheduleList.setAdapter(scheduleAdapter);
 
-                        scheduleList.setAdapter(scheduleAdapter);
+                        }else{
+                            ScheduleAdapter scheduleAdapter = new ScheduleAdapter(userEvents);
+
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext());
+
+                            scheduleList.setLayoutManager(linearLayoutManager);
+
+                            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(root.getContext(), DividerItemDecoration.VERTICAL);
+                            scheduleList.addItemDecoration(itemDecoration);
+                            scheduleList.setAdapter(scheduleAdapter);
+
+                        }
+
+
+
+
 
                     }
 
@@ -205,6 +227,9 @@ public class ScheduleFragment extends Fragment {
     public void deleteEventSchedule(){
         mDatabase = FirebaseDatabase.getInstance().getReference("events");
         mDatabase.child(keyEvent).removeValue();
+        Toast toast =  Toast.makeText(binding.getRoot().getContext(),"Xóa lịch trình thành công!!",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+        toast.show();
     }
 
     @Override

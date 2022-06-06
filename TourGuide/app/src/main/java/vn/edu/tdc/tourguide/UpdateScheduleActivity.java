@@ -129,7 +129,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         mDatabase.child(scheduleId).setValue(updateEvent);
         // create intent to show Schedule Activity
 
-        Toast toast = Toast.makeText(this, "Update event successfully!!", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
         toast.show();
 

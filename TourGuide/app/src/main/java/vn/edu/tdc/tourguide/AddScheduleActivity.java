@@ -91,7 +91,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         EventSchedule newEvent = new EventSchedule(eventId,desID,userEmail,nameDesti,timeEvent,dateEvent,monthEvent,yearEvent,noteEvent);
         // pushing user to 'users' node using the userId
         mDatabase.child(eventId).setValue(newEvent);
-        Toast toast =  Toast.makeText(this,"Add event to schedule successfully!!",Toast.LENGTH_LONG);
+        Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
         toast.show();
 

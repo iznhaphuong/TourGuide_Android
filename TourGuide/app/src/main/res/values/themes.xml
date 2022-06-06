@@ -56,7 +56,8 @@
 
     //Button
     <style name="Theme.TourGuide.Button" parent="Widget.AppCompat.Button">
-        <item name="background">@drawable/rectangle_button</item>
+        <item name="background">@drawable/round_button</item>
+        <item name="backgroundTint">@color/blue</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#673AB7</item>
