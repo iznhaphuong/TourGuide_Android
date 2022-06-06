@@ -42,11 +42,11 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_LOCATION_LAT = "EXTRA_LOCATION_LAT";
     public static String EXTRA_LOCATION_LONG =  "EXTRA_LOCATION_LONG";
     public static String EXTRA_TITLE= "EXTRA_TITLE";
-    public static String EXTRA_PERMISSION= "EXTRA_PERMISSION";
+    public static String EXTRA_ADDRESS= "EXTRA_ADDRESS";
     private String xLat;
     private String yLong;
     private int REQ_CODE = 111;
-    private String isPermission = "false";
+    private boolean isPermission = false;
     private Intent intentSend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class DetailScreenActivity extends AppCompatActivity {
             txtLocationLink.setText(destination.getAddress());
 //            txtLocationDescription.setText(destination.get;
         }
+
         txtLocationLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +88,12 @@ public class DetailScreenActivity extends AppCompatActivity {
                 intentSend  = new Intent(DetailScreenActivity.this, MapsActivity.class);
                 intentSend.putExtra(EXTRA_LOCATION_LAT, xLat);
                 intentSend.putExtra(EXTRA_LOCATION_LONG, yLong);
-                intentSend.putExtra(EXTRA_TITLE, title);
-                
+                intentSend.putExtra(EXTRA_TITLE, txtLocationName.getText());
+                intentSend.putExtra(EXTRA_ADDRESS, txtLocationLink.getText());
+
                 if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen
-                    Toast.makeText(DetailScreenActivity.this, "Bạn nên cấp quyền để có trải nghiệm tốt hơn", Toast.LENGTH_SHORT).show();
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_CODE);
-                    Log.d("TAGDETAIL", "onClick: request");
                 } else {
                     performAction();
                 }
@@ -104,9 +104,7 @@ public class DetailScreenActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void performAction() {
-        isPermission = "true";
-        Log.d("TAG", "performAction: permiss");
-        intentSend.putExtra(EXTRA_PERMISSION, isPermission);
+        isPermission = true;
         startActivity(intentSend);
     }
 
@@ -122,12 +120,14 @@ public class DetailScreenActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE) {
             if (permissions.length == grantResults.length) {
                 for (int i = 0; i < permissions.length; ++i) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
+                    String recommendation  = getResources().getString(R.string.recommendation);
+                    Toast.makeText(DetailScreenActivity.this, recommendation, Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                performAction();
             }
+            String permission  = getResources().getString(R.string.permission);
+            Toast.makeText(DetailScreenActivity.this, permission, Toast.LENGTH_SHORT).show();
+            performAction();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
