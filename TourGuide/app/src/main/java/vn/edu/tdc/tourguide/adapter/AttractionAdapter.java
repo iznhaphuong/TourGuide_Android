@@ -50,12 +50,13 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
             Log.d(TAG, "onBindViewHolder: loi");
             return;
         }
+        Log.d(TAG, "onBindViewHolder: test");
         City.getImage(attraction.getImage(), holder.attractionLogo);
         holder.attractionTitle.setText(attraction.getName());
         holder.ratingValue.setRating(attraction.getRating());
         holder.type.setText(attraction.getType());
         holder.address.setText(attraction.getAddress());
-        
+
         holder.onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +28,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.StringTokenizer;
 
-import vn.edu.tdc.tourguide.AddScheduleActivity;
-import vn.edu.tdc.tourguide.AttractionActivity;
 import vn.edu.tdc.tourguide.R;
-import vn.edu.tdc.tourguide.UpdateSchedule;
+import vn.edu.tdc.tourguide.UpdateScheduleActivity;
 import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.databinding.ScheduleLayoutBinding;
 import vn.edu.tdc.tourguide.models.EventSchedule;
@@ -132,7 +127,7 @@ public class ScheduleFragment extends Fragment {
 //                                setPersonToLayout(arrEvents.get((int)selectedItem));
                                 CardView brItem = binding.getRoot().findViewById(R.id.eventCell);
                                 backcolor = brItem.getSolidColor();
-                                brItem.setBackgroundColor(getResources().getColor(R.color.blue, getContext().getTheme()));
+                                brItem.setBackgroundColor(getResources().getColor(R.color.blue, getActivity().getTheme()));
                                 priviousItem = brItem;
                             }
 
@@ -159,23 +154,7 @@ public class ScheduleFragment extends Fragment {
         inflater.inflate(R.menu.schedule_option_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
-//    private void setPersonToLayout(EventSchedule eventSchedule) {
-//        //TODO
-//        clear();
-//        nameDestination.setText(eventSchedule.getNameDestination());
-//        timeEvent.setText(eventSchedule.getTimeEvent());
-//        dateEvent.setText(String.valueOf(eventSchedule.getDateEvent()));
-//        monthEvent.setText(String.valueOf(eventSchedule.getMonthEvent()));
-//        noteEvent.setText(eventSchedule.getNoteEvent());
-//    }
-//    private void clear(){
-//        //todo clear
-//        nameDestination.setText(" ");
-//        timeEvent.setText(" ");
-//        dateEvent.setText(" ");
-//        monthEvent.setText(" ");
-//        noteEvent.setText(" ");
-//    }
+
 //xử lý hàm menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -200,7 +179,7 @@ public class ScheduleFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 EventSchedule eventSchedule = dataSnapshot.getValue(EventSchedule.class);
-                Intent intent = new Intent(binding.getRoot().getContext(), UpdateSchedule.class);
+                Intent intent = new Intent(binding.getRoot().getContext(), UpdateScheduleActivity.class);
 //                intent.putExtra(EXTRA_TITLE, eventSchedule.getNameDestination() );
                 intent.putExtra(EXTRA_ID, eventSchedule.getScheduleId());
                 startActivity(intent);

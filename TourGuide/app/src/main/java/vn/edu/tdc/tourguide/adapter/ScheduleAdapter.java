@@ -1,11 +1,8 @@
 package vn.edu.tdc.tourguide.adapter;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.models.EventSchedule;
-import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
     //Properties

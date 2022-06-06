@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
-public class UpdateSchedule extends AppCompatActivity {
+public class UpdateScheduleActivity extends AppCompatActivity {
     public TextView placeName;
     public DatePicker datePicker;
     public TimePicker timePicker;
@@ -35,6 +35,8 @@ public class UpdateSchedule extends AppCompatActivity {
     public EditText edtNote;
     public String TAG = "ERROR";
     String scheduleId;
+    String destinationId ;
+    String userId ="Linh Trang";
     private DatabaseReference mDatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class UpdateSchedule extends AppCompatActivity {
                 int minute = Integer.parseInt(time[1]);
                 int month = eventSchedule.getMonthEvent()-1;
                 placeName.setText(eventSchedule.getNameDestination());
-
+                destinationId = eventSchedule.getDestinationId();
                 datePicker.init(eventSchedule.getYearEvent(),month,eventSchedule.getDateEvent(),null);
                 Log.d("date","date update event: "+eventSchedule.getDateEvent());
                 Log.d("month","month update event: "+(eventSchedule.getMonthEvent()-1));
@@ -84,45 +86,44 @@ public class UpdateSchedule extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateSchedule();
+                clear();
+                Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
+                // start Main Activity
+                startActivity(intent);
+
             }
         });
     }
-
-    private void updateSchedule(){
+    private void clear() {
+        //TODO clear
+        edtNote.setText("");
+    }
+    private void updateSchedule() {
 
 
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
-        String timeEvent = hour+":"+minute;
+        String timeEvent = hour + ":" + minute;
         int dateEvent = datePicker.getDayOfMonth();
         int yearEvent = datePicker.getYear();
-        int monthEvent = datePicker.getMonth() +1;//thang bat dau tu 0 hong biet nua
-        String noteEvent =  edtNote.getText().toString();
+        int monthEvent = datePicker.getMonth() + 1;//thang bat dau tu 0 hong biet nua
+        String noteEvent = edtNote.getText().toString();
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
-        EventSchedule updateEvent = new EventSchedule(scheduleId,nameDesti,timeEvent,dateEvent,monthEvent,yearEvent,noteEvent);
-        if(updateEvent != null){
-            // pushing user to 'users' node using the userId
-            mDatabase.child(scheduleId).setValue(updateEvent);
-            Toast toast =  Toast.makeText(this,"Update event successfully!!",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
-            // create intent to show Schedule Activity
-            Intent intent = new Intent(this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
-        }else{
-            Toast toast =  Toast.makeText(this,"Update event failed!!",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
-            // create intent to show Schedule Activity
-            Intent intent = new Intent(this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
-        }
+        EventSchedule updateEvent = new EventSchedule(scheduleId,destinationId,userId, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+
+        // pushing user to 'users' node using the userId
+        mDatabase.child(scheduleId).setValue(updateEvent);
+        // create intent to show Schedule Activity
+
+        Toast toast = Toast.makeText(this, "Update event successfully!!", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+        toast.show();
+
+
 
 
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     style="@style/MyActionBar"
-    tools:context=".UpdateSchedule"
+    tools:context=".UpdateScheduleActivity"
     android:layout_height="match_parent">
         <TextView
             android:id="@+id/update_place_name"
@@ -69,6 +69,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
+
             android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold"

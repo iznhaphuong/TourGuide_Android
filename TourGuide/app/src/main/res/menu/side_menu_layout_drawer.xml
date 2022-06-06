@@ -6,6 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:checked="true"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_profile"
@@ -14,7 +15,7 @@
             android:id="@+id/nav_schedule"
             android:title="@string/menu_schedule" />
         <item
-            android:id="@+id/nav_sign_in"
+            android:id="@+id/nav_logout"
             android:title="@string/menu_logout" />
     </group>
 </menu>

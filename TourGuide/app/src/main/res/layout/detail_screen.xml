@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/ho_guom"></de.hdodenhof.circleimageview.CircleImageView>
+            android:src="@drawable/ho_guom"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,8 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lăng Bác và Quảng Trường Ba Đình"
-                android:textSize="16sp"
-                android:textStyle="bold"></TextView>
+                android:textSize="17sp"
+                android:textStyle="bold"/>
 
             <RatingBar
                 android:id="@+id/locationRating"
@@ -47,7 +47,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="7dp"
                 android:rating="3"
-                android:stepSize="0.5"></RatingBar>
+                android:stepSize="0.5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_baseline_near_me_24"></TextView>
+                    android:background="@drawable/ic_baseline_near_me_24"/>
 
                 <TextView
                     android:id="@+id/locationLink"
@@ -67,7 +67,7 @@
                     android:text="2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội"
                     android:textColor="@color/blue"
                     android:textSize="10sp"
-                    android:textStyle="italic"></TextView>
+                    android:textStyle="italic"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -84,8 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MÔ TẢ"
-            android:textSize="14sp"
-            android:textStyle="bold"></TextView>
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/locationDescription"
@@ -94,7 +94,7 @@
             android:layout_weight="1"
             android:paddingTop="20dp"
             android:text="Quảng trường Ba Đình là quảng trường lớn nhất Việt Nam, nằm trên đường Hùng Vương, quận Ba Đình và là nơi Lăng Chủ Tịch Hồ Chí Minh Được xây dựng."
-            android:textSize="13dp"></TextView>
+            android:textSize="13dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,11 +104,13 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
                 android:background="@drawable/rectangle_button"
                 android:text="Xem đánh giá"
-                android:textSize="9sp"></Button>
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -118,12 +120,13 @@
             android:gravity="right">
 
             <Button
+                android:id="@+id/btnAddSchedule"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/round_button"
                 android:text="+"
-                android:textSize="11sp"></Button>
+                android:textSize="11sp"/>
         </LinearLayout>
     </LinearLayout>
 

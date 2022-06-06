@@ -1,5 +1,10 @@
 package vn.edu.tdc.tourguide;
 
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +31,8 @@ public class AttractionActivity extends AppCompatActivity {
     private final String TAG = "TAG";
     private SearchView searchView;
     public static AttractionAdapter adapter;
-    private List<Destination> destinations = new ArrayList<>();
-    public static String EXTRA_DESTINATION = "EXTRA_DESTINATION";
+    private final List<Destination> destinations = new ArrayList<>();
+    public static String EXTRA_ID = "EXTRA_ID";
     public static String EXTRA_TITLE = "EXTRA_TITLE";
 
     @Override
@@ -40,15 +44,17 @@ public class AttractionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
         String city_id = intent.getStringExtra(HomeFragment.EXTRA_ID);
-        // Capture the layout's TextView and set the string as its text
-        setTitle(title);
-
+        if (title != null) {
+            setTitle(title);
+        } else {
+            setTitle(DetailScreenActivity.title);
+            city_id = DetailScreenActivity.city_id;
+        }
 
         RecyclerView rcvAttraction = findViewById(R.id.rcv_attraction);
-        List<Destination> mAttractionListOld = Destination.list;
 
-        for (Destination destination : mAttractionListOld) {
-            if (Objects.equals(destination.getCity_id(), "1")) {
+        for (Destination destination : Destination.list) {
+            if (destination.getCity_id().equals(city_id)) {
                 destinations.add(destination);
             }
         }
@@ -62,9 +68,10 @@ public class AttractionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 Intent intent = new Intent(AttractionActivity.this, DetailScreenActivity.class);
-                intent.putExtra(EXTRA_DESTINATION, destinations.get(position).getId());
+                intent.putExtra(EXTRA_ID, destinations.get(position).getId());
                 intent.putExtra(EXTRA_TITLE, title);
                 startActivity(intent);
+//                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -105,7 +112,6 @@ public class AttractionActivity extends AppCompatActivity {
             searchView.setIconified(true);
             return;
         }
-
         super.onBackPressed();
     }
 }
