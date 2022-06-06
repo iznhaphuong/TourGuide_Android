@@ -18,7 +18,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avartaImage"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/avarta" />
 
@@ -84,7 +84,7 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/rectangle_button"
-            android:text="Cập nhật"></Button>
+            android:backgroundTint="@color/blue"
+            android:text="Cập nhật"/>
     </LinearLayout>
 </LinearLayout>

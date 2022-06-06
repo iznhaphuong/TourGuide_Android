@@ -95,7 +95,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
                         Log.d("desID"," des+ " + desID);
                         for (DataSnapshot snapshot: datasnapshot.getChildren() ) {
                             Review review = snapshot.getValue(Review.class);
-
+                            String nameOfUser = "";
                             Log.d("desID"," des+ " + review.getDestination_id());
 
                             if(review.getDestination_id().equals(desID)){
@@ -105,10 +105,12 @@ public class ReviewScreenActivity extends AppCompatActivity {
 
                                     if (user.getEmail().equals(review.getEmail())) {
                                         Log.d("User","user+ " + user.getNameOfUser());
-                                        Comments newComment = new Comments(user.getNameOfUser(),review.getRating(),review.getTimeReview(),review.getContent());
-                                        myCommentList.add(newComment);
+                                        nameOfUser = user.getNameOfUser();
+
                                     }
                                 }
+                                Comments newComment = new Comments(nameOfUser,review.getRating(),review.getTimeReview(),review.getContent());
+                                myCommentList.add(newComment);
 
                             }
                         }
@@ -160,7 +162,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
         float rating = ratingBar.getRating();
         Log.d("des","Send desId "+desID);
         review.addReview(desID,userName,email, comment,currentTime, rating);
-        Toast toast =  Toast.makeText(this,"Add review successfully!!",Toast.LENGTH_LONG);
+        Toast toast =  Toast.makeText(this,"Thêm đánh giá thành công!!",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
         toast.show();
 

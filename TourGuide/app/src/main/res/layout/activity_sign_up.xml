@@ -101,8 +101,10 @@
             <Button
                 android:id="@+id/btnSignUp"
                 android:padding="7dp"
-                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:backgroundTint="@color/blue"
                 android:layout_marginLeft="@dimen/d_5dp"
                 android:layout_marginRight="@dimen/d_5dp"
                 android:layout_weight="1"

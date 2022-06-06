@@ -28,11 +28,6 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,6 +63,7 @@
                 <RatingBar
                     android:id="@+id/review_rating"
                     android:layout_width="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:isIndicator="false"
@@ -76,7 +72,7 @@
                     android:rating="3"
                     android:stepSize="0.5" />
             </LinearLayout>
-        </LinearLayout>
+
     </LinearLayout>
 
     <EditText
@@ -97,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
+        android:paddingBottom="5dp"
         android:gravity="right">
 
         <Button
@@ -105,7 +101,7 @@
             android:layout_width="149dp"
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
-            android:background="@color/blue"
+            android:backgroundTint="@color/blue"
             android:text="gửi" />
     </LinearLayout>
 </LinearLayout>

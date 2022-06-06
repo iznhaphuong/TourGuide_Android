@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue"
-                android:background="@drawable/rectangle_button"
+
                 android:text="Xem đánh giá"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -124,9 +124,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/round_button"
+                style="@style/Theme.TourGuide.Button"
                 android:text="+"
-                android:textSize="11sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
 
