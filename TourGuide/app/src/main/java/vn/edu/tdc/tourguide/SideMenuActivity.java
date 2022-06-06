@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,6 +61,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private final Fragment fragment = null;
     Class fragmentClass = null;
     public static TextView txtName, txtEmail;
+    public static ImageView imgAvatar;
     public static User user;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
@@ -67,6 +70,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private boolean isPermission = false;
     private int REQ_CODE = 123;
     private TextView txtMyLocation;
+    public static View headerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,16 +104,16 @@ public class SideMenuActivity extends AppCompatActivity {
         // ...From section above...
         // Find our drawer view
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-
         // Setup drawer view
         setupDrawerContent(nvDrawer);
         menu = nvDrawer.getMenu();
 
         // Inflate the header view at runtime
-        View headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
+        headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
         // We can now look up items within the header if needed
         txtEmail = headerLayout.findViewById(R.id.txtEmail);
         txtName = headerLayout.findViewById(R.id.txtName);
+        imgAvatar = headerLayout.findViewById(R.id.imageView);
 
         //My location processing
         txtMyLocation = headerLayout.findViewById(R.id.txt_my_location);
@@ -217,6 +221,8 @@ public class SideMenuActivity extends AppCompatActivity {
             pressesFragment(HomeFragment.class, fragment, item);
             HomeFragment.homeAdapter.notifyDataSetChanged();
             checkFragment = false;
+            SideMenuActivity.checkSearch = true;
+
         }
         if (SignInActivity.edtEmail != null) {
             SignInActivity.edtEmail.setText("");
