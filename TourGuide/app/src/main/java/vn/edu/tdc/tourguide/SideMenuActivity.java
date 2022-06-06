@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,6 +61,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private final Fragment fragment = null;
     Class fragmentClass = null;
     public static TextView txtName, txtEmail;
+    public static ImageView imgAvatar;
     public static User user;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
@@ -67,12 +70,15 @@ public class SideMenuActivity extends AppCompatActivity {
     private boolean isPermission = false;
     private int REQ_CODE = 123;
     private TextView txtMyLocation;
+    public static View headerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.side_menu_layout);
-
+        Destination.addDestination("-N3gxW_wr9pRqU1i763q", "Dinh Thống Nhất", "Di tích lịch sử","dinhthongnhat.jpg", 10.7770779, 106.6866713, "135 Đ. Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh, Vietnam", "Dinh Độc Lập hay Hội trường Thống nhất là một công trình kiến trúc, tòa nhà ở Thành phố Hồ Chí Minh. Đây từng là nơi ở và làm việc của Tổng thống Việt Nam Cộng hòa. Hiện nay, dinh đã được Chính phủ Việt Nam xếp hạng là di tích quốc gia đặc biệt.", 5);
+        Destination.addDestination("-N3qhkJUxMm7HSnHF2d5 ", "Chợ nổi Cái Răng", "Chợ","chonoicairang.jpg", 10.0050363, 105.7459816, "46 Đường Hai Bà Trưng, Tân An, Ninh Kiều, Cần Thơ", "Chợ nổi Cái Răng là chợ nổi đầu mối chuyên mua bán rau củ ở trên sông Cửu Long và là điểm tham quan đặc sắc của quận Cái Răng, thành phố Cần Thơ.", 4);
+//        Destination.addDestination("-N3qhkJUxMm7HSnHF2d5 ", "Khu phố cổ Hà Nội", "Điểm du lịch","phocohanoi.jpg", 21.034059, 105.8506368, "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội", "Khu phố cổ Hà Nội là tên gọi thông thường của một khu vực đô thị có từ lâu đời của Hà Nội nằm ở ngoài hoàng thành Thăng Long", 4);
 
         City.list = new ArrayList<>();
         Destination.list = new ArrayList<>();
@@ -98,16 +104,16 @@ public class SideMenuActivity extends AppCompatActivity {
         // ...From section above...
         // Find our drawer view
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-
         // Setup drawer view
         setupDrawerContent(nvDrawer);
         menu = nvDrawer.getMenu();
 
         // Inflate the header view at runtime
-        View headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
+        headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
         // We can now look up items within the header if needed
         txtEmail = headerLayout.findViewById(R.id.txtEmail);
         txtName = headerLayout.findViewById(R.id.txtName);
+        imgAvatar = headerLayout.findViewById(R.id.imageView);
 
         //My location processing
         txtMyLocation = headerLayout.findViewById(R.id.txt_my_location);
@@ -215,6 +221,8 @@ public class SideMenuActivity extends AppCompatActivity {
             pressesFragment(HomeFragment.class, fragment, item);
             HomeFragment.homeAdapter.notifyDataSetChanged();
             checkFragment = false;
+            SideMenuActivity.checkSearch = true;
+
         }
         if (SignInActivity.edtEmail != null) {
             SignInActivity.edtEmail.setText("");

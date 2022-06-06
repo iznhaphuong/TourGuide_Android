@@ -38,8 +38,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        String TAG = "TAG";
-        Log.d(TAG, "onCreateView: 44");
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -73,10 +71,10 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         String TAG = "TAG";
         Log.d(TAG, "onCreateOptionsMenu: 1111");
-        if (SideMenuActivity.checkSearch) {
+        if (!SideMenuActivity.checkSearch) {
             return;
         } else {
-            SideMenuActivity.checkSearch = true;
+            SideMenuActivity.checkSearch = false;
         }
         inflater.inflate(R.menu.side_menu, menu);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();

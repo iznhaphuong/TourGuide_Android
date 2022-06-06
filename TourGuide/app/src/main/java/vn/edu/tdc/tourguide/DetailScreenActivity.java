@@ -45,27 +45,44 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_LOCATION_LAT = "EXTRA_LOCATION_LAT";
     public static String EXTRA_LOCATION_LONG =  "EXTRA_LOCATION_LONG";
     public static String EXTRA_TITLE= "EXTRA_TITLE";
+<<<<<<< HEAD
     public static String EXTRA_ID_DES= "EXTRA_ID_DES";
     public static String EXTRA_PERMISSION= "EXTRA_PERMISSION";
+=======
+    public static String EXTRA_TITLE_DETAIL= "EXTRA_TITLE_DETAIL";
+>>>>>>> main
     public static String EXTRA_ADDRESS= "EXTRA_ADDRESS";
+    public static String EXTRA_ID = "EXTRA_ID";
+    public static String id;
     private String xLat;
     private String yLong;
     private int REQ_CODE = 111;
     private boolean isPermission = false;
     private Intent intentSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_screen);
 
+<<<<<<< HEAD
         intent = getIntent();
         String id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
         String idFromReview = intent.getStringExtra(ReviewScreenActivity.EXTRA_ID_DES_REVIEW);
         title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
         setTitle(title);
+=======
+>>>>>>> main
         String TAG = "TAG";
         Log.d(TAG, "onCreate: 3-" + id);
 
+        if (id == null) {
+            intent = getIntent();
+            id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
+            title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
+        }
+        Log.d(TAG, "onCreate: 4-" + id);
+        setTitle(title);
 
         imgLogo = findViewById(R.id.imgLogo);
         txtLocationName = findViewById(R.id.locationName);
@@ -74,6 +91,7 @@ public class DetailScreenActivity extends AppCompatActivity {
         btnAddSchedule = findViewById(R.id.btnAddSchedule);
         btnReview = findViewById(R.id.btnReview);
         txtLocationDescription = findViewById(R.id.locationDescription);
+<<<<<<< HEAD
 
         Destination destination;
         if(id != null){
@@ -82,6 +100,9 @@ public class DetailScreenActivity extends AppCompatActivity {
            destination = Destination.getDestination(idFromReview);
 
         }
+=======
+        Destination destination = Destination.getDestination(id);
+>>>>>>> main
         city_id = destination.getCity_id();
 
         xLat = destination.getxLat() +"";
@@ -131,6 +152,8 @@ public class DetailScreenActivity extends AppCompatActivity {
                 intentSend.putExtra(EXTRA_LOCATION_LONG, yLong);
                 intentSend.putExtra(EXTRA_TITLE, txtLocationName.getText());
                 intentSend.putExtra(EXTRA_ADDRESS, txtLocationLink.getText());
+                intentSend.putExtra(EXTRA_ID, id);
+                intentSend.putExtra(EXTRA_TITLE_DETAIL, title);
 
                 if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen

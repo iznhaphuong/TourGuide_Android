@@ -20,12 +20,10 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TourGuide.Actionbar"
-            android:parentActivityName=".AttractionActivity">
+            android:parentActivityName=".DetailScreenActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AttractionActivity"/>
+                android:value=".DetailScreenActivity"/>
         </activity>
 
         <activity
