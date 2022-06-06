@@ -1,37 +1,45 @@
+
+
+
 package vn.edu.tdc.tourguide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
-import vn.edu.tdc.tourguide.databinding.ActivityMapsBinding;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String TAG = "tag";
-    private SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -54,20 +62,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG, "onMapReady: ");
+        Log.d("TAGMAPS", "onMapReady: ");
         mMap = googleMap;
         Intent intent = getIntent();
         String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
         String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);
         String permission = intent.getStringExtra(DetailScreenActivity.EXTRA_PERMISSION);
-        if (permission.equals("true")) {
+        Log.d("TAGMAPS", "onMapReady: " +x+y+permission);
+        if (permission.equals("true") || checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) || checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             mMap.setMyLocationEnabled(true);
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                Address address = getAddress(MapsActivity.this, location.getLatitude(), location.getLongitude());
+                                if (address != null) {
+                                    Log.d("TAGADDRESS", "onSuccess: " + address.getAddressLine(0));
+                                }
+                            }
+                        }
+                    });
         }
+
         double xLat = Double.parseDouble(x);
         double yLong = Double.parseDouble(y);
         String title = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
-        Log.d(TAG, "onMapReady: " + x + y + title + permission);
-
+        Log.d("TAGMAPS", "onMapReady: " + x + y + title + permission);
+        Log.d("TAGMAPSLOCALITY", "onMapReady: " + getLocality(xLat, yLong));
+        getAddress(this, xLat, yLong);
         // Add a marker in location and move the camera
         LatLng location = new LatLng(xLat, yLong);
         mMap.addMarker(new MarkerOptions()
@@ -76,5 +101,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         );
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
-}
 
+    public String getLocality(double xLat, double yLong) {
+        Geocoder gcd = new Geocoder(this, Locale.getDefault());
+        List<Address> list = null;
+        try {
+            list = gcd.getFromLocation(xLat, yLong, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String result = "Viet nam";
+        if (list != null & list.size() > 0) {
+            android.location.Address address = list.get(0);
+            result = address.getLocality();
+        }
+        return result;
+    }
+
+    public boolean checkPermission(String permission) {
+        int check = checkSelfPermission(permission);
+        return check == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private Address getAddress(Context context, double LATITUDE, double LONGITUDE) {
+        //Set Address
+        try {
+            Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                return addresses.get(0);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+}
