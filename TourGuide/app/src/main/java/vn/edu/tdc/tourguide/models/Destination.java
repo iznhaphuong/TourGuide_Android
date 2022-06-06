@@ -179,7 +179,7 @@ public class Destination {
 
 
     // Add Destination in list
-    public static void addDestination(String city_id, String name, String type, String image, long xLat, long yLong, String address, String description, int rating) {
+    public static void addDestination(String city_id, String name, String type, String image, double xLat, double yLong, String address, String description, int rating) {
         DatabaseReference myRef = database.getReference("list_destination");
 
         String id = myRef.push().getKey();
