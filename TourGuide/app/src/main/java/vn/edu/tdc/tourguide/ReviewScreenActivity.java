@@ -51,7 +51,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
     private String desID;
     private DatabaseReference mDatabase;
     private TextView amountReview;
-    public static String EXTRA_ID_DES_REVIEW = "EXTRA_ID_DES_REVIEW";
     private User user = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +144,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sendReview();
                 Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
-                intent.putExtra(EXTRA_ID_DES_REVIEW, desID);
+                DetailScreenActivity.id = desID;
 
                 startActivity(intent);
             }
