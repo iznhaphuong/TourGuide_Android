@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu,inflater);
     }
+
 
     @Override
     public void onDestroyView() {

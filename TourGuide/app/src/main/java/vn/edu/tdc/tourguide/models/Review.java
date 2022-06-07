@@ -17,30 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Review {
-    private String id, destination_id, name, email, content;
-    private int rating;
 
-    public static List<Review> list = new ArrayList<Review>();
-    public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private String id;
+    private String destination_id;
 
-    public String getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getDestination_id() {
-        return destination_id;
-    }
-
-    public void setDestination_id(String destination_id) {
-        this.destination_id = destination_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -51,6 +37,48 @@ public class Review {
         this.email = email;
     }
 
+    private String userName;
+    private String email;
+
+    public Review(String id, String destination_id, String userName, String email, String content, String timeReview, float rating) {
+        this.id = id;
+        this.destination_id = destination_id;
+        this.userName = userName;
+        this.email = email;
+        this.content = content;
+        this.timeReview = timeReview;
+        this.rating = rating;
+    }
+
+    private String content;
+    private String timeReview;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    private float rating;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDestination_id() {
+        return destination_id;
+    }
+
+    public void setDestination_id(String destination_id) {
+        this.destination_id = destination_id;
+    }
+
+
     public String getContent() {
         return content;
     }
@@ -59,58 +87,53 @@ public class Review {
         this.content = content;
     }
 
-    public int getRating() {
-        return rating;
+    public String getTimeReview() {
+        return timeReview;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setTimeReview(String timeReview) {
+        this.timeReview = timeReview;
     }
+
+
+
+
+
+    public static List<Review> list = new ArrayList<Review>();
+    public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
 
     public Review() {
 
     }
 
-    public Review(String destination_id, String name, String email, String content, int rating) {
-        this.destination_id = destination_id;
-        this.name = name;
-        this.email = email;
-        this.content = content;
-        this.rating = rating;
-    }
 
-    public Review(String id, String destination_id, String name, String email, String content, int rating) {
-        this.id = id;
-        this.destination_id = destination_id;
-        this.name = name;
-        this.email = email;
-        this.content = content;
-        this.rating = rating;
-    }
 
-    @Override
-    public String toString() {
-        return "reviewModel{" +
-                "id=" + id +
-                ", destination_id=" + destination_id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", content='" + content + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "reviewModel{" +
+//                "id=" + id +
+//                ", destination_id=" + destination_id +
+//                ", name='" + name + '\'' +
+//                ", email='" + email + '\'' +
+//                ", content='" + content + '\'' +
+//                ", rating=" + rating +
+//                '}';
+//    }
 
     // Get all Review
-    public static void getReview() {
+    public static void getReview(String destination_id) {
         DatabaseReference myRef = database.getReference("list_review");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
                     Review review = snapshot.getValue(Review.class);
-                    list.add(review);
+                    if(review.getDestination_id().equals(destination_id)){
+                        list.add(review);
+                    }
                 }
-                Log.d("MinhDuc", list.toString());
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -119,36 +142,58 @@ public class Review {
             }
         });
     }
-
+//    public static Review getReview(String destination_id) {
+//        DatabaseReference myRef = database.getReference("list_review");
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
+//                    Review review = snapshot.getValue(Review.class);
+//                    list.add(review);
+//                }
+//                Log.d("MinhDuc", list.toString());
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.d("OB", "Failed to read value.", error.toException());
+//            }
+//        });
+//    }
 
     // Add review in list
-    public static void addReview(String destination_id, String name, String email, String content, int rating) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static void addReview(String destination_id, String userName,String email, String content, String timeReview, float rating) {
+       DatabaseReference myRef;
         // From table name city
-        DatabaseReference myRef = database.getReference("list_review");
+        myRef = FirebaseDatabase.getInstance().getReference("list_review");
 
         String id = myRef.push().getKey();
-        Review reviewModel = new Review(id, destination_id, name, email, content, rating);
-        myRef.child(id).setValue(reviewModel);
+        Review reviewModel = new Review(id,destination_id,userName,email, content,timeReview, rating);
+        if(id != null){
+            myRef.child(id).setValue(reviewModel);
+        }else {
+            Log.d("addReview","addReview"+id);
+        }
+
     }
 
     // Update review (Truyền id vào và chuyền các giá trị muốn sửa)
-    public static void updateReview(String idUpdate, String destination_id, String name, String email, String content, int rating) {
+    public static void updateReview(String id,String destination_id, String userName,String email, String content, String timeReview, float rating) {
         DatabaseReference myRef = database.getReference("list_review");
 
-        Review review = new Review(destination_id, name, email, content, rating);
-        myRef.child(idUpdate).updateChildren(review.toMap());
+        Review review = new Review(id,destination_id,userName,email, content,timeReview, rating);
+        myRef.child(id).setValue(review);
     }
 
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("destination_id", destination_id);
-        result.put("name", name);
-        result.put("email", email);
-        result.put("content", content);
-        result.put("rating", rating);
-        return result;
-    }
+//    public Map<String, Object> toMap(){
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("destination_id", destination_id);
+//        result.put("userId", userId);
+//        result.put("timeReview", timeReview);
+//        result.put("content", content);
+//        result.put("rating", rating);
+//        return result;
+//    }
 
     // Delete review
     public static void deleteReview(String idDelete) {

@@ -4,58 +4,107 @@ import java.util.Date;
 
 public class EventSchedule {
 
-
-    public EventSchedule(int id, String tenDiaDiem, String gioSuKien, String ngaySuKien, String ghiChu) {
-        this.id = id;
-        this.tenDiaDiem = tenDiaDiem;
-        this.gioSuKien = gioSuKien;
-        this.ngaySuKien = ngaySuKien;
-        this.ghiChu = ghiChu;
+    public EventSchedule() {
     }
 
-    public int getId() {
-        return id;
+
+    public EventSchedule(String scheduleId, String destinationId, String userEmail, String nameDestination, String timeEvent, int dateEvent, int monthEvent, int yearEvent, String noteEvent) {
+        this.scheduleId = scheduleId;
+        this.destinationId = destinationId;
+        this.userEmail = userEmail;
+        this.nameDestination = nameDestination;
+        this.timeEvent = timeEvent;
+        this.dateEvent = dateEvent;
+        this.monthEvent = monthEvent;
+        this.yearEvent = yearEvent;
+        this.noteEvent = noteEvent;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getScheduleId() {
+        return scheduleId;
     }
 
-    public String getTenDiaDiem() {
-        return tenDiaDiem;
+    public void setScheduleId(String scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public void setTenDiaDiem(String tenDiaDiem) {
-        this.tenDiaDiem = tenDiaDiem;
+    public String getDestinationId() {
+        return destinationId;
     }
 
-    public String getGioSuKien() {
-        return gioSuKien;
+    public void setDestinationId(String destinationId) {
+        this.destinationId = destinationId;
     }
 
-    public void setGioSuKien(String gioSuKien) {
-        this.gioSuKien = gioSuKien;
+
+
+    public String getNameDestination() {
+        return nameDestination;
     }
 
-    public String getNgaySuKien() {
-        return ngaySuKien;
+    public void setNameDestination(String nameDestination) {
+        this.nameDestination = nameDestination;
     }
 
-    public void setNgaySuKien(String ngaySuKien) {
-        this.ngaySuKien = ngaySuKien;
+    public String getTimeEvent() {
+        return timeEvent;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
+    public void setTimeEvent(String timeEvent) {
+        this.timeEvent = timeEvent;
     }
 
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public int getDateEvent() {
+        return dateEvent;
     }
 
-    private int id;
-    private String tenDiaDiem;
-    private String gioSuKien;
-    private String ngaySuKien;
-    private String ghiChu;
+    public void setDateEvent(int dateEvent) {
+        this.dateEvent = dateEvent;
+    }
+
+    public int getMonthEvent() {
+        return monthEvent;
+    }
+
+    public void setMonthEvent(int monthEvent) {
+        this.monthEvent = monthEvent;
+    }
+
+    public int getYearEvent() {
+        return yearEvent;
+    }
+
+    public void setYearEvent(int yearEvent) {
+        this.yearEvent = yearEvent;
+    }
+
+    public String getNoteEvent() {
+        return noteEvent;
+    }
+
+    public void setNoteEvent(String noteEvent) {
+        this.noteEvent = noteEvent;
+    }
+
+    private String scheduleId;
+    private String destinationId;
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    private String nameDestination;
+    private String timeEvent;
+    private int dateEvent;
+    private int monthEvent;
+    private int yearEvent;
+    private String noteEvent;
+
+
+
 }

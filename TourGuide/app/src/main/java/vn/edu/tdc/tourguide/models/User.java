@@ -13,7 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.SideMenuActivity;
-import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class User {
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();

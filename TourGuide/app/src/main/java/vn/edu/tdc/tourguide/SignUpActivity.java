@@ -78,33 +78,33 @@ public class SignUpActivity extends AppCompatActivity {
         String re_password = edtRe_Password.getText().toString().trim();
 
         if (name.isEmpty()) {
-            edtName.setError("Name is required!");
+            edtName.setError("Tên không được để trống!");
             edtName.requestFocus();
             return;
         }
         if (email.isEmpty()) {
-            edtEmail.setError("Email is required!");
+            edtEmail.setError("Email không được để trống!");
             edtEmail.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Email provide valid email! ");
+            edtEmail.setError("Email sai định dạng! ");
             edtEmail.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            edtPassword.setError("Password is required!");
+            edtPassword.setError("Mật khẩu không được để trống!");
             edtPassword.requestFocus();
             return;
         }
         if (password.length() < 6) {
-            edtPassword.setError("Password must have at least 6 characters!");
+            edtPassword.setError("Mật khẩu ít nhất 6 ký tự!");
             edtPassword.requestFocus();
             return;
         }
 
         if (password.equals(re_password) == false){
-            edtRe_Password.setError("Password and re-enter password are different");
+            edtRe_Password.setError("Mật khẩu nhập lại khác nhau");
             edtRe_Password.setText("");
             edtRe_Password.requestFocus();
             return;
@@ -122,18 +122,18 @@ public class SignUpActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Toast.makeText(SignUpActivity.this, "User has been registed successfully!", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(SignUpActivity.this, "Đăng ký tài khoản thành công!", Toast.LENGTH_LONG).show();
                                                     FirebaseAuth.getInstance().signOut();
                                                     goToTabSignIn();
                                                 } else {
-                                                    Toast.makeText(SignUpActivity.this, "Failed to register! Try again! ", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(SignUpActivity.this, "Đăng ký không thành công! Hãy thử lại ", Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         });
                             } else {
                                 // If sign in fails, display a message to the user.
                                 // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignUpActivity.this, "Register failed.",
+                                Toast.makeText(SignUpActivity.this, "Đăng ký không thành công.",
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
