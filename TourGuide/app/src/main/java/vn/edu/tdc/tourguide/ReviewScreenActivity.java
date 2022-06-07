@@ -32,12 +32,9 @@ import java.util.List;
 import java.util.Locale;
 
 import vn.edu.tdc.tourguide.adapter.CommentsAdapter;
-import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.models.Comments;
-import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.models.Review;
 import vn.edu.tdc.tourguide.models.User;
-import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
 public class ReviewScreenActivity extends AppCompatActivity {
     private RecyclerView rcvComment;
