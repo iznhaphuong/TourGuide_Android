@@ -47,7 +47,6 @@ public class DetailScreenActivity extends AppCompatActivity {
     public static String EXTRA_TITLE= "EXTRA_TITLE";
 
     public static String EXTRA_ID_DES= "EXTRA_ID_DES";
-    public static String EXTRA_PERMISSION= "EXTRA_PERMISSION";
 
     public static String EXTRA_TITLE_DETAIL= "EXTRA_TITLE_DETAIL";
 
@@ -65,21 +64,11 @@ public class DetailScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_screen);
 
-
-        intent = getIntent();
-        id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
-        String idFromReview = intent.getStringExtra(ReviewScreenActivity.EXTRA_ID_DES_REVIEW);
-        title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
-
-        String TAG = "TAG";
-        Log.d(TAG, "onCreate: 3-" + id);
-
         if (id == null) {
             intent = getIntent();
             id = intent.getStringExtra(AttractionActivity.EXTRA_ID);
             title = intent.getStringExtra(AttractionActivity.EXTRA_TITLE);
         }
-        Log.d(TAG, "onCreate: 4-" + id);
         setTitle(title);
 
         imgLogo = findViewById(R.id.imgLogo);
@@ -91,15 +80,9 @@ public class DetailScreenActivity extends AppCompatActivity {
         txtLocationDescription = findViewById(R.id.locationDescription);
 
 
-        Destination destination;
-        if(id != null){
-            destination = Destination.getDestination(id);
-        }else {
-            destination = Destination.getDestination(idFromReview);
-        }
-
-
+        Destination destination = Destination.getDestination(id);
         city_id = destination.getCity_id();
+
 
         xLat = destination.getxLat() +"";
         yLong = destination.getyLong()+"";
@@ -109,7 +92,7 @@ public class DetailScreenActivity extends AppCompatActivity {
             txtLocationName.setText(destination.getName());
             ratingValue.setRating(destination.getRating());
             txtLocationLink.setText(destination.getAddress());
-//            txtLocationDescription.setText(destination.get;
+            txtLocationDescription.setText(destination.getDescription());
 
         }
         btnReview.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +100,8 @@ public class DetailScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DetailScreenActivity.this, ReviewScreenActivity.class);
 
-                if(id != null){
-                    intent.putExtra(EXTRA_ID_DES, id);
-                    Log.d("id","id+ "+id);
-                }else{
-                    intent.putExtra(EXTRA_ID_DES, idFromReview);
-                    Log.d("FromReview","id+ "+id);
-                }
+                intent.putExtra(EXTRA_ID_DES, id);
+
                 startActivity(intent);
             }
         });
@@ -131,12 +109,8 @@ public class DetailScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetailScreenActivity.this, AddScheduleActivity.class);
-                if(id != null){
-                    intent.putExtra(EXTRA_ID_DES, id);
-                }else{
-                    intent.putExtra(EXTRA_ID_DES, idFromReview);
+                intent.putExtra(EXTRA_ID_DES, id);
 
-                }
                 startActivity(intent);
             }
         });

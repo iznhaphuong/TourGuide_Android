@@ -70,8 +70,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String title = intent.getStringExtra(DetailScreenActivity.EXTRA_ADDRESS);
         DetailScreenActivity.id = intent.getStringExtra(DetailScreenActivity.EXTRA_ID);
         DetailScreenActivity.title = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE_DETAIL);
-        setTitle(title);
         String locationLabel = intent.getStringExtra(DetailScreenActivity.EXTRA_TITLE);
+        setTitle(title);
 
         Log.d("TAGMAPS", "onMapReady: " + x + y);
 
