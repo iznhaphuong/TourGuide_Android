@@ -79,7 +79,6 @@ public class AttractionActivity extends AppCompatActivity {
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvAttraction.addItemDecoration(itemDecoration);
-
         rcvAttraction.setAdapter(adapter);
     }
 

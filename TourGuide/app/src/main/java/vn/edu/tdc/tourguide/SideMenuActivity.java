@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +51,7 @@ public class SideMenuActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     public static boolean checkLogin = true;
-    private Menu menu;
+    private NavigationView nvDrawer;
     private boolean checkFragment = true;
     private final Fragment fragment = null;
     Class fragmentClass = null;
@@ -58,20 +60,19 @@ public class SideMenuActivity extends AppCompatActivity {
     public static User user;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-    public static boolean checkSearch = false;
 
     private boolean isPermission = false;
     private int REQ_CODE = 123;
     private TextView txtMyLocation;
     public static View headerLayout;
+    private SearchView searchView;
+    private boolean checkSearch = true;
+    public static boolean checkHome = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.side_menu_layout);
-//        Destination.addDestination("-N3gxW_wr9pRqU1i763q", "Dinh Thống Nhất", "Di tích lịch sử","dinhthongnhat.jpg", 10.7770779, 106.6866713, "135 Đ. Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh, Vietnam", "Dinh Độc Lập hay Hội trường Thống nhất là một công trình kiến trúc, tòa nhà ở Thành phố Hồ Chí Minh. Đây từng là nơi ở và làm việc của Tổng thống Việt Nam Cộng hòa. Hiện nay, dinh đã được Chính phủ Việt Nam xếp hạng là di tích quốc gia đặc biệt.", 5);
-//        Destination.addDestination("-N3qhkJUxMm7HSnHF2d5 ", "Chợ nổi Cái Răng", "Chợ","chonoicairang.jpg", 10.0050363, 105.7459816, "46 Đường Hai Bà Trưng, Tân An, Ninh Kiều, Cần Thơ", "Chợ nổi Cái Răng là chợ nổi đầu mối chuyên mua bán rau củ ở trên sông Cửu Long và là điểm tham quan đặc sắc của quận Cái Răng, thành phố Cần Thơ.", 4);
-//        Destination.addDestination("-N3qhkJUxMm7HSnHF2d5 ", "Khu phố cổ Hà Nội", "Điểm du lịch","phocohanoi.jpg", 21.034059, 105.8506368, "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội", "Khu phố cổ Hà Nội là tên gọi thông thường của một khu vực đô thị có từ lâu đời của Hà Nội nằm ở ngoài hoàng thành Thăng Long", 4);
 
         City.list = new ArrayList<>();
         Destination.list = new ArrayList<>();
@@ -96,10 +97,9 @@ public class SideMenuActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(drawerToggle);
         // ...From section above...
         // Find our drawer view
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
+        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
-        menu = nvDrawer.getMenu();
 
         // Inflate the header view at runtime
         headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
@@ -120,6 +120,36 @@ public class SideMenuActivity extends AppCompatActivity {
         } else {
             performAction();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (checkSearch){
+            String TAG = "TAG";
+            Log.d(TAG, "onCreateOptionsMenu: " + menu.toString());
+            getMenuInflater().inflate(R.menu.side_menu, menu);
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    HomeFragment.homeAdapter.getFilter().filter(query);
+                    Log.d(TAG, "onQueryTextSubmit: " + query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    HomeFragment.homeAdapter.getFilter().filter(newText);
+                    Log.d(TAG, "onQueryTextChange: " + newText);
+                    return false;
+                }
+            });
+            return true;
+        }
+        return false;
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -145,15 +175,20 @@ public class SideMenuActivity extends AppCompatActivity {
         String TAG = "TAG";
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
+                checkHome = true;
+                checkSearch = true;
                 fragmentClass = HomeFragment.class;
                 break;
             case R.id.nav_profile:
+                checkSearch = false;
                 fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_schedule:
+                checkSearch = false;
                 fragmentClass = ScheduleFragment.class;
                 break;
             default:
+                checkSearch = false;
                 checkFragment = true;
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(this, SignInActivity.class);
@@ -209,13 +244,13 @@ public class SideMenuActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (checkFragment) {
-            user = User.getUser();
-            MenuItem item = menu.findItem(R.id.nav_home);
+            User.getUser();
+            String TAG = "TAG";
+            MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
-            HomeFragment.homeAdapter.notifyDataSetChanged();
             checkFragment = false;
-            SideMenuActivity.checkSearch = true;
-
+            checkSearch = true;
+            checkHome = true;
         }
         if (SignInActivity.edtEmail != null) {
             SignInActivity.edtEmail.setText("");

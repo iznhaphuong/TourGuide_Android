@@ -3,35 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:padding="@dimen/activity_vertical_margin"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ui.profile.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avartaImage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/avarta" />
 
-        <TextView
+        <EditText
             android:id="@+id/txtNameProfile"
-            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="3"
             android:background="@drawable/border_rec"
             android:padding="5dp"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:importantForAutofill="no" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,15 +59,17 @@
                 android:layout_weight="1"
                 android:text="Email:" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtEmailProfile"
+                android:enabled="false"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="@drawable/border_rec"
                 android:padding="5dp"
                 android:text="example@gmail.com"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:importantForAutofill="no" />
         </LinearLayout>
     </LinearLayout>
 

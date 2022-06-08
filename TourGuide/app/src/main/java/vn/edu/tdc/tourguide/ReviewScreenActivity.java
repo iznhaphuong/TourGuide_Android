@@ -18,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,15 +34,12 @@ import java.util.List;
 import java.util.Locale;
 
 import vn.edu.tdc.tourguide.adapter.CommentsAdapter;
-import vn.edu.tdc.tourguide.adapter.ScheduleAdapter;
 import vn.edu.tdc.tourguide.models.Comments;
-import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.models.Review;
 import vn.edu.tdc.tourguide.models.User;
-import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
 public class ReviewScreenActivity extends AppCompatActivity {
-    private RecyclerView rcvComment;
+    public static RecyclerView rcvComment;
     private List<Comments> myCommentList;
     private CommentsAdapter commentsAdapter;
     private TextView userNamne;
@@ -70,7 +68,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
         desID = intent.getStringExtra(DetailScreenActivity.EXTRA_ID_DES);
         Log.d("desDetail","desDetail+ "+desID);
         userNamne.setText(SideMenuActivity.user.getNameOfUser());
-
+        Glide.with(this).load(SideMenuActivity.user.getLogoPersional()).error(R.drawable.avarta2).into(imgUser);
 
         rcvComment = findViewById(R.id.rcv_cmt);
         myCommentList = new ArrayList<>();
@@ -114,7 +112,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot: datasnapshot.getChildren() ) {
                             Review review = snapshot.getValue(Review.class);
                             String nameOfUser = "";
-
+                            String imgUrl = "";
                             Log.d("desID"," des+ " + review.getDestination_id());
 
                             if(review.getDestination_id().equals(desID)){
@@ -125,12 +123,13 @@ public class ReviewScreenActivity extends AppCompatActivity {
                                     if (user.getEmail().equals(review.getEmail())) {
                                         Log.d("User","user+ " + user.getNameOfUser());
                                         nameOfUser = user.getNameOfUser();
+                                        imgUrl = user.getLogoPersional();
 
                                     }
                                 }
+
                                 Comments newComment = new Comments(nameOfUser,review.getRating(),review.getTimeReview(),review.getContent());
                                 myCommentList.add(0,newComment);
-                                sort ++;
                             }
                         }
                         amountReview.setText(String.valueOf(myCommentList.size()+ " Đánh giá "));
@@ -153,6 +152,20 @@ public class ReviewScreenActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.d("OB", "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendReview();
+//                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
+//                DetailScreenActivity.id = desID;
+//
+//                startActivity(intent);
             }
         });
     }

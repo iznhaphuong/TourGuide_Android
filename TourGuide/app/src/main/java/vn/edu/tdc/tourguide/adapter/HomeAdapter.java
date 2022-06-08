@@ -94,13 +94,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mHomeList;
-
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 mHomeList = (List<City>) results.values;
+                Log.d(TAG, "publishResults: " + mHomeList.size());
                 notifyDataSetChanged();
             }
         };
