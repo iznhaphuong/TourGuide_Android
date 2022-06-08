@@ -64,6 +64,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         Log.d("TAGMAPS", "onMapReady: ");
         mMap = googleMap;
+        //Create controls
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
         Intent intent = getIntent();
         String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
         String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);
