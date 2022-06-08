@@ -158,8 +158,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         if (SideMenuActivity.checkSchedule) {
             // create intent to show Schedule Activity
 
-            Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
-            // start Main Activity
+            Intent intent = new Intent(this, SideMenuActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
 
             Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);

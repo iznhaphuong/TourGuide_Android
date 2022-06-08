@@ -80,7 +80,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
                 sendReview();
                 Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
                 intent.putExtra(EXTRA_ID_DES_REVIEW, desID);
-
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });

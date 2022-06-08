@@ -101,6 +101,7 @@ public class DetailScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailScreenActivity.this, ReviewScreenActivity.class);
 
                 intent.putExtra(EXTRA_ID_DES, id);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 startActivity(intent);
             }
@@ -110,6 +111,7 @@ public class DetailScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DetailScreenActivity.this, AddScheduleActivity.class);
                 intent.putExtra(EXTRA_ID_DES, id);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 startActivity(intent);
             }
@@ -125,7 +127,7 @@ public class DetailScreenActivity extends AppCompatActivity {
                 intentSend.putExtra(EXTRA_ADDRESS, txtLocationLink.getText());
                 intentSend.putExtra(EXTRA_ID, id);
                 intentSend.putExtra(EXTRA_TITLE_DETAIL, title);
-
+                intentSend.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     //Yeu cau cap quyen
                     requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_CODE);
