@@ -175,6 +175,7 @@ public class SideMenuActivity extends AppCompatActivity {
         String TAG = "TAG";
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
+                checkHome = true;
                 checkSearch = true;
                 fragmentClass = HomeFragment.class;
                 break;
