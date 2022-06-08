@@ -18,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +38,7 @@ import vn.edu.tdc.tourguide.models.Review;
 import vn.edu.tdc.tourguide.models.User;
 
 public class ReviewScreenActivity extends AppCompatActivity {
-    private RecyclerView rcvComment;
+    public static RecyclerView rcvComment;
     private List<Comments> myCommentList;
     private CommentsAdapter commentsAdapter;
     private TextView userNamne;
@@ -65,7 +66,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
         desID = intent.getStringExtra(DetailScreenActivity.EXTRA_ID_DES);
         Log.d("desDetail","desDetail+ "+desID);
         userNamne.setText(SideMenuActivity.user.getNameOfUser());
-
+        Glide.with(this).load(SideMenuActivity.user.getLogoPersional()).error(R.drawable.avarta2).into(imgUser);
 
         rcvComment = findViewById(R.id.rcv_cmt);
         myCommentList = new ArrayList<>();
@@ -92,6 +93,7 @@ public class ReviewScreenActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot: datasnapshot.getChildren() ) {
                             Review review = snapshot.getValue(Review.class);
                             String nameOfUser = "";
+                            String imgUrl = "";
                             Log.d("desID"," des+ " + review.getDestination_id());
 
                             if(review.getDestination_id().equals(desID)){
@@ -102,10 +104,11 @@ public class ReviewScreenActivity extends AppCompatActivity {
                                     if (user.getEmail().equals(review.getEmail())) {
                                         Log.d("User","user+ " + user.getNameOfUser());
                                         nameOfUser = user.getNameOfUser();
+                                        imgUrl = user.getLogoPersional();
 
                                     }
                                 }
-                                Comments newComment = new Comments(nameOfUser,review.getRating(),review.getTimeReview(),review.getContent());
+                                Comments newComment = new Comments(nameOfUser, imgUrl, review.getRating(),review.getTimeReview(),review.getContent());
                                 myCommentList.add(newComment);
 
                             }

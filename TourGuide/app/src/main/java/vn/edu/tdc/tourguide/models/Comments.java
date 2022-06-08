@@ -13,7 +13,7 @@ public class Comments {
     }
 
     private float user_rating;
-    private int user_image;
+    private String user_image;
     private String date;
     private String reviews;
 
@@ -25,7 +25,7 @@ public class Comments {
     }
 
     // Constructor
-    public Comments(String user_name, int user_image, String date, String reviews, float user_rating) {
+    public Comments(String user_name, String user_image, float user_rating, String date, String reviews) {
         this.user_name = user_name;
         this.user_image = user_image;
         this.date = date;
@@ -55,11 +55,11 @@ public class Comments {
     }
 
 
-    public int getUser_image() {
+    public String getUser_image() {
         return user_image;
     }
 
-    public void setUser_image(int user_image) {
+    public void setUser_image(String user_image) {
         this.user_image = user_image;
     }
 
