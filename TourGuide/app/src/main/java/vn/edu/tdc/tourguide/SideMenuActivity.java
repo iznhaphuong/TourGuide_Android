@@ -193,6 +193,7 @@ public class SideMenuActivity extends AppCompatActivity {
                 checkFragment = true;
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
         }
@@ -244,13 +245,14 @@ public class SideMenuActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        String TAG = "TAG";
         if (checkSchedule) {
             MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_schedule);
             pressesFragment(ScheduleFragment.class, fragment, item);
             checkSchedule = false;
+            Log.d(TAG, "onStart: " + checkSchedule);
         } else if (checkFragment) {
             User.getUser();
-            String TAG = "TAG";
             MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
             checkFragment = false;

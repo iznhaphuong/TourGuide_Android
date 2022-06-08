@@ -185,6 +185,7 @@ public class ScheduleFragment extends Fragment {
                 Intent intent = new Intent(binding.getRoot().getContext(), UpdateScheduleActivity.class);
 //                intent.putExtra(EXTRA_TITLE, eventSchedule.getNameDestination() );
                 intent.putExtra(EXTRA_ID, eventSchedule.getScheduleId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
 
