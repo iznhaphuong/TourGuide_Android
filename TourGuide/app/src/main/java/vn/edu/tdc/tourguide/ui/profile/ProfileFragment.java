@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
+        Log.d(TAG, "onCreateView: 4414");
         return rootView;
     }
 
@@ -107,7 +107,7 @@ public class ProfileFragment extends Fragment {
         return mime.getExtensionFromMimeType(cr.getType(mUri));
     }
 
-    private void uploadToFirebase(Uri uri, String nameOfUser){
+    private void uploadToFirebase(Uri uri, String nameOfUser) {
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri, nameOfUser));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

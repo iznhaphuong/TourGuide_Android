@@ -59,15 +59,17 @@
                 android:layout_weight="1"
                 android:text="Email:" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtEmailProfile"
+                android:enabled="false"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="@drawable/border_rec"
                 android:padding="5dp"
                 android:text="example@gmail.com"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:importantForAutofill="no" />
         </LinearLayout>
     </LinearLayout>
 

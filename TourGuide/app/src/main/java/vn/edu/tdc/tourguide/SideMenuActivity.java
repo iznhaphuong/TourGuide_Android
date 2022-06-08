@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,7 +51,7 @@ public class SideMenuActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     public static boolean checkLogin = true;
-    private Menu menu;
+    private NavigationView nvDrawer;
     private boolean checkFragment = true;
     private final Fragment fragment = null;
     Class fragmentClass = null;
@@ -59,7 +60,6 @@ public class SideMenuActivity extends AppCompatActivity {
     public static User user;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-//    public static boolean checkSearch = false;
 
     private boolean isPermission = false;
     private int REQ_CODE = 123;
@@ -67,6 +67,7 @@ public class SideMenuActivity extends AppCompatActivity {
     public static View headerLayout;
     private SearchView searchView;
     private boolean checkSearch = true;
+    public static boolean checkHome = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,10 +97,9 @@ public class SideMenuActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(drawerToggle);
         // ...From section above...
         // Find our drawer view
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
+        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
-        menu = nvDrawer.getMenu();
 
         // Inflate the header view at runtime
         headerLayout = nvDrawer.inflateHeaderView(R.layout.nav_header_side_menu);
@@ -125,19 +125,25 @@ public class SideMenuActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (checkSearch){
+            String TAG = "TAG";
+            Log.d(TAG, "onCreateOptionsMenu: " + menu.toString());
             getMenuInflater().inflate(R.menu.side_menu, menu);
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setMaxWidth(Integer.MAX_VALUE);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     HomeFragment.homeAdapter.getFilter().filter(query);
+                    Log.d(TAG, "onQueryTextSubmit: " + query);
                     return false;
                 }
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     HomeFragment.homeAdapter.getFilter().filter(newText);
+                    Log.d(TAG, "onQueryTextChange: " + newText);
                     return false;
                 }
             });
@@ -239,12 +245,11 @@ public class SideMenuActivity extends AppCompatActivity {
         if (checkFragment) {
             User.getUser();
             String TAG = "TAG";
-            MenuItem item = menu.findItem(R.id.nav_home);
+            MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
-            HomeFragment.homeAdapter.notifyDataSetChanged();
             checkFragment = false;
             checkSearch = true;
-
+            checkHome = true;
         }
         if (SignInActivity.edtEmail != null) {
             SignInActivity.edtEmail.setText("");

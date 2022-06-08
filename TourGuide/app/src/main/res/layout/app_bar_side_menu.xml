@@ -17,8 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#0c7aff"
             android:fitsSystemWindows="true"
-            app:popupTheme="@style/Theme.TourGuide.PopupOverlay"
-            />
+            app:popupTheme="@style/Theme.TourGuide.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
