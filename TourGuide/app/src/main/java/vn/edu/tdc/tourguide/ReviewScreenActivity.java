@@ -143,10 +143,10 @@ public class ReviewScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendReview();
-                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
-                DetailScreenActivity.id = desID;
-
-                startActivity(intent);
+//                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
+//                DetailScreenActivity.id = desID;
+//
+//                startActivity(intent);
             }
         });
     }
