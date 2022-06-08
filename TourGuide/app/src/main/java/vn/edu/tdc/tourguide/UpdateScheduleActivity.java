@@ -91,7 +91,6 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 updateSchedule();
-                clear();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -129,15 +128,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
             // pushing user to 'users' node using the userId
             mDatabase.child(scheduleId).setValue(updateEvent);
-            // create intent to show Schedule Activity
-
-            Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
-
-            Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
+            SideMenuActivity.checkSchedule = true;
         } else {
             Toast toast = Toast.makeText(this, "Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
@@ -159,5 +150,22 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (SideMenuActivity.checkSchedule) {
+            // create intent to show Schedule Activity
+
+            Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
+            // start Main Activity
+            startActivity(intent);
+
+            Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+            toast.show();
+            clear();
+        }
     }
 }
