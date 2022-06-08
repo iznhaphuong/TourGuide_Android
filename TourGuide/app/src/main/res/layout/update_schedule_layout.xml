@@ -28,7 +28,6 @@
             android:layout_height="298dp"
             android:calendarTextColor="@color/blue"
             android:datePickerMode="spinner"
-            style="@style/Theme.App"
             android:headerBackground="@color/blue"
             android:spinnersShown="false" />
     </LinearLayout>
@@ -53,7 +52,7 @@
             android:id="@+id/update_edtNote"
             android:layout_width="259dp"
             android:layout_height="match_parent"
-            android:background="@drawable/editor"
+
             android:hint="Ghi chú"
             android:textSize="15sp" />
     </LinearLayout>
