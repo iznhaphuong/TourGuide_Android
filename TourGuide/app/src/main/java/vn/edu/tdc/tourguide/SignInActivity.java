@@ -73,22 +73,22 @@ public class SignInActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
-            edtEmail.setError("Email is required!");
+            edtEmail.setError("Email không được để trống!");
             edtEmail.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Please enter a valid email!");
+            edtEmail.setError("Vui lòng nhập email đúng định dạng!");
             edtEmail.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            edtPassword.setError("Password is required!");
+            edtPassword.setError("Mật khẩu không được để trống!");
             edtPassword.requestFocus();
             return;
         }
         if (password.length() < 6) {
-            edtPassword.setError("Password must have at least 6 characters");
+            edtPassword.setError("Mật khẩu có ít nhất 6 ký tự");
             edtPassword.requestFocus();
             return;
         }
@@ -99,14 +99,14 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignInActivity.this, "Login with Email successfully",
+                            Toast.makeText(SignInActivity.this, "Đăng nhập với email thành công!",
                                     Toast.LENGTH_SHORT).show();
                             //Go to tab home
                             goToTabHome();
                         } else {
                             // If sign in fails, display a message to the user.
                             // Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Login failed.",
+                            Toast.makeText(SignInActivity.this, "Đăng nhập thất bại.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

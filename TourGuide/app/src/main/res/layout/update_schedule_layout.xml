@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     style="@style/MyActionBar"
-    tools:context=".AddScheduleActivity"
+    tools:context=".UpdateScheduleActivity"
     android:layout_height="match_parent">
         <TextView
-            android:id="@+id/placeName"
+            android:id="@+id/update_place_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -23,11 +23,12 @@
         android:layout_weight="3.5">
 
         <DatePicker
-            android:id="@+id/date_picker"
+            android:id="@+id/update_date_picker"
             android:layout_width="wrap_content"
             android:layout_height="298dp"
             android:calendarTextColor="@color/blue"
             android:datePickerMode="spinner"
+            style="@style/Theme.App"
             android:headerBackground="@color/blue"
             android:spinnersShown="false" />
     </LinearLayout>
@@ -37,7 +38,7 @@
         android:gravity="center"
         android:layout_weight="1">
         <TimePicker
-            android:id="@+id/time_picker"
+            android:id="@+id/update_time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"/>
@@ -49,7 +50,7 @@
         android:layout_weight="1">
 
         <EditText
-            android:id="@+id/edtNote"
+            android:id="@+id/update_edtNote"
             android:layout_width="259dp"
             android:layout_height="match_parent"
             android:background="@drawable/editor"
@@ -63,18 +64,19 @@
         android:gravity="center"
         android:layout_weight="1">
         <Button
-            android:id="@+id/btnCancelEvent"
+            android:id="@+id/update_btnCancelEvent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
+
             android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold"
             android:layout_marginHorizontal="30dp"
             android:text="Hủy"/>
         <Button
-            android:id="@+id/btnDoneEvent"
+            android:id="@+id/update_btnDoneEvent"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -33,12 +34,9 @@ public class HomeFragment extends Fragment {
     public static final String EXTRA_TITLE = "TITLE";
     public static final String EXTRA_ID = "ID";
     public static HomeAdapter homeAdapter;
-    public static SearchView searchView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        String TAG = "TAG";
-        Log.d(TAG, "onCreateView: 44");
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -68,33 +66,6 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        String TAG = "TAG";
-        Log.d(TAG, "onCreateOptionsMenu: 1111");
-        if (SideMenuActivity.checkSearch) {
-            return;
-        } else {
-            SideMenuActivity.checkSearch = true;
-        }
-        inflater.inflate(R.menu.side_menu, menu);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                HomeFragment.homeAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                HomeFragment.homeAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        super.onCreateOptionsMenu(menu,inflater);
-    }
 
     @Override
     public void onDestroyView() {

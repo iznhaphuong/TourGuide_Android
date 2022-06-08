@@ -35,4 +35,5 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="recommendation">Bạn nên cấp quyền để có trải nghiệm tốt hơn</string>
     <string name="permission">Cấp quyền thành công</string>
+    <string name="lblDateSchedule">Ngày</string>
 </resources>

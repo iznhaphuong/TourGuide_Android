@@ -10,9 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import vn.edu.tdc.tourguide.R;
+import vn.edu.tdc.tourguide.ReviewScreenActivity;
+import vn.edu.tdc.tourguide.SideMenuActivity;
 import vn.edu.tdc.tourguide.models.Comments;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsHolder>{
@@ -35,7 +39,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             return;
         }
         holder.user_name.setText(comments.getUser_name());
-        holder.user_image.setImageResource(comments.getUser_image());
+        Glide.with(ReviewScreenActivity.rcvComment).load(comments.getUser_image()).error(R.drawable.avarta2).into(holder.user_image);
         holder.date.setText(comments.getDate());
         holder.reviews.setText(comments.getReviews());
         holder.user_rating.setRating(comments.getUser_rating());
@@ -60,8 +64,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             super(itemView);
             user_name = itemView.findViewById(R.id.userName);
             user_image = itemView.findViewById(R.id.userImage);
-            date = itemView.findViewById(R.id.date);
-            reviews = itemView.findViewById(R.id.reviews);
+            date = itemView.findViewById(R.id.review_date);
+            reviews = itemView.findViewById(R.id.review_cmt);
             user_rating = itemView.findViewById(R.id.ratingStar);
         }
     }

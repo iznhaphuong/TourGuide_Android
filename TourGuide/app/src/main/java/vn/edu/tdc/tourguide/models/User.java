@@ -2,6 +2,7 @@ package vn.edu.tdc.tourguide.models;
 
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -10,22 +11,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import vn.edu.tdc.tourguide.R;
 import vn.edu.tdc.tourguide.SideMenuActivity;
-import vn.edu.tdc.tourguide.ui.home.HomeFragment;
 
 public class User {
-    private String idUser, nameOfUser, email, logoPerson;
     public static final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    public String getIdUser() {
-        return idUser;
+    String email, logoPersional, nameOfUser;
+
+    public User() {
     }
 
-    public String getNameOfUser() {
-        return nameOfUser;
-    }
-
-    public void setNameOfUser(String nameOfUser) {
+    public User(String email, String logoPersional, String nameOfUser) {
+        this.email = email;
+        this.logoPersional = logoPersional;
         this.nameOfUser = nameOfUser;
     }
 
@@ -37,43 +39,34 @@ public class User {
         this.email = email;
     }
 
-
-    public String getLogoPerson() {
-        return logoPerson;
+    public String getLogoPersional() {
+        return logoPersional;
     }
 
-    public void setLogoPerson(String logoPerson) {
-        this.logoPerson = logoPerson;
+    public void setLogoPersional(String logoPersional) {
+        this.logoPersional = logoPersional;
     }
 
+    public String getNameOfUser() {
+        return nameOfUser;
+    }
 
-    public User() {}
-
-    public User(String nameOfUser, String email) {
+    public void setNameOfUser(String nameOfUser) {
         this.nameOfUser = nameOfUser;
-        this.email = email;
     }
 
-    public User(String id, String nameOfUser, String email, String logoPerson) {
-        this.idUser = id;
-        this.nameOfUser = nameOfUser;
-        this.email = email;
-        this.logoPerson = logoPerson;
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+        result.put("logoPersional", logoPersional);
+        result.put("nameOfUser", nameOfUser);
+        return result;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser='" + idUser + '\'' +
-                ", nameOfUser='" + nameOfUser + '\'' +
-                ", email='" + email + '\'' +
-                ", logoPerson='" + logoPerson + '\'' +
-                '}';
-    }
 
     // Get all City
-    public static User getUser() {
-        User result = new User();
+    public static void getUser() {
+        String TAG = "TAG";
         DatabaseReference myRef = database.getReference("users");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,25 +76,40 @@ public class User {
 
                     assert userCurrent != null;
                     if (userCurrent.getUid().equals(snapshot.getKey())) {
+//                        Log.d(TAG, "onDataChange: " + snapshot.getValue(User.class).email);
                         User user = snapshot.getValue(User.class);
                         assert user != null;
-                        result.email = user.email;
-                        result.nameOfUser = user.nameOfUser;
-
+//
+                        Glide.with(SideMenuActivity.headerLayout).load(user.getLogoPersional()).error(R.drawable.avarta2).into(SideMenuActivity.imgAvatar);
+                        SideMenuActivity.user = user;
+//
                         SideMenuActivity.txtEmail.setText(user.getEmail());
                         SideMenuActivity.txtName.setText(user.getNameOfUser());
-                        break;
                     }
 
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.d("OB", "Failed to read value.", error.toException());
             }
         });
-        return result;
+    }
+
+    public static void updateUser(String idUpdate, String email, String logoPersional, String nameOfUser) {
+        DatabaseReference myRef = database.getReference("users");
+
+        User user = new User(email, logoPersional, nameOfUser);
+        myRef.child(idUpdate).updateChildren(user.toMap());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", logoPersional='" + logoPersional + '\'' +
+                ", nameOfUser='" + nameOfUser + '\'' +
+                '}';
     }
 }

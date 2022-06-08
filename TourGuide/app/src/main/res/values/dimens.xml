@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="circle_logo_width">80dp</dimen>
-    <dimen name="welcome_text_size">23sp</dimen>
+    <dimen name="welcome_text_size">20sp</dimen>
     <dimen name="d_5dp">10dp</dimen>
 
     <dimen name="d_10dp">5dp</dimen>
@@ -16,5 +16,5 @@
     <dimen name="nav_header_height">200dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="img_vertical_margin">14dp</dimen>
-    <dimen name="side_menu_logo">100dp</dimen>
+    <dimen name="side_menu_logo">80dp</dimen>
 </resources>

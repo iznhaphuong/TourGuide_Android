@@ -28,6 +28,7 @@
 
         <activity
             android:name=".SignUpActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
             android:exported="false" />
 
         <activity
@@ -43,12 +44,14 @@
 
         <activity
             android:name=".SignInActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
             android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
 
@@ -65,10 +68,16 @@
 
         <activity
             android:name=".ReviewScreenActivity"
-            android:exported="false"/>
-
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:parentActivityName=".DetailScreenActivity"
+            android:exported="false">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".DetailScreenActivity"/>
+        </activity>
         <activity
             android:name=".DetailScreenActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
             android:parentActivityName=".AttractionActivity">
 
             <meta-data
@@ -80,6 +89,27 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".AddScheduleActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:label="Thêm lịch trình"
+            android:parentActivityName=".DetailScreenActivity"
+            android:exported="true" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DetailScreenActivity"/>
+
+        </activity>
+        <activity
+            android:name=".UpdateScheduleActivity"
+            android:theme="@style/Theme.TourGuide.Actionbar"
+            android:label="Sửa lịch trình"
+            android:parentActivityName=".ScheduleActivity"
+            android:exported="true">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ScheduleActivity"/>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
