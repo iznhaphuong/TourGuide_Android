@@ -153,6 +153,11 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                         cancel();
 
                     }
+                }else{
+                    Toast toast = Toast.makeText(this, "Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                    toast.show();
+                    cancel();
                 }
             } else {
                 EventSchedule updateEvent = new EventSchedule(scheduleId, destinationId, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
