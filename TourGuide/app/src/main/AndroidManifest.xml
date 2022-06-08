@@ -61,10 +61,6 @@
             android:exported="false"
             android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
-        <activity
-            android:name=".ScheduleActivity"
-            android:theme="@style/Theme.TourGuide.Actionbar"
-            android:exported="false"/>
 
 
         <activity
@@ -105,11 +101,8 @@
             android:name=".UpdateScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
             android:label="Sửa lịch trình"
-            android:parentActivityName=".ScheduleActivity"
             android:exported="true">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ScheduleActivity"/>
+
         </activity>
     </application>
 

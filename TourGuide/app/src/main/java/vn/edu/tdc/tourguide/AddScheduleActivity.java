@@ -81,6 +81,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
+
         String timeEvent = hour+":"+minute;
         int dateEvent ;
         dateEvent= datePicker.getDayOfMonth();
@@ -98,23 +99,31 @@ public class AddScheduleActivity extends AppCompatActivity {
         String currentTime = ft.format(fullTime) ;//02/06/2022
         String[] separated = currentTime.split("/");
         String current = separated[0];
-        Log.d("date"," date "+ this.datePicker.getDayOfMonth());
-        Log.d("month"," month "+ this.datePicker.getMonth());
-        Log.d("year"," year "+ this.datePicker.getYear());
-        if (Integer.parseInt(current)<=dateEvent&& Integer.parseInt(separated[1])<= monthEvent && Integer.parseInt(separated[2])<= yearEvent) {
 
-            EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
-            // pushing user to 'users' node using the userId
-            mDatabase.child(eventId).setValue(newEvent);
-            Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
-            // create intent to show Schedule Activity
-            Intent intent = new Intent(this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
+        if (Integer.parseInt(current)<=dateEvent&& Integer.parseInt(separated[1])<= monthEvent && Integer.parseInt(separated[2])<= yearEvent) {
+            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+            String[] sepaTime = time.split(":");
+            String curHour = sepaTime[0];
+            Log.d("time","hour +" +curHour);
+            if(hour>=Integer.parseInt(curHour) && minute>=Integer.parseInt(sepaTime[1])){
+                EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+                // pushing user to 'users' node using the userId
+                mDatabase.child(eventId).setValue(newEvent);
+                Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                toast.show();
+                // create intent to show Schedule Activity
+                Intent intent = new Intent(this, SideMenuActivity.class);
+                // start Main Activity
+                startActivity(intent);
+            }else{
+                Toast toast =  Toast.makeText(this,"Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                toast.show();
+                cancel();
+            }
         }else{
-            Toast toast =  Toast.makeText(this,"Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
+            Toast toast =  Toast.makeText(this,"Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
             toast.show();
             cancel();

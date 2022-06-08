@@ -63,8 +63,8 @@ public class ScheduleFragment extends Fragment {
     TextView timeEvent;
     TextView dateEvent;
     TextView monthEvent;
-    Button btnXoa;
-    Button btnSua;
+    MenuItem btnXoa;
+    MenuItem btnSua;
 
     @Nullable
     @Override
@@ -80,8 +80,7 @@ public class ScheduleFragment extends Fragment {
         currentDate = binding.currentDate;
         currentDate.setText(currentTime);
         String TAG = "schedule";
-        // Get the Intent that started this activity and extract the string
-//        Intent intent = getIntent();
+
         String userEmail = SideMenuActivity.user.getEmail();
 
 
@@ -124,11 +123,14 @@ public class ScheduleFragment extends Fragment {
                                         Log.d("seletedGrow1","seletedGrow "+position);
                                         keyEvent = eventSchedule.getScheduleId();
                                         Log.d("seletedGrow2","seletedGrow2 "+keyEvent);
+                                        enableBtn();
                                     } else {
                                         if (keyEvent.equals(eventSchedule.getScheduleId())) {
                                             keyEvent = "-1";
+                                            disableBtn();
                                         } else {
                                             keyEvent = eventSchedule.getScheduleId();
+                                            enableBtn();
                                         }
                                     }
                                 }
@@ -146,19 +148,22 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.schedule_option_menu, menu);
+        btnXoa=menu.findItem(R.id.menu_delete);
+        btnSua=menu.findItem(R.id.menu_update);
         super.onCreateOptionsMenu(menu,inflater);
     }
     //truong hop co the them hoac khong
     private void disableBtn(){
-        btnXoa.setEnabled(false );
-        btnSua.setEnabled(false );
+        btnXoa.setVisible(false);
+        btnSua.setVisible(false);
 
     }
     private void enableBtn(){
-        btnXoa.setEnabled(true );
-        btnSua.setEnabled(true );
+        btnXoa.setVisible(true);
+        btnSua.setVisible(true);
     }
 //xử lý hàm menu
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -176,15 +181,15 @@ public class ScheduleFragment extends Fragment {
     public void updateEventSchedule(){
         mDatabase = FirebaseDatabase.getInstance().getReference("events");
         //TODO
-        if(!keyEvent.equals("1")) {
+        if(!keyEvent.equals("-1")) {
         mDatabase.child(keyEvent).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 EventSchedule eventSchedule = dataSnapshot.getValue(EventSchedule.class);
                 Intent intent = new Intent(binding.getRoot().getContext(), UpdateScheduleActivity.class);
-//                intent.putExtra(EXTRA_TITLE, eventSchedule.getNameDestination() );
-                intent.putExtra(EXTRA_ID, eventSchedule.getScheduleId());
+              Log.d("keyEvent","keyEvent +"+keyEvent);
+                intent.putExtra(EXTRA_ID, keyEvent);
                 startActivity(intent);
             }
 

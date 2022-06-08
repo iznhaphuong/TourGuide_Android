@@ -125,21 +125,32 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         String[] separated = currentTime.split("/");
         String current = separated[0];
         if (Integer.parseInt(current) <= dateEvent && Integer.parseInt(separated[1]) <= monthEvent && Integer.parseInt(separated[2]) <= yearEvent) {
-            EventSchedule updateEvent = new EventSchedule(scheduleId, destinationId, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+            String[] sepaTime = time.split(":");
+            String curHour = sepaTime[0];
+            Log.d("time","hour +" +curHour);
+            if(hour>=Integer.parseInt(curHour) && minute>=Integer.parseInt(sepaTime[1])) {
+                EventSchedule updateEvent = new EventSchedule(scheduleId, destinationId, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
 
-            // pushing user to 'users' node using the userId
-            mDatabase.child(scheduleId).setValue(updateEvent);
-            // create intent to show Schedule Activity
+                // pushing user to 'users' node using the userId
+                mDatabase.child(scheduleId).setValue(updateEvent);
+                // create intent to show Schedule Activity
 
-            Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
+                Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
+                // start Main Activity
+                startActivity(intent);
 
-            Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
+                Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                toast.show();
+            }else{
+                Toast toast =  Toast.makeText(this,"Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                toast.show();
+                cancel();
+            }
         } else {
-            Toast toast = Toast.makeText(this, "Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
             toast.show();
             cancel();
