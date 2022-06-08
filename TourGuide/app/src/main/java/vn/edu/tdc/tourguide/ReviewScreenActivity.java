@@ -74,16 +74,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
         myCommentList = new ArrayList<>();
 
         getListReview();
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendReview();
-                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
-                intent.putExtra(EXTRA_ID_DES_REVIEW, desID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-        });
     }
     private void getListReview(){
         ArrayList<User> users = new ArrayList<>();
@@ -162,10 +152,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendReview();
-//                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
-//                DetailScreenActivity.id = desID;
-//
-//                startActivity(intent);
             }
         });
     }

@@ -38,8 +38,9 @@ public class AddScheduleActivity extends AppCompatActivity {
     public EditText edtNote;
     public String destinaionId;
     private DatabaseReference mDatabase;
-    private String userEmail ;
+    private String userEmail;
     private String desID;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,58 +78,91 @@ public class AddScheduleActivity extends AppCompatActivity {
 
 
     }
-    private void addSchedule(){
+
+    private void addSchedule() {
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
-        String timeEvent = hour+":"+minute;
-        int dateEvent ;
-        dateEvent= datePicker.getDayOfMonth();
+
+        String timeEvent = hour + ":" + minute;
+        int dateEvent;
+        dateEvent = datePicker.getDayOfMonth();
         userEmail = SideMenuActivity.user.getEmail();
-        int yearEvent ;
+        int yearEvent;
         yearEvent = datePicker.getYear();
         int monthEvent;//thang bat dau tu 0 hong biet nua
-        monthEvent = datePicker.getMonth() +1;
-        String noteEvent =  edtNote.getText().toString();
+        monthEvent = datePicker.getMonth() + 1;
+        String noteEvent = edtNote.getText().toString();
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
         String eventId = mDatabase.push().getKey();
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         Date fullTime = Calendar.getInstance().getTime();
-        String currentTime = ft.format(fullTime) ;//02/06/2022
+        String currentTime = ft.format(fullTime);//02/06/2022
         String[] separated = currentTime.split("/");
         String current = separated[0];
-        Log.d("date"," date "+ this.datePicker.getDayOfMonth());
-        Log.d("month"," month "+ this.datePicker.getMonth());
-        Log.d("year"," year "+ this.datePicker.getYear());
-        if (Integer.parseInt(current)<=dateEvent&& Integer.parseInt(separated[1])<= monthEvent && Integer.parseInt(separated[2])<= yearEvent) {
 
-            EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
-            // pushing user to 'users' node using the userId
-            mDatabase.child(eventId).setValue(newEvent);
-            Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-            toast.show();
-            // create intent to show Schedule Activity
-            Intent intent = new Intent(this, SideMenuActivity.class);
-            // start Main Activity
-            startActivity(intent);
-        }else{
-            Toast toast =  Toast.makeText(this,"Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
+        if (Integer.parseInt(current) <= dateEvent && Integer.parseInt(separated[1]) <= monthEvent && Integer.parseInt(separated[2]) <= yearEvent) {
+            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+            String[] sepaTime = time.split(":");
+            String curHour = sepaTime[0];
+            Log.d("time", "hour +" + curHour);
+
+            if (Integer.parseInt(current) == dateEvent) {
+                if (hour >= Integer.parseInt(curHour)) {
+
+                    if (minute >= Integer.parseInt(sepaTime[1])) {
+                        EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+                        // pushing user to 'users' node using the userId
+                        mDatabase.child(eventId).setValue(newEvent);
+                        Toast toast = Toast.makeText(this, "Thêm lịch trình thành công!!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                        toast.show();
+                        // create intent to show Schedule Activity
+                        Intent intent = new Intent(this, SideMenuActivity.class);
+                        // start Main Activity
+                        startActivity(intent);
+                    } else {
+                        Toast toast = Toast.makeText(this, "Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                        toast.show();
+                        cancel();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(this, "Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                    toast.show();
+                    cancel();
+                }
+            } else {
+                EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+                // pushing user to 'users' node using the userId
+                mDatabase.child(eventId).setValue(newEvent);
+                Toast toast = Toast.makeText(this, "Thêm lịch trình thành công!!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+                toast.show();
+                // create intent to show Schedule Activity
+                Intent intent = new Intent(this, SideMenuActivity.class);
+                // start Main Activity
+                startActivity(intent);
+
+            }
+        } else {
+            Toast toast = Toast.makeText(this, "Ngày giờ của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
             toast.show();
             cancel();
         }
 
 
-
-
     }
-    private void cancel(){
+
+    private void cancel() {
         clear();
         super.onBackPressed();
 
     }
+
     private void clear() {
         //TODO clear
         edtNote.setText("");
