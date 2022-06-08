@@ -23,6 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
 
@@ -35,16 +40,17 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     public EditText edtNote;
     public String TAG = "ERROR";
     String scheduleId;
-    String destinationId ;
+    String destinationId;
 
     private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_schedule_layout);
         Intent intent = getIntent();
         scheduleId = intent.getStringExtra(ScheduleFragment.EXTRA_ID);
-        Log.d("id","event has id "+scheduleId);
+        Log.d("id", "event has id " + scheduleId);
         mDatabase = FirebaseDatabase.getInstance().getReference("events");
 
         placeName = findViewById(R.id.update_place_name);
@@ -63,13 +69,11 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                 String[] time = currentString.split(":");
                 int hour = Integer.parseInt(time[0]);
                 int minute = Integer.parseInt(time[1]);
-                int month = eventSchedule.getMonthEvent()-1;
+                int month = eventSchedule.getMonthEvent() - 1;
                 placeName.setText(eventSchedule.getNameDestination());
                 destinationId = eventSchedule.getDestinationId();
-                datePicker.init(eventSchedule.getYearEvent(),month,eventSchedule.getDateEvent(),null);
-                Log.d("date","date update event: "+eventSchedule.getDateEvent());
-                Log.d("month","month update event: "+(eventSchedule.getMonthEvent()-1));
-                Log.d("year","year update event: "+eventSchedule.getYearEvent());
+                datePicker.init(eventSchedule.getYearEvent(), month, eventSchedule.getDateEvent(), null);
+
 
                 datePicker.setSelected(true);
                 timePicker.setHour(hour);
@@ -85,12 +89,9 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 updateSchedule();
                 clear();
-                Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
-                // start Main Activity
-                startActivity(intent);
-
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -100,17 +101,12 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             }
         });
     }
-    private void clear() {
-        //TODO clear
-        edtNote.setText("");
-    }
-    private void cancel(){
-        clear();
-        super.onBackPressed();
-    }
+
+
+
     private void updateSchedule() {
 
-        String userEmail =SideMenuActivity.user.getEmail();
+        String userEmail = SideMenuActivity.user.getEmail();
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
@@ -123,21 +119,42 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
-        EventSchedule updateEvent = new EventSchedule(scheduleId,destinationId,userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        Date fullTime = Calendar.getInstance().getTime();
+        String currentTime = ft.format(fullTime);//02/06/2022
+        String[] separated = currentTime.split("/");
+        String current = separated[0];
+        if (Integer.parseInt(current) <= dateEvent && Integer.parseInt(separated[1]) <= monthEvent && Integer.parseInt(separated[2]) <= yearEvent) {
+            EventSchedule updateEvent = new EventSchedule(scheduleId, destinationId, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
 
-        // pushing user to 'users' node using the userId
-        mDatabase.child(scheduleId).setValue(updateEvent);
-        // create intent to show Schedule Activity
+            // pushing user to 'users' node using the userId
+            mDatabase.child(scheduleId).setValue(updateEvent);
+            // create intent to show Schedule Activity
 
-        Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-        toast.show();
+            Intent intent = new Intent(UpdateScheduleActivity.this, SideMenuActivity.class);
+            // start Main Activity
+            startActivity(intent);
+
+            Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(this, "Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+            toast.show();
+            cancel();
+        }
 
 
+    }
+    private void clear() {
+        //TODO clear
+        edtNote.setText("");
+    }
 
-
-
-
+    private void cancel() {
+        clear();
+        super.onBackPressed();
     }
     @Override
     public void onBackPressed() {

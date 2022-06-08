@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,8 @@ public class ReviewScreenActivity extends AppCompatActivity {
     private String desID;
     private DatabaseReference mDatabase;
     private TextView amountReview;
-    private User user = new User();
+    public static String EXTRA_ID_DES_REVIEW = "EXTRA_ID_DES_REVIEW";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +73,24 @@ public class ReviewScreenActivity extends AppCompatActivity {
         rcvComment = findViewById(R.id.rcv_cmt);
         myCommentList = new ArrayList<>();
 
+        getListReview();
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendReview();
+                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
+                intent.putExtra(EXTRA_ID_DES_REVIEW, desID);
+
+                startActivity(intent);
+            }
+        });
+    }
+    private void getListReview(){
         ArrayList<User> users = new ArrayList<>();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,9 +101,11 @@ public class ReviewScreenActivity extends AppCompatActivity {
                 }
 ////                Load database
                 mDatabase = FirebaseDatabase.getInstance().getReference("list_review");
+
                 mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                        int sort = 1;
                         myCommentList.clear();
                         Log.d("Users1","user1 "+ users.size() );
                         Log.d("desID"," des+ " + desID);
@@ -108,9 +127,9 @@ public class ReviewScreenActivity extends AppCompatActivity {
 
                                     }
                                 }
-                                Comments newComment = new Comments(nameOfUser, imgUrl, review.getRating(),review.getTimeReview(),review.getContent());
-                                myCommentList.add(newComment);
 
+                                Comments newComment = new Comments(nameOfUser,review.getRating(),review.getTimeReview(),review.getContent());
+                                myCommentList.add(0,newComment);
                             }
                         }
                         amountReview.setText(String.valueOf(myCommentList.size()+ " Đánh giá "));
@@ -143,10 +162,10 @@ public class ReviewScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendReview();
-                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
-                DetailScreenActivity.id = desID;
-
-                startActivity(intent);
+//                Intent intent = new Intent(ReviewScreenActivity.this, DetailScreenActivity.class);
+//                DetailScreenActivity.id = desID;
+//
+//                startActivity(intent);
             }
         });
     }
