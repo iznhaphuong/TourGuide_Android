@@ -67,13 +67,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Create controls
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-
-//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-        //Get data from detail
         Intent intent = getIntent();
         String x = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LAT);
         String y = intent.getStringExtra(DetailScreenActivity.EXTRA_LOCATION_LONG);

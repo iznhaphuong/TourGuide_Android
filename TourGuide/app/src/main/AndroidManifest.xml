@@ -61,11 +61,6 @@
             android:exported="false"
             android:theme="@style/Theme.TourGuide.NoActionBar"/>
 
-        <activity
-            android:name=".ScheduleActivity"
-            android:theme="@style/Theme.TourGuide.Actionbar"
-            android:exported="false"/>
-
 
         <activity
             android:name=".ReviewScreenActivity"
@@ -93,24 +88,11 @@
         <activity
             android:name=".AddScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
-            android:label="Thêm lịch trình"
-            android:parentActivityName=".DetailScreenActivity"
-            android:exported="true" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailScreenActivity"/>
-
-        </activity>
+            android:label="Thêm lịch trình"/>
         <activity
             android:name=".UpdateScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
-            android:label="Sửa lịch trình"
-            android:parentActivityName=".ScheduleActivity"
-            android:exported="true">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ScheduleActivity"/>
-        </activity>
+            android:label="Sửa lịch trình"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

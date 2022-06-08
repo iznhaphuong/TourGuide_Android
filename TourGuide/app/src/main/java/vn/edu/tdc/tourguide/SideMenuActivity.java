@@ -68,6 +68,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private SearchView searchView;
     private boolean checkSearch = true;
     public static boolean checkHome = false;
+    public static boolean checkSchedule = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -243,7 +244,11 @@ public class SideMenuActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (checkFragment) {
+        if (checkSchedule) {
+            MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_schedule);
+            pressesFragment(ScheduleFragment.class, fragment, item);
+            checkSchedule = false;
+        } else if (checkFragment) {
             User.getUser();
             String TAG = "TAG";
             MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
