@@ -4,6 +4,7 @@ public class Comments {
 
     private String user_name;
 
+
     public float getUser_rating() {
         return user_rating;
     }

@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -40,7 +41,22 @@ public class Review {
     private String userName;
     private String email;
 
+
+
+    private static int sort;
+
+    public int getSapXep() {
+        return sapXep;
+    }
+
+    public void setSapXep(int sapXep) {
+        this.sapXep = sapXep;
+    }
+
+    private int sapXep;
+
     public Review(String id, String destination_id, String userName, String email, String content, String timeReview, float rating) {
+        sort++;
         this.id = id;
         this.destination_id = destination_id;
         this.userName = userName;
@@ -48,6 +64,7 @@ public class Review {
         this.content = content;
         this.timeReview = timeReview;
         this.rating = rating;
+        this.sapXep=sort;
     }
 
     private String content;
@@ -168,6 +185,7 @@ public class Review {
         myRef = FirebaseDatabase.getInstance().getReference("list_review");
 
         String id = myRef.push().getKey();
+
         Review reviewModel = new Review(id,destination_id,userName,email, content,timeReview, rating);
         if(id != null){
             myRef.child(id).setValue(reviewModel);

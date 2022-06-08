@@ -18,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import vn.edu.tdc.tourguide.models.Destination;
 import vn.edu.tdc.tourguide.models.EventSchedule;
 import vn.edu.tdc.tourguide.ui.schedule.ScheduleFragment;
@@ -73,40 +78,60 @@ public class AddScheduleActivity extends AppCompatActivity {
 
     }
     private void addSchedule(){
-
         String nameDesti = placeName.getText().toString();
         int hour = timePicker.getHour();
         int minute = timePicker.getMinute();
         String timeEvent = hour+":"+minute;
-        int dateEvent = datePicker.getDayOfMonth();
+        int dateEvent ;
+        dateEvent= datePicker.getDayOfMonth();
         userEmail = SideMenuActivity.user.getEmail();
-        Log.d("userID","userID + "+userEmail);
-        int yearEvent = datePicker.getYear();
-        int monthEvent = datePicker.getMonth() +1;//thang bat dau tu 0 hong biet nua
+        int yearEvent ;
+        yearEvent = datePicker.getYear();
+        int monthEvent;//thang bat dau tu 0 hong biet nua
+        monthEvent = datePicker.getMonth() +1;
         String noteEvent =  edtNote.getText().toString();
-
         mDatabase = FirebaseDatabase.getInstance().getReference("events/");
         // new event node would be /events/$eventId/
         String eventId = mDatabase.push().getKey();
-        EventSchedule newEvent = new EventSchedule(eventId,desID,userEmail,nameDesti,timeEvent,dateEvent,monthEvent,yearEvent,noteEvent);
-        // pushing user to 'users' node using the userId
-        mDatabase.child(eventId).setValue(newEvent);
-        Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
-        toast.show();
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        Date fullTime = Calendar.getInstance().getTime();
+        String currentTime = ft.format(fullTime) ;//02/06/2022
+        String[] separated = currentTime.split("/");
+        String current = separated[0];
+        Log.d("date"," date "+ this.datePicker.getDayOfMonth());
+        Log.d("month"," month "+ this.datePicker.getMonth());
+        Log.d("year"," year "+ this.datePicker.getYear());
+        if (Integer.parseInt(current)<=dateEvent&& Integer.parseInt(separated[1])<= monthEvent && Integer.parseInt(separated[2])<= yearEvent) {
+
+            EventSchedule newEvent = new EventSchedule(eventId, desID, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
+            // pushing user to 'users' node using the userId
+            mDatabase.child(eventId).setValue(newEvent);
+            Toast toast =  Toast.makeText(this,"Thêm lịch trình thành công!!",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+            toast.show();
+            // create intent to show Schedule Activity
+            Intent intent = new Intent(this, SideMenuActivity.class);
+            // start Main Activity
+            startActivity(intent);
+        }else{
+            Toast toast =  Toast.makeText(this,"Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
+            toast.show();
+            cancel();
+        }
 
 
-        // create intent to show Schedule Activity
-        Intent intent = new Intent(this, SideMenuActivity.class);
-        // start Main Activity
-        startActivity(intent);
+
+
     }
     private void cancel(){
         clear();
         super.onBackPressed();
+
     }
     private void clear() {
         //TODO clear
         edtNote.setText("");
+
     }
 }

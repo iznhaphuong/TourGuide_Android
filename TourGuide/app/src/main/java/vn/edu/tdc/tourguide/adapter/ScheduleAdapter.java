@@ -1,8 +1,11 @@
 package vn.edu.tdc.tourguide.adapter;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,15 +21,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     //Properties
     public ArrayList<EventSchedule> listEvent;
     private OnItemClickListener onItemClickListener;
+    int row_index = -1;
+    int newPosition = -1;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+
     //Constructor
     public ScheduleAdapter(ArrayList<EventSchedule> listEvent) {
         this.listEvent = listEvent;
     }
-    public ArrayList<EventSchedule> getListEvent(){return listEvent;}
+
+    public ArrayList<EventSchedule> getListEvent() {
+        return listEvent;
+    }
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -37,6 +46,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         TextView dateEvent;
         TextView monthEvent;
         View.OnClickListener onClick;
+        CardView cardView_layout;
 
 
         public ScheduleViewHolder(@NonNull View itemView) {
@@ -46,6 +56,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             dateEvent = itemView.findViewById(R.id.dateEvent);
             noteEvent = itemView.findViewById(R.id.noteEvent);
             monthEvent = itemView.findViewById(R.id.monthEvent);
+            cardView_layout = (CardView) itemView.findViewById(R.id.card_schedule);
         }
 
         @Override
@@ -72,31 +83,72 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         holder.dateEvent.setText(String.valueOf(event.getDateEvent()));
         holder.timeEvent.setText(event.getTimeEvent());
         holder.noteEvent.setText(event.getNoteEvent());
-        holder.monthEvent.setText("Tháng "+String.valueOf(event.getMonthEvent()));
+        holder.monthEvent.setText("Tháng " + String.valueOf(event.getMonthEvent()));
 
         holder.itemView.setOnClickListener(view -> {
-            onItemClickListener.onItemClick(event, position);// this will get the position of out item in RecycleView
+//            if(selected != position){
+//                onItemClickListener.onItemClick(event,position);
+//
+//            }else{
+
+//                Log.d("selected1", "selected1 " + selected);
+//                row_index = position;
+//
+//            }
+//            row_index = position;
+            onItemClickListener.onItemClick(event, position);
+//            row_index = position;
+            if(row_index == position){ //đã có position
+                row_index =-1;
+            }else{
+                row_index = position;// this will get the position of out item in RecycleView
+            }
+
+            notifyDataSetChanged();
+
         });
+//        if (row_index == position) {
+//            Log.d("position1", "position1 " + position);
+//            holder.itemView.setBackgroundColor(Color.parseColor("#9CE5F3FF"));
+////            row_index = -1;
+//                row_index =position;
+//        } else {
+//                if (row_index == -1) {
+////
+//                    holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
+//                    Log.d("position2", "position2 " + row_index);
+//
+//                }
+//        }
 
         //set onclkc
-//        holder.onClick = new View.OnClickListener() {
+//        holder.cardView_layout.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onClick(View v) {
-////                Log.d("test", "Called");
-//                if (onItemClickListener != null) {
-//                    onItemClickListener.onItemClick(position, holder.itemView);
-//                } else {
-//                    Log.d("adapter", "view must set on item click listener ");
-//                }
+//            public void onClick(View view) {
+//                row_index=position;
+//                notifyDataSetChanged();
 //            }
-//        };
+//        });
+//
+        if (row_index==position) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#9CE5F3FF"));
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+
+
+//        setAnimation(holder.itemView, position);
+
+
     }
 
-    //Define interface for co che uy quyen
+//Define interface for co che uy quyen
 
     public interface OnItemClickListener {
-        public void onItemClick(EventSchedule eventSchedule,int position);
+        public void onItemClick(EventSchedule eventSchedule, int position);
+
     }
+
     @Override
     public int getItemCount() {
         return listEvent.size();
