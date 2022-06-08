@@ -39,7 +39,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     public Button btnDone;
     public EditText edtNote;
     public String TAG = "ERROR";
-    String scheduleId;
+    public static String scheduleId;
     String destinationId;
 
     private DatabaseReference mDatabase;
@@ -50,6 +50,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.update_schedule_layout);
         Intent intent = getIntent();
         scheduleId = intent.getStringExtra(ScheduleFragment.EXTRA_ID);
+
         Log.d("id", "event has id " + scheduleId);
         mDatabase = FirebaseDatabase.getInstance().getReference("events");
 
@@ -129,6 +130,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             // pushing user to 'users' node using the userId
             mDatabase.child(scheduleId).setValue(updateEvent);
             SideMenuActivity.checkSchedule = true;
+
         } else {
             Toast toast = Toast.makeText(this, "Ngày của lịch trình không được nhỏ hơn ngày hiện tại!!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
@@ -155,6 +157,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: 111");
         if (SideMenuActivity.checkSchedule) {
             // create intent to show Schedule Activity
 
@@ -165,7 +168,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Sửa lịch trình thành công!!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);
             toast.show();
-            clear();
+            SideMenuActivity.checkSchedule = false;
         }
     }
 }

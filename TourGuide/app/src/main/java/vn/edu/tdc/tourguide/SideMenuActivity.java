@@ -246,12 +246,7 @@ public class SideMenuActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         String TAG = "TAG";
-        if (checkSchedule) {
-            MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_schedule);
-            pressesFragment(ScheduleFragment.class, fragment, item);
-            checkSchedule = false;
-            Log.d(TAG, "onStart: " + checkSchedule);
-        } else if (checkFragment) {
+        if (checkFragment) {
             User.getUser();
             MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
