@@ -63,7 +63,9 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onActivityResult(Uri result) {
                         imageUri = result;
-                        Glide.with(rootView.getContext()).load(result.toString()).error(R.drawable.avarta2).into(binding.avartaImage);
+                        if (result != null) {
+                            Glide.with(rootView.getContext()).load(result.toString()).error(R.drawable.avarta2).into(binding.avartaImage);
+                        }
                     }
                 }
         );
@@ -83,9 +85,13 @@ public class ProfileFragment extends Fragment {
                 if (nameOfUser.isEmpty()) {
                     Toast.makeText(rootView.getContext(), "Name cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
+                    FirebaseUser userCurrent = FirebaseAuth.getInstance().getCurrentUser();
                     SideMenuActivity.user.setNameOfUser(nameOfUser);
                     if (imageUri != null) {
-                        uploadToFirebase(imageUri, nameOfUser);
+                        uploadToFirebase(imageUri, nameOfUser, userCurrent);
+                    } else {
+                        User.updateUser(userCurrent.getUid(), SideMenuActivity.user.getEmail(), SideMenuActivity.user.getLogoPersional(), nameOfUser);
+                        Toast.makeText(rootView.getContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -107,7 +113,7 @@ public class ProfileFragment extends Fragment {
         return mime.getExtensionFromMimeType(cr.getType(mUri));
     }
 
-    private void uploadToFirebase(Uri uri, String nameOfUser) {
+    private void uploadToFirebase(Uri uri, String nameOfUser,FirebaseUser userCurrent) {
         final StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri, nameOfUser));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -115,7 +121,6 @@ public class ProfileFragment extends Fragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        FirebaseUser userCurrent = FirebaseAuth.getInstance().getCurrentUser();
                         User.updateUser(userCurrent.getUid(), SideMenuActivity.user.getEmail(), uri.toString(), nameOfUser);
                         Toast.makeText(rootView.getContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                     }
