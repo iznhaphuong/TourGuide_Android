@@ -188,8 +188,9 @@ public class ScheduleFragment extends Fragment {
 
                 EventSchedule eventSchedule = dataSnapshot.getValue(EventSchedule.class);
                 Intent intent = new Intent(binding.getRoot().getContext(), UpdateScheduleActivity.class);
-              Log.d("keyEvent","keyEvent +"+keyEvent);
-                intent.putExtra(EXTRA_ID, keyEvent);
+//                intent.putExtra(EXTRA_TITLE, eventSchedule.getNameDestination() );
+                intent.putExtra(EXTRA_ID, eventSchedule.getScheduleId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
 

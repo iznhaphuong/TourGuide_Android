@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
                     Intent intent = new Intent(root.getContext(), AttractionActivity.class);
                     intent.putExtra(EXTRA_TITLE, homeAdapter.getmHomeList().get(position).getName());
                     intent.putExtra(EXTRA_ID, homeAdapter.getmHomeList().get(position).getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 }
             });

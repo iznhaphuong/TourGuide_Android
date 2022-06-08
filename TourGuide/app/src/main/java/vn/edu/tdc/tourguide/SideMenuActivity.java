@@ -68,6 +68,7 @@ public class SideMenuActivity extends AppCompatActivity {
     private SearchView searchView;
     private boolean checkSearch = true;
     public static boolean checkHome = false;
+    public static boolean checkSchedule = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -192,6 +193,7 @@ public class SideMenuActivity extends AppCompatActivity {
                 checkFragment = true;
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
         }
@@ -243,9 +245,14 @@ public class SideMenuActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (checkFragment) {
+        String TAG = "TAG";
+        if (checkSchedule) {
+            MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_schedule);
+            pressesFragment(ScheduleFragment.class, fragment, item);
+            checkSchedule = false;
+            Log.d(TAG, "onStart: " + checkSchedule);
+        } else if (checkFragment) {
             User.getUser();
-            String TAG = "TAG";
             MenuItem item = nvDrawer.getMenu().findItem(R.id.nav_home);
             pressesFragment(HomeFragment.class, fragment, item);
             checkFragment = false;

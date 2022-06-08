@@ -72,6 +72,7 @@ public class AttractionActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_ID, destinations.get(position).getId());
                 DetailScreenActivity.id = null;
                 intent.putExtra(EXTRA_TITLE, title);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 //                mActivityResultLauncher.launch(intent);
             }
