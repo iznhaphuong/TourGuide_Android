@@ -133,7 +133,6 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                     if (minute >= Integer.parseInt(sepaTime[1])) {
                         EventSchedule updateEvent = new EventSchedule(scheduleId, destinationId, userEmail, nameDesti, timeEvent, dateEvent, monthEvent, yearEvent, noteEvent);
 
-                        // pushing user to 'users' node using the userId
                         mDatabase.child(scheduleId).setValue(updateEvent);
                         // create intent to show Schedule Activity
 

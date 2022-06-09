@@ -97,19 +97,13 @@ public class ReviewScreenActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                         int sort = 1;
                         myCommentList.clear();
-                        Log.d("Users1","user1 "+ users.size() );
-                        Log.d("desID"," des+ " + desID);
                         for (DataSnapshot snapshot: datasnapshot.getChildren() ) {
                             Review review = snapshot.getValue(Review.class);
                             String nameOfUser = "";
                             String imgUrl = "";
-                            Log.d("desID"," des+ " + review.getDestination_id());
-
                             if(review.getDestination_id().equals(desID)){
-
                                 Log.d("Users1","user1 "+ users.size() );
                                 for (User user : users) {
-
                                     if (user.getEmail().equals(review.getEmail())) {
                                         Log.d("User","user+ " + user.getNameOfUser());
                                         nameOfUser = user.getNameOfUser();
@@ -117,7 +111,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
 
                                     }
                                 }
-
                                 Comments newComment = new Comments(nameOfUser,review.getRating(),review.getTimeReview(),review.getContent());
                                 myCommentList.add(0,newComment);
                             }
@@ -164,7 +157,6 @@ public class ReviewScreenActivity extends AppCompatActivity {
         String email = SideMenuActivity.user.getEmail();
         String comment = edtCmt.getText().toString();
         float rating = ratingBar.getRating();
-        Log.d("des","Send desId "+desID);
         review.addReview(desID,userName,email, comment,currentTime, rating);
         Toast toast =  Toast.makeText(this,"Thêm đánh giá thành công!!",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.RIGHT, 20, 40);

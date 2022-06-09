@@ -86,16 +86,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         holder.monthEvent.setText("Tháng " + String.valueOf(event.getMonthEvent()));
 
         holder.itemView.setOnClickListener(view -> {
-//            if(selected != position){
-//                onItemClickListener.onItemClick(event,position);
-//
-//            }else{
-
-//                Log.d("selected1", "selected1 " + selected);
-//                row_index = position;
-//
-//            }
-//            row_index = position;
             onItemClickListener.onItemClick(event, position);
 //            row_index = position;
             if(row_index == position){ //đã có position
@@ -107,38 +97,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             notifyDataSetChanged();
 
         });
-//        if (row_index == position) {
-//            Log.d("position1", "position1 " + position);
-//            holder.itemView.setBackgroundColor(Color.parseColor("#9CE5F3FF"));
-////            row_index = -1;
-//                row_index =position;
-//        } else {
-//                if (row_index == -1) {
-////
-//                    holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
-//                    Log.d("position2", "position2 " + row_index);
-//
-//                }
-//        }
-
-        //set onclkc
-//        holder.cardView_layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                row_index=position;
-//                notifyDataSetChanged();
-//            }
-//        });
-//
         if (row_index==position) {
             holder.itemView.setBackgroundColor(Color.parseColor("#9CE5F3FF"));
         } else {
             holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
-
-
-//        setAnimation(holder.itemView, position);
-
 
     }
 
