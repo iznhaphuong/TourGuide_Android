@@ -93,7 +93,13 @@
         <activity
             android:name=".UpdateScheduleActivity"
             android:theme="@style/Theme.TourGuide.Actionbar"
-            android:label="Sửa lịch trình"/>
+            android:label="Sửa lịch trình"
+            android:parentActivityName=".SideMenuActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SideMenuActivity"/>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
